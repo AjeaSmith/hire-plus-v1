@@ -8,7 +8,7 @@ import {
 	Text,
 	Header,
 } from './launch.styles';
-const Launch = () => {
+const Launch: React.FunctionComponent = () => {
 	return (
 		<Wrapper>
 			<Logo>
@@ -18,13 +18,13 @@ const Launch = () => {
 				<ForEmployers>
 					<Header>For Employers</Header>
 					<Text>
-						Easily search and view candidates, manage candidates <br />{' '}
+						Easily search and view candidates, manage candidates <br />
 						through our Project Management board, best of all post jobs
 						for free!
 					</Text>
 					<Button>
 						GET STARTED
-						<span style={{ marginLeft: '10px' }}>&#10095;</span>{' '}
+						<span style={{ marginLeft: '10px' }}>&#10095;</span>
 					</Button>
 				</ForEmployers>
 				<ForEmployees>
@@ -32,11 +32,11 @@ const Launch = () => {
 					<Text>
 						View the latest jobs posted by hiring companies, create and
 						manage your profile to show off skills, and apply for jobs you
-						want!{' '}
+						want!
 					</Text>
 					<Button>
 						GET STARTED
-						<span style={{ marginLeft: '10px' }}>&#10095;</span>{' '}
+						<span style={{ marginLeft: '10px' }}>&#10095;</span>
 					</Button>
 				</ForEmployees>
 			</LaunchWrapper>

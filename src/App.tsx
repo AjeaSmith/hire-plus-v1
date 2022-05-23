@@ -1,5 +1,5 @@
 import './App.css';
-import Launch from './components/launch/launch-component';
+import Launch from './components/launch/launch.component';
 function App() {
 	return <Launch />;
 }
