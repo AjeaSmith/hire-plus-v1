@@ -11,7 +11,6 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Launch />} />
-				<Route path="/auth/employer" element={<AuthPage />} />
 			</Routes>
 		</BrowserRouter>
 	</React.StrictMode>
