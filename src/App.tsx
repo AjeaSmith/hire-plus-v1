@@ -1,7 +1,5 @@
-import './App.css';
-import Launch from './components/launch/launch.component';
 function App() {
-	return <Launch />;
+	return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
 }
 
 export default App;
