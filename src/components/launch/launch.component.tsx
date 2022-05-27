@@ -1,11 +1,11 @@
-import { Logo } from './launch.styles';
+import { Link } from 'react-router-dom';
 const Launch: React.FunctionComponent = () => {
 	return (
 		<section className="text-gray-600 body-font">
-			<Logo>
-				Hire <span style={{ color: '#f7578c' }}>+Plus</span>
-			</Logo>
-			<div className="container px-10 py-10 mx-auto">
+			<h1 className="text-center text-2xl md:text-4xl my-10">
+				What features are you looking for?
+			</h1>
+			<div className="container px-10 py-5 mx-auto">
 				<div className="flex flex-wrap -mx-4 -mb-10 text-center">
 					<div className="sm:w-1/2 mb-10 px-4">
 						<div className="rounded-lg h-64 overflow-hidden">
@@ -23,13 +23,15 @@ const Launch: React.FunctionComponent = () => {
 							through our Project Management board, best of all post jobs
 							for free!
 						</p>
-						<button
-							className="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-							style={{ backgroundColor: '#5b3fd1' }}
-						>
-							GET STARTED
-							<span style={{ marginLeft: '10px' }}>&#10095;</span>
-						</button>
+						<Link to="/auth/employers">
+							<button
+								className="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+								style={{ backgroundColor: '#5b3fd1' }}
+							>
+								GET STARTED
+								<span style={{ marginLeft: '10px' }}>&#10095;</span>
+							</button>
+						</Link>
 					</div>
 					<div className="sm:w-1/2 mb-10 px-4">
 						<div className="rounded-lg h-64 overflow-hidden">
@@ -47,13 +49,15 @@ const Launch: React.FunctionComponent = () => {
 							manage your profile to show off skills, and apply for jobs
 							you want!
 						</p>
-						<button
-							className="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
-							style={{ backgroundColor: '#5b3fd1' }}
-						>
-							GET STARTED
-							<span style={{ marginLeft: '10px' }}>&#10095;</span>
-						</button>
+						<Link to="/auth/employees">
+							<button
+								className="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded"
+								style={{ backgroundColor: '#5b3fd1' }}
+							>
+								GET STARTED
+								<span style={{ marginLeft: '10px' }}>&#10095;</span>
+							</button>
+						</Link>
 					</div>
 				</div>
 			</div>

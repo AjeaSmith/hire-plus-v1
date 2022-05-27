@@ -13,3 +13,15 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
 }
+@media (min-width: 768px) {
+	.container {
+		min-width: 950px;
+	}
+}
+.logo {
+	padding: 1em 2.5em;
+	font-weight: bold;
+	font-size: 18px;
+	color: #fff;
+	background: #5b3fd1;
+}
