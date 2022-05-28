@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import Signup from '../../components/sign-up/sign-up.component';
 
 const AuthPage: React.FunctionComponent = () => {
-	const {userSelect} = useParams();
-	console.log(userSelect);
+	const { userSelect } = useParams();
+	const name = 5
 	return (
 		<section className="text-gray-600 body-font">
 			<div className="container flex flex-wrap px-5 mx-auto items-center justify-center">
