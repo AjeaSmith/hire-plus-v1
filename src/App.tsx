@@ -8,7 +8,7 @@ function App() {
 		<>
 			<Navigation />
 			<Routes>
-				<Route path="/" element={<Launch />} />
+				<Route index element={<Launch />} />
 				<Route path="auth/:userSelect" element={<AuthPage />} />
 			</Routes>
 		</>

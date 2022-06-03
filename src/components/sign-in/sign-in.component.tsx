@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import googleIcon from '../../assets/icons/google.png';
 import {
 	signInEmailAndPassword,
@@ -9,7 +9,10 @@ const defaultFormFields = {
 	email: '',
 	password: '',
 };
-const SignIn: React.FunctionComponent = () => {
+type ChildProps = {
+	userChoice: string;
+};
+const SignIn = (props: ChildProps): ReactElement => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password } = formFields;
 
@@ -17,14 +20,18 @@ const SignIn: React.FunctionComponent = () => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
 	};
-
+	const resetFormFields = () => {
+		setFormFields(defaultFormFields);
+	};
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		// login with firebase
 		await signInEmailAndPassword(email, password);
+		resetFormFields();
 	};
 	const signInGooglePopup = async () => {
-		await signInWithGooglePopup();
+		await signInWithGooglePopup(props.userChoice, {});
+		resetFormFields();
 	};
 
 	return (

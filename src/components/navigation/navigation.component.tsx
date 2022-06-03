@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-const Navigation: React.FunctionComponent = () => {
+const Navigation = (): ReactElement => {
 	return (
 		<header className="logo h-16 sticky top-0 z-10">
 			<Link to="/">

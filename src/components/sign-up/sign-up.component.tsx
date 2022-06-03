@@ -1,6 +1,37 @@
-import React from 'react';
+import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
+import { signUpEmailAndPassword } from '../../utils/firebase/firebase.utils';
 
-const Signup: React.FunctionComponent = () => {
+const defaultFormFields = {
+	displayName: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
+type ChildProps = {
+	userChoice: string;
+};
+const Signup = (props: ChildProps): ReactElement => {
+	const { userChoice } = props;
+
+	const [formFields, setFormFields] = useState(defaultFormFields);
+	const { email, password, displayName, confirmPassword } = formFields;
+
+	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = event.target;
+		setFormFields({ ...formFields, [name]: value });
+	};
+	const resetFormFields = () => {
+		setFormFields(defaultFormFields);
+	};
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		if (password !== confirmPassword) {
+			// set error message
+			return;
+		}
+		signUpEmailAndPassword({ email, password, displayName }, userChoice);
+		resetFormFields();
+	};
 	return (
 		<section>
 			<div className="items-center px-5">
@@ -13,7 +44,7 @@ const Signup: React.FunctionComponent = () => {
 					</p>
 					<div className="mt-5">
 						<div className="mt-6">
-							<form className="space-y-6">
+							<form onSubmit={handleSubmit} className="space-y-6">
 								<div>
 									<label
 										htmlFor="name"
@@ -24,8 +55,10 @@ const Signup: React.FunctionComponent = () => {
 									</label>
 									<div className="mt-1">
 										<input
+											value={displayName}
+											onChange={handleChange}
 											id="name"
-											name="name"
+											name="displayName"
 											type="text"
 											autoComplete="current-name"
 											required
@@ -44,6 +77,8 @@ const Signup: React.FunctionComponent = () => {
 									</label>
 									<div className="mt-1">
 										<input
+											value={email}
+											onChange={handleChange}
 											id="email"
 											name="email"
 											type="email"
@@ -64,6 +99,8 @@ const Signup: React.FunctionComponent = () => {
 									</label>
 									<div className="mt-1">
 										<input
+											onChange={handleChange}
+											value={password}
 											minLength={6}
 											id="password"
 											name="password"
@@ -85,6 +122,8 @@ const Signup: React.FunctionComponent = () => {
 									</label>
 									<div className="mt-1">
 										<input
+											onChange={handleChange}
+											value={confirmPassword}
 											minLength={6}
 											id="confirmPassword"
 											name="confirmPassword"
