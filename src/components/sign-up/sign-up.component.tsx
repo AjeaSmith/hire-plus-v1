@@ -1,5 +1,11 @@
 import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
-import { signUpEmailAndPassword } from '../../utils/firebase/firebase.utils';
+import { BeatLoader } from 'react-spinners';
+import {
+	resetError,
+	signUpUserEmailAndPassword,
+	setSignupError,
+} from '../../app/features/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 const defaultFormFields = {
 	displayName: '',
@@ -7,11 +13,11 @@ const defaultFormFields = {
 	password: '',
 	confirmPassword: '',
 };
-type ChildProps = {
-	userChoice: string;
-};
-const Signup = (props: ChildProps): ReactElement => {
-	const { userChoice } = props;
+
+const Signup = (): ReactElement => {
+	const dispatch = useAppDispatch();
+
+	const { isLoading, signUpError } = useAppSelector((state) => state.users);
 
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password, displayName, confirmPassword } = formFields;
@@ -26,32 +32,53 @@ const Signup = (props: ChildProps): ReactElement => {
 	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		if (password !== confirmPassword) {
-			// set error message
+			dispatch(setSignupError('Passwords must match'));
 			return;
 		}
-		signUpEmailAndPassword({ email, password, displayName }, userChoice);
-		resetFormFields();
+		dispatch(
+			signUpUserEmailAndPassword({
+				email,
+				password,
+				displayName,
+			})
+		)
+			.unwrap()
+			.then(() => {
+				dispatch(resetError());
+				resetFormFields();
+				// redirect to home page
+			})
+			.catch((error) => {
+				console.log(error);
+				resetFormFields();
+			});
 	};
 	return (
 		<section>
 			<div className="items-center px-5">
-				<div className="flex flex-col w-full max-w-md p-8 mx-auto transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
-					<h1 className="text-2xl lg:text-3xl text-center">
-						Don't have an account?
-					</h1>
-					<p className="text-center font-normal my-2">
-						Sign up with your email and password
-					</p>
-					<div className="mt-5">
-						<div className="mt-6">
+				<div className="flex flex-col w-full max-w-md mx-auto transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
+					<div>
+						<div className="mb-12 mt-4">
+							<h1 className="text-2xl lg:text-3xl text-center">
+								Don't have an account?
+							</h1>
+							<p className="text-center font-normal my-2 text-neutral-600">
+								Sign up with your email and password
+							</p>
+						</div>
+						{signUpError && (
+							<div className="text-center text-red-600 mb-5 text-lg">
+								{signUpError}
+							</div>
+						)}
+						<div>
 							<form onSubmit={handleSubmit} className="space-y-6">
 								<div>
 									<label
 										htmlFor="name"
 										className="block text-sm font-medium text-neutral-600"
 									>
-										{' '}
-										Display Name{' '}
+										Name
 									</label>
 									<div className="mt-1">
 										<input
@@ -141,7 +168,16 @@ const Signup = (props: ChildProps): ReactElement => {
 										type="submit"
 										className="flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
 									>
-										Sign up
+										{isLoading ? (
+											<div className="text-center z-index">
+												<BeatLoader
+													color={'white'}
+													loading={true}
+												/>
+											</div>
+										) : (
+											<p>Sign up</p>
+										)}
 									</button>
 								</div>
 							</form>

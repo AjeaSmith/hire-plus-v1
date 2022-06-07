@@ -8,6 +8,8 @@ import {
 	User,
 	NextOrObserver,
 	onAuthStateChanged,
+	updateProfile,
+	signOut,
 } from 'firebase/auth';
 import {
 	getFirestore,
@@ -15,8 +17,11 @@ import {
 	getDoc,
 	setDoc,
 	QueryDocumentSnapshot,
+	collection,
+	query,
+	getDocs,
 } from 'firebase/firestore';
-
+import { SignUpFields } from '../../app/features/user/userTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -43,50 +48,42 @@ type UserData = {
 	displayName: string;
 	email: string;
 };
-type FormFields = {
-	email: string;
-	password: string;
-	displayName: string;
-};
 
-export const auth = getAuth(firebaseApp);
+export const auth = getAuth();
 export const db = getFirestore();
 
 // Sign in with google helper
 export const signInWithGooglePopup = async (
-	userChoice: string,
-	additionalInfo: AdditionalInfo
+	additionalInfo = {} as AdditionalInfo
 ) => {
 	await signInWithPopup(auth, googleProvider);
-	await createUserBasedOnChoice(auth.currentUser, additionalInfo, userChoice);
+	await createUserDocument(auth.currentUser, additionalInfo);
 };
 
+// sign up with email and password
+export const signUpEmailAndPassword = async (formFields: SignUpFields) => {
+	const { email, password, displayName } = formFields;
+
+	const { user } = await createUserWithEmailAndPassword(auth, email, password);
+	await updateProfile(user, { displayName });
+	await createUserDocument(user, { displayName });
+};
 //Sign in with email and password helper
 export const signInEmailAndPassword = async (
 	email: string,
 	password: string
 ) => {
 	if (!email || !password) return;
-	try {
-		await signInWithEmailAndPassword(auth, email, password);
-		console.log('successfully signed in');
-	} catch (error) {
-		// send back user not found error
-		console.log(error);
-	}
+	return await signInWithEmailAndPassword(auth, email, password);
 };
 
 // create db from signed in user
-export const createUserBasedOnChoice = async (
+export const createUserDocument = async (
 	authUser: User,
-	additionalInfo = {} as AdditionalInfo,
-	userChoice: string
+	additionalInfo = {} as AdditionalInfo
 ): Promise<void | QueryDocumentSnapshot<UserData>> => {
 	if (!authUser) return;
-	const userDocRef =
-		userChoice === 'employees'
-			? doc(db, 'employees', authUser.uid)
-			: doc(db, 'employers', authUser.uid);
+	const userDocRef = doc(db, 'employees', authUser.uid);
 
 	const userSnapShot = await getDoc(userDocRef);
 
@@ -96,35 +93,20 @@ export const createUserBasedOnChoice = async (
 		const createdAt = new Date();
 
 		try {
-			if (userChoice === 'employees') {
-				await setDoc(userDocRef, {
-					email,
-					displayName,
-					createdAt,
-					...additionalInfo,
-					title: '',
-					isForHire: false,
-					websiteURL: '',
-					githubUrl: '',
-					yearsOfExperience: 0,
-					skills: [],
-					summary: '',
-					projects: [],
-				});
-			} else if (userChoice === 'employers') {
-				await setDoc(userDocRef, {
-					email,
-					displayName,
-					createdAt,
-					...additionalInfo,
-					company: '',
-					companyURL: '',
-					isHiring: false,
-					companySize: 50,
-					companyType: '',
-					jobs: [],
-				});
-			}
+			await setDoc(userDocRef, {
+				email,
+				displayName,
+				createdAt,
+				...additionalInfo,
+				title: '',
+				isForHire: false,
+				websiteURL: '',
+				githubUrl: '',
+				yearsOfExperience: 0,
+				skills: [],
+				summary: '',
+				projects: [],
+			});
 		} catch (error) {
 			console.log('get user auth and create doc', error);
 		}
@@ -132,25 +114,7 @@ export const createUserBasedOnChoice = async (
 	}
 };
 
-// sign up with email and password
-export const signUpEmailAndPassword = async (
-	formFields: FormFields,
-	userChoice: string
-) => {
-	const { email, password, displayName } = formFields;
-	const allowedChoices = ['employees', 'employers'];
-	if (!allowedChoices.includes(userChoice)) return;
-	try {
-		await createUserWithEmailAndPassword(auth, email, password);
-		await createUserBasedOnChoice(
-			auth.currentUser,
-			{ displayName },
-			userChoice
-		);
-	} catch (error) {
-		console.log('from within sign up method', error);
-	}
-};
+export const logoutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 	onAuthStateChanged(auth, callback);

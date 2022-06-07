@@ -1,21 +1,13 @@
-import SignIn from '../../components/sign-in/sign-in.component';
-import { useParams } from 'react-router-dom';
-import Signup from '../../components/sign-up/sign-up.component';
+import { Outlet } from 'react-router-dom';
 import { ReactElement } from 'react';
+import Navigation from '../../components/navigation/navigation.component';
 
 const AuthPage = (): ReactElement => {
-	const { userSelect } = useParams();
 	return (
-		<section className="text-gray-600 body-font">
-			<div className="container flex flex-wrap px-5 mx-auto items-center justify-center">
-				<div className="md:w-1/2 md:pr-5 md:py-8 md:border-r md:border-b-0 mb-10 md:mb-0 border-b border-gray-200">
-					<SignIn userChoice={userSelect} />
-				</div>
-				<div className="flex flex-col md:w-1/2">
-					<Signup userChoice={userSelect} />
-				</div>
-			</div>
-		</section>
+		<>
+			<Navigation />
+			<Outlet />
+		</>
 	);
 };
 
