@@ -7,6 +7,7 @@ body {
 	font-family: 'Lato', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background-color: #1e2028;
 }
 
 code {
@@ -18,10 +19,34 @@ code {
 		min-width: 950px;
 	}
 }
+h1,
+h2 {
+	color: #ffffff;
+}
 .logo {
 	padding: 1em 2.5em;
 	font-weight: bold;
 	font-size: 18px;
 	color: #fff;
-	background: #5b3fd1;
+	background: #1e2028;
+}
+.skills-menu li {
+	background-color: #252731;
+	color: #9c9dae;
+}
+.skills-menu li:hover {
+	background-color: #4338ca;
+	color: #fff;
+	cursor: pointer;
+}
+
+.font-color {
+	color: #9c9dae;
+}
+.bg-card {
+	background-color: #252731;
+	border-color: #4338ca;
+}
+.accent-color {
+	color: #4338ca;
 }

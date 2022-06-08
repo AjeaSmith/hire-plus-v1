@@ -5,7 +5,7 @@ import Navigation from '../../components/navigation/navigation.component';
 const AuthPage = (): ReactElement => {
 	return (
 		<>
-			<Navigation />
+			{/* <Navigation /> */}
 			<Outlet />
 		</>
 	);
