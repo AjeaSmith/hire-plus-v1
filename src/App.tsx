@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from './app/hooks';
+import { Navigate } from 'react-router';
+import { useAppDispatch } from './app/hooks';
 import Launch from './routes/launch/launch-page';
-import AuthPage from './routes/auth/auth-page';
-import { setCurrentUser } from './app/features/user/userSlice';
+import { getProfileById, setSignedIn } from './app/features/user/userSlice';
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 import SignIn from './components/sign-in/sign-in.component';
 import Signup from './components/sign-up/sign-up.component';
@@ -15,39 +15,35 @@ import PrivateRoute from './components/privateRoute/private-route.component';
 
 function App() {
 	const dispatch = useAppDispatch();
-	const user = useAppSelector((state) => state.users.currentUser);
 	useEffect(() => {
 		const unsubscribe = onAuthStateChangedListener(async (user) => {
 			if (user) {
-				dispatch(setCurrentUser(JSON.stringify(user.displayName)));
+				const { uid } = user;
+				dispatch(getProfileById(uid));
 			} else {
-				console.log('no user signed in');
-				dispatch(setCurrentUser(''));
+				dispatch(setSignedIn(false));
 			}
 		});
 		// runs when the component unmounts
 		return unsubscribe;
 	}, []);
+
 	return (
 		<>
 			<Navigation />
 			<Routes>
 				<Route index element={<Launch />} />
-				<Route path="auth/employees" element={<AuthPage />}>
-					<Route path="signin" element={<SignIn />} />
-					<Route path="signup" element={<Signup />} />
-				</Route>
 				<Route path="/jobs" element={<JobsPage />} />
+				<Route path="auth/employees/sign-in" element={<SignIn />} />
+				<Route path="auth/employees/sign-up" element={<Signup />} />
 				<Route
-					path="/user/profile"
+					path="user/profile/:id"
 					element={
-						<PrivateRoute user={user}>
+						<PrivateRoute>
 							<ProfilePage />
 						</PrivateRoute>
 					}
 				/>
-
-				{/* <Route path="/user/profile" element={<ProfilePage />} /> */}
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</>

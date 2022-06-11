@@ -5,18 +5,35 @@ import {
 	signInEmailAndPassword,
 	signUpEmailAndPassword,
 	logoutUser,
+	getProfile,
 } from '../../../utils/firebase/firebase.utils';
-import { SignUpFields, LoginFields } from './userTypes';
+import { SignUpFields, LoginFields, ProfileData } from './userTypes';
 
 interface userState {
-	currentUser: string;
+	isSignedIn: boolean;
+	profile: ProfileData;
 	isLoading: boolean;
 	signUpError: string;
 	signInError: string;
 	successMessage: string;
 }
 const initialState: userState = {
-	currentUser: '',
+	isSignedIn: false,
+	profile: {
+		id: '',
+		email: '',
+		displayName: '',
+		createdAt: Date.now(),
+		title: '',
+		isForHire: false,
+		websiteURL: '',
+		githubUrl: '',
+		yearsOfExperience: 0,
+		skills: [],
+		summary: '',
+		projects: [],
+		experience: [],
+	},
 	isLoading: false,
 	signUpError: '',
 	signInError: '',
@@ -24,6 +41,8 @@ const initialState: userState = {
 };
 
 // async actions
+
+// ------- USER ACTIONS --------------------------------
 export const signInWithGoogle = createAsyncThunk(
 	'user/signInWithGoogle',
 	async () => {
@@ -33,31 +52,40 @@ export const signInWithGoogle = createAsyncThunk(
 export const signInWithEmailAndPassword = createAsyncThunk(
 	'user/signInEmailAndPassword',
 	async (formFields: LoginFields) => {
-		const { user } = await signInEmailAndPassword(
+		return await signInEmailAndPassword(
 			formFields.email,
 			formFields.password
 		);
-		return JSON.stringify(user.displayName);
 	}
 );
 export const signUpUserEmailAndPassword = createAsyncThunk(
 	'user/signUpUserEmailAndPassword',
 	async (formFields: SignUpFields) => {
-		return await signUpEmailAndPassword(formFields);
+		const user = await signUpEmailAndPassword(formFields);
+		return JSON.stringify(user);
 	}
 );
-
 export const signoutUser = createAsyncThunk('user/signoutUser', async () => {
 	return await logoutUser();
 });
+
+// -------- PROFILE ACTIONS --------------------------------
+export const getProfileById = createAsyncThunk(
+	'user/getProfileById',
+	async (id: string) => {
+		const profile = await getProfile(id);
+		const [profileObj] = profile;
+		return JSON.stringify(profileObj);
+	}
+);
 
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
 		// sync actions
-		setCurrentUser(state, action) {
-			state.currentUser = JSON.parse(action.payload);
+		setSignedIn(state, action) {
+			state.isSignedIn = action.payload;
 		},
 		setSignupError(state, action) {
 			state.signUpError = action.payload;
@@ -72,11 +100,15 @@ const userSlice = createSlice({
 			.addCase(signInWithGoogle.rejected, (state, action) => {
 				console.log('something went wrong', action.error);
 			})
+			.addCase(signInWithGoogle.fulfilled, (state, action) => {
+				state.isLoading = false;
+			})
 			.addCase(signInWithEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
-			.addCase(signInWithEmailAndPassword.fulfilled, (state) => {
+			.addCase(signInWithEmailAndPassword.fulfilled, (state, action) => {
 				state.isLoading = false;
+				state.isSignedIn = true;
 				state.successMessage = 'Logged in successfully';
 			})
 			.addCase(signInWithEmailAndPassword.rejected, (state) => {
@@ -88,6 +120,7 @@ const userSlice = createSlice({
 			})
 			.addCase(signUpUserEmailAndPassword.fulfilled, (state) => {
 				state.isLoading = false;
+				state.isSignedIn = true;
 				state.successMessage = 'Logged in successfully';
 			})
 			.addCase(signUpUserEmailAndPassword.rejected, (state) => {
@@ -96,10 +129,23 @@ const userSlice = createSlice({
 			})
 			.addCase(signoutUser.fulfilled, (state) => {
 				state.isLoading = false;
-				state.currentUser = '';
+				state.profile = { ...state.profile };
+			})
+			.addCase(getProfileById.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getProfileById.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSignedIn = true;
+				state.profile = JSON.parse(action.payload);
+			})
+			.addCase(getProfileById.rejected, (state, action) => {
+				state.isLoading = false;
+				console.log('error with profile', action.error);
 			});
 	},
 });
 
-export const { setCurrentUser, resetError, setSignupError } = userSlice.actions;
+export const { resetError, setSignupError, setSignedIn } = userSlice.actions;
+
 export default userSlice.reducer;

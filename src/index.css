@@ -39,7 +39,12 @@ h2 {
 	color: #fff;
 	cursor: pointer;
 }
-
+.secondary-bg-color {
+	background-color: #252731;
+}
+.primary-bg-color {
+	background-color: #1e2028;
+}
 .font-color {
 	color: #9c9dae;
 }
@@ -49,4 +54,7 @@ h2 {
 }
 .accent-color {
 	color: #4338ca;
+}
+.accent-color-bg {
+	background-color: #4338ca;
 }

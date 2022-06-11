@@ -1,5 +1,9 @@
 const JobsPage = () => {
-	return <div>JobsPage</div>;
+	return (
+		<>
+			<p>jobs page</p>
+		</>
+	);
 };
 
 export default JobsPage;

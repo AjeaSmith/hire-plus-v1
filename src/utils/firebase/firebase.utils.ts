@@ -20,8 +20,9 @@ import {
 	collection,
 	query,
 	getDocs,
+	where,
 } from 'firebase/firestore';
-import { SignUpFields } from '../../app/features/user/userTypes';
+import { SignUpFields, ProfileData } from '../../app/features/user/userTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -67,8 +68,11 @@ export const signUpEmailAndPassword = async (formFields: SignUpFields) => {
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	await updateProfile(user, { displayName });
 	await createUserDocument(user, { displayName });
+	// return { uid: user.uid, displayName: user.displayName };
+	return user;
 };
-//Sign in with email and password helper
+
+// Sign in with email and password helper
 export const signInEmailAndPassword = async (
 	email: string,
 	password: string
@@ -81,7 +85,7 @@ export const signInEmailAndPassword = async (
 export const createUserDocument = async (
 	authUser: User,
 	additionalInfo = {} as AdditionalInfo
-): Promise<void | QueryDocumentSnapshot<UserData>> => {
+): Promise<void | QueryDocumentSnapshot<ProfileData>> => {
 	if (!authUser) return;
 	const userDocRef = doc(db, 'employees', authUser.uid);
 
@@ -94,6 +98,7 @@ export const createUserDocument = async (
 
 		try {
 			await setDoc(userDocRef, {
+				id: authUser.uid,
 				email,
 				displayName,
 				createdAt,
@@ -106,11 +111,12 @@ export const createUserDocument = async (
 				skills: [],
 				summary: '',
 				projects: [],
+				experience: [],
 			});
 		} catch (error) {
 			console.log('get user auth and create doc', error);
 		}
-		return userSnapShot as QueryDocumentSnapshot<UserData>;
+		return userSnapShot as QueryDocumentSnapshot<ProfileData>;
 	}
 };
 
@@ -129,5 +135,17 @@ export const getCurrentUser = (): Promise<User | null> => {
 			},
 			reject
 		);
+	});
+};
+
+// ----------- PROFILE API ----------------------------
+
+export const getProfile = async (id: string): Promise<ProfileData[]> => {
+	const collectionRef = collection(db, 'employees');
+	const q = query(collectionRef, where('id', '==', id));
+
+	const querySnapshot = await getDocs(q);
+	return querySnapshot.docs.map((docSnapshot) => {
+		return docSnapshot.data() as ProfileData;
 	});
 };

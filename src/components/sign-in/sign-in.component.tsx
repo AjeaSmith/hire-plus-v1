@@ -4,8 +4,10 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
 	signInWithGoogle,
 	signInWithEmailAndPassword,
+	getProfileById,
 } from '../../app/features/user/userSlice';
 import { resetError } from '../../app/features/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
 	email: '',
@@ -14,6 +16,7 @@ const defaultFormFields = {
 
 const SignIn = (): ReactElement => {
 	const { signInError, isLoading } = useAppSelector((state) => state.users);
+	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password } = formFields;
@@ -31,10 +34,11 @@ const SignIn = (): ReactElement => {
 
 		dispatch(signInWithEmailAndPassword(formFields))
 			.unwrap()
-			.then(() => {
+			.then(({ user }) => {
+				dispatch(getProfileById(user.uid));
 				dispatch(resetError());
 				resetFormFields();
-				// redirect to home page
+				navigate('/jobs');
 			})
 			.catch((error) => {
 				console.log('sign in error', error);
@@ -48,20 +52,21 @@ const SignIn = (): ReactElement => {
 				resetFormFields();
 				dispatch(resetError());
 				// redirect to home page
+				navigate('/jobs');
 			})
 			.catch((error) => {
 				console.log('google signin error', error);
 			});
 	};
 	return (
-		<div className="items-center px-5">
-			<div className="flex flex-col w-full max-w-md p-6 mx-auto my-6 transition duration-500 ease-in-out transform bg-white rounded-lg md:mt-0">
+		<div className="items-center px-5 mt-10">
+			<div className="flex flex-col w-full max-w-md p-6 mx-auto my-6 transition duration-500 ease-in-out transform rounded-lg md:mt-0 secondary-bg-color">
 				<div>
 					<div className="mb-8 mt-4">
 						<h1 className="text-2xl lg:text-3xl text-center">
 							Already have an account?
 						</h1>
-						<p className="text-center font-normal my-2 text-neutral-500">
+						<p className="text-center font-normal my-2 font-color">
 							Sign in with your email and password
 						</p>
 					</div>
@@ -75,12 +80,12 @@ const SignIn = (): ReactElement => {
 							<div>
 								<label
 									htmlFor="email"
-									className="block text-sm font-medium text-neutral-600"
+									className="block text-sm font-medium font-color"
 								>
 									{' '}
 									Email address{' '}
 								</label>
-								<div className="mt-1">
+								<div className="mt-2">
 									<input
 										onChange={handleChange}
 										value={email}
@@ -88,20 +93,20 @@ const SignIn = (): ReactElement => {
 										type="email"
 										autoComplete="current-email"
 										required
-										placeholder="Enter your email"
-										className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-400 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+										placeholder="e.g example@yahoo.com"
+										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-500"
 									/>
 								</div>
 							</div>
 							<div className="space-y-1">
 								<label
 									htmlFor="password"
-									className="block text-sm font-medium text-neutral-600"
+									className="block text-sm font-medium font-color mb-2"
 								>
 									{' '}
 									Password{' '}
 								</label>
-								<div className="mt-1">
+								<div>
 									<input
 										minLength={6}
 										onChange={handleChange}
@@ -111,15 +116,14 @@ const SignIn = (): ReactElement => {
 										autoComplete="current-password"
 										required
 										placeholder="********"
-										className="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-accent-color-bg focus:ring-offset-2 focus:ring-offset-gray-300"
 									/>
 								</div>
 							</div>
 							<div>
 								<button
-									style={{ backgroundColor: '#5b3fd1' }}
 									type="submit"
-									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 accent-color-bg"
 								>
 									{isLoading ? (
 										<div className="text-center z-index">
@@ -133,10 +137,10 @@ const SignIn = (): ReactElement => {
 						</form>
 						<div className="relative my-4">
 							<div className="absolute inset-0 flex items-center">
-								<div className="w-full border-t border-gray-300"></div>
+								<div className="w-full border-t border-gray-500"></div>
 							</div>
 							<div className="relative flex justify-center text-sm">
-								<span className="px-2 text-neutral-600 bg-white">
+								<span className="px-2 text-neutral-800 bg-white">
 									Or continue with
 								</span>
 							</div>
@@ -144,7 +148,7 @@ const SignIn = (): ReactElement => {
 						<div>
 							<button
 								onClick={signInGooglePopup}
-								className="w-full items-center block px-10 py-3.5 text-base font-medium text-center text-blue-600 transition duration-500 ease-in-out transform border-2 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+								className="w-full items-center block px-10 py-3.5 text-base font-medium text-center text-blue-600 transition duration-500 ease-in-out transform border-2 border-gray-300 shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
 							>
 								<div className="flex items-center justify-center">
 									<svg
@@ -170,7 +174,10 @@ const SignIn = (): ReactElement => {
 											d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
 										/>
 									</svg>
-									<span className="ml-4"> Log in with Google</span>
+									<span className="ml-4 text-white">
+										{' '}
+										Log in with Google
+									</span>
 								</div>
 							</button>
 						</div>
