@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router';
 import { useAppDispatch } from './app/hooks';
 import Launch from './routes/launch/launch-page';
-import { getProfileById, setSignedIn } from './app/features/user/userSlice';
+import { setCurrentUser, setSignedIn } from './app/features/user/userSlice';
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 import SignIn from './components/sign-in/sign-in.component';
 import Signup from './components/sign-up/sign-up.component';
@@ -18,10 +17,12 @@ function App() {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChangedListener(async (user) => {
 			if (user) {
-				const { uid } = user;
-				dispatch(getProfileById(uid));
+				const { displayName, uid } = user;
+				dispatch(setSignedIn(true));
+				dispatch(setCurrentUser({ displayName, uid }));
 			} else {
 				dispatch(setSignedIn(false));
+				dispatch(setCurrentUser({}));
 			}
 		});
 		// runs when the component unmounts

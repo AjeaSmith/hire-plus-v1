@@ -5,13 +5,13 @@ import {
 	signInEmailAndPassword,
 	signUpEmailAndPassword,
 	logoutUser,
-	getProfile,
 } from '../../../utils/firebase/firebase.utils';
-import { SignUpFields, LoginFields, ProfileData } from './userTypes';
+import { getProfileById } from '../profile/profileSlice';
+import { SignUpFields, LoginFields } from './userTypes';
 
 interface userState {
 	isSignedIn: boolean;
-	profile: ProfileData;
+	currentUser: { uid: string; displayName: string };
 	isLoading: boolean;
 	signUpError: string;
 	signInError: string;
@@ -19,21 +19,7 @@ interface userState {
 }
 const initialState: userState = {
 	isSignedIn: false,
-	profile: {
-		id: '',
-		email: '',
-		displayName: '',
-		createdAt: Date.now(),
-		title: '',
-		isForHire: false,
-		websiteURL: '',
-		githubUrl: '',
-		yearsOfExperience: 0,
-		skills: [],
-		summary: '',
-		projects: [],
-		experience: [],
-	},
+	currentUser: { uid: '', displayName: '' },
 	isLoading: false,
 	signUpError: '',
 	signInError: '',
@@ -69,16 +55,6 @@ export const signoutUser = createAsyncThunk('user/signoutUser', async () => {
 	return await logoutUser();
 });
 
-// -------- PROFILE ACTIONS --------------------------------
-export const getProfileById = createAsyncThunk(
-	'user/getProfileById',
-	async (id: string) => {
-		const profile = await getProfile(id);
-		const [profileObj] = profile;
-		return JSON.stringify(profileObj);
-	}
-);
-
 const userSlice = createSlice({
 	name: 'user',
 	initialState,
@@ -89,6 +65,9 @@ const userSlice = createSlice({
 		},
 		setSignupError(state, action) {
 			state.signUpError = action.payload;
+		},
+		setCurrentUser(state, action) {
+			state.currentUser = action.payload;
 		},
 		resetError(state) {
 			state.signInError = '';
@@ -103,6 +82,7 @@ const userSlice = createSlice({
 			.addCase(signInWithGoogle.fulfilled, (state, action) => {
 				state.isLoading = false;
 			})
+			// ---------- SIGN IN ACTIONS ------------
 			.addCase(signInWithEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
@@ -115,6 +95,7 @@ const userSlice = createSlice({
 				state.isLoading = false;
 				state.signInError = 'User does not exist in the database';
 			})
+			// ----------- SIGN UP ACTIONS ------------
 			.addCase(signUpUserEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
@@ -129,23 +110,12 @@ const userSlice = createSlice({
 			})
 			.addCase(signoutUser.fulfilled, (state) => {
 				state.isLoading = false;
-				state.profile = { ...state.profile };
-			})
-			.addCase(getProfileById.pending, (state) => {
-				state.isLoading = true;
-			})
-			.addCase(getProfileById.fulfilled, (state, action) => {
-				state.isLoading = false;
-				state.isSignedIn = true;
-				state.profile = JSON.parse(action.payload);
-			})
-			.addCase(getProfileById.rejected, (state, action) => {
-				state.isLoading = false;
-				console.log('error with profile', action.error);
+				state.isSignedIn = false;
 			});
 	},
 });
 
-export const { resetError, setSignupError, setSignedIn } = userSlice.actions;
+export const { setCurrentUser, resetError, setSignupError, setSignedIn } =
+	userSlice.actions;
 
 export default userSlice.reducer;

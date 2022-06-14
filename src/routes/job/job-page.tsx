@@ -1,7 +1,7 @@
 const JobsPage = () => {
 	return (
 		<>
-			<p>jobs page</p>
+			<p className="text-white">jobs page</p>
 		</>
 	);
 };

@@ -5,7 +5,6 @@ import {
 	resetError,
 	signUpUserEmailAndPassword,
 	setSignupError,
-	getProfileById,
 } from '../../app/features/user/userSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
@@ -46,15 +45,13 @@ const Signup = (): ReactElement => {
 			})
 		)
 			.unwrap()
-			.then((user) => {
-				const userId = JSON.parse(user);
-				dispatch(getProfileById(userId.uid));
-				dispatch(resetError());
+			.then(() => {
 				resetFormFields();
 				navigate('/jobs');
 			})
 			.catch((error) => {
 				console.log('sign up error', error);
+				dispatch(resetError());
 				resetFormFields();
 			});
 	};

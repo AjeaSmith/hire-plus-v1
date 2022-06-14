@@ -6,7 +6,8 @@ import { setSignedIn, signoutUser } from '../../app/features/user/userSlice';
 const Navigation = (): ReactElement => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { isSignedIn, profile } = useAppSelector((state) => state.users);
+	const { isSignedIn, currentUser } = useAppSelector((state) => state.users);
+
 	const logout = () => {
 		try {
 			dispatch(signoutUser())
@@ -30,7 +31,7 @@ const Navigation = (): ReactElement => {
 					<span style={{ color: '#4338CA' }} className="mr-1">
 						+Plus
 					</span>
-					{isSignedIn && <span>| {profile.displayName}</span>}
+					{isSignedIn && <span>| {currentUser.displayName}</span>}
 				</Link>
 
 				{isSignedIn ? (
@@ -40,7 +41,7 @@ const Navigation = (): ReactElement => {
 								Jobs
 							</Link>
 							<Link
-								to={`user/profile/${profile.id}`}
+								to={`user/profile/${currentUser.uid}`}
 								className="mr-5 hover:text-gray-500"
 							>
 								Profile

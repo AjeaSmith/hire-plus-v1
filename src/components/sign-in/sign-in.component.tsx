@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
 	signInWithGoogle,
 	signInWithEmailAndPassword,
-	getProfileById,
 } from '../../app/features/user/userSlice';
 import { resetError } from '../../app/features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
@@ -34,27 +33,26 @@ const SignIn = (): ReactElement => {
 
 		dispatch(signInWithEmailAndPassword(formFields))
 			.unwrap()
-			.then(({ user }) => {
-				dispatch(getProfileById(user.uid));
-				dispatch(resetError());
+			.then(() => {
 				resetFormFields();
 				navigate('/jobs');
 			})
 			.catch((error) => {
+				dispatch(resetError());
 				console.log('sign in error', error);
 				resetFormFields();
 			});
 	};
+
 	const signInGooglePopup = async () => {
 		dispatch(signInWithGoogle())
 			.unwrap()
 			.then(() => {
 				resetFormFields();
-				dispatch(resetError());
-				// redirect to home page
 				navigate('/jobs');
 			})
 			.catch((error) => {
+				dispatch(resetError());
 				console.log('google signin error', error);
 			});
 	};
@@ -123,7 +121,7 @@ const SignIn = (): ReactElement => {
 							<div>
 								<button
 									type="submit"
-									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 accent-color-bg"
+									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 accent-color-bg"
 								>
 									{isLoading ? (
 										<div className="text-center z-index">

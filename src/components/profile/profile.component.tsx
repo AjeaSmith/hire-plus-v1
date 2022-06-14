@@ -1,43 +1,12 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
-import { getProfileById } from '../../app/features/user/userSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 
 const Profile = () => {
-	const { id } = useParams();
-	const { profile } = useAppSelector((state) => state.users);
-	const dispatch = useAppDispatch();
-	useEffect(() => {
-		dispatch(getProfileById(id));
-	}, []);
-
+	const { profile } = useAppSelector((state) => state.profile);
 	return (
 		<>
 			{profile && (
 				<section key={profile.id}>
-					<section style={{ backgroundColor: '#252731' }}>
-						<div className="px-12 py-5 text-right text-white">
-							<Link to="/job">Edit</Link>
-						</div>
-						<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
-							<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
-								<p className="mb-5 font-medium text-2xl text-white">
-									{profile.displayName}
-								</p>
-								<img
-									alt="testimonial"
-									className="inline-block object-cover object-center w-20 h-20 mx-auto mb-8 rounded-full"
-									src="https://picsum.photos/200"
-								/>
-								<p className="mx-auto text-base leading-relaxed font-color">
-									{profile.summary
-										? profile.summary
-										: 'Edit profile to add a Summary'}
-								</p>
-							</div>
-						</div>
-					</section>
 					<div className="divide-y divide-gray-700">
 						<section className="text-gray-600 body-font mt-2">
 							<div className="container px-5 py-20 mx-auto">
@@ -86,83 +55,48 @@ const Profile = () => {
 						</section>
 						{/* Experience starts */}
 						<section className="text-gray-600 body-font overflow-hidden">
-							<div className="container px-5 py-24 mx-auto">
+							<div className="container px-5 py-20 mx-auto">
 								<div className="-my-8 divide-y-2 divide-gray-700 max-w-4xl mx-auto">
-									<h2 className="sm:text-3xl text-2xl my-10 font-bold">
+									<h2 className="sm:text-3xl text-2xl my-8 font-bold">
 										Experience
 									</h2>
-
-									<div className="py-8 flex flex-wrap md:flex-nowrap">
-										<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-											<span className="font-semibold title-font text-white">
-												CATEGORY
-											</span>
-											<span className="mt-1 accent-color text-sm">
-												12 Jun 2019
-											</span>
-										</div>
-										<div className="md:flex-grow">
-											<h2 className="text-2xl font-medium title-font mb-2">
-												Bitters hashtag waistcoat fashion axe chia
-												unicorn
-											</h2>
-											<p className="leading-relaxed font-color">
-												Glossier echo park pug, church-key sartorial
-												biodiesel vexillologist pop-up snackwave
-												ramps cornhole. Marfa 3 wolf moon party
-												messenger bag selfies, poke vaporware
-												kombucha lumbersexual pork belly polaroid
-												hoodie portland craft beer.
-											</p>
-										</div>
-									</div>
-									<div className="py-8 flex flex-wrap md:flex-nowrap">
-										<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-											<span className="font-semibold title-font text-white">
-												CATEGORY
-											</span>
-											<span className="mt-1 accent-color text-sm">
-												12 Jun 2019
-											</span>
-										</div>
-										<div className="md:flex-grow">
-											<h2 className="text-2xl font-medium title-font mb-2">
-												Meditation bushwick direct trade taxidermy
-												shaman
-											</h2>
-											<p className="leading-relaxed font-color">
-												Glossier echo park pug, church-key sartorial
-												biodiesel vexillologist pop-up snackwave
-												ramps cornhole. Marfa 3 wolf moon party
-												messenger bag selfies, poke vaporware
-												kombucha lumbersexual pork belly polaroid
-												hoodie portland craft beer.
-											</p>
-										</div>
-									</div>
-									<div className="py-8 flex flex-wrap md:flex-nowrap">
-										<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-											<span className="font-semibold title-font text-white">
-												CATEGORY
-											</span>
-											<span className="text-sm accent-color">
-												12 Jun 2019
-											</span>
-										</div>
-										<div className="md:flex-grow">
-											<h2 className="text-2xl font-medium title-font mb-2">
-												Woke master cleanse drinking vinegar salvia
-											</h2>
-											<p className="leading-relaxed font-color">
-												Glossier echo park pug, church-key sartorial
-												biodiesel vexillologist pop-up snackwave
-												ramps cornhole. Marfa 3 wolf moon party
-												messenger bag selfies, poke vaporware
-												kombucha lumbersexual pork belly polaroid
-												hoodie portland craft beer.
-											</p>
-										</div>
-									</div>
+									{profile.experience.length ? (
+										profile.experience.map((exp, index) => {
+											return (
+												<div
+													className="py-8 flex flex-wrap md:flex-nowrap"
+													key={index}
+												>
+													<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+														<span className="font-semibold title-font text-white">
+															CATEGORY
+														</span>
+														<span className="mt-1 accent-color text-sm">
+															12 Jun 2019
+														</span>
+													</div>
+													<div className="md:flex-grow">
+														<h2 className="text-2xl font-medium title-font mb-2">
+															Bitters hashtag waistcoat fashion
+															axe chia unicorn
+														</h2>
+														<p className="leading-relaxed font-color">
+															Glossier echo park pug, church-key
+															sartorial biodiesel vexillologist
+															pop-up snackwave ramps cornhole.
+															Marfa 3 wolf moon party messenger
+															bag selfies, poke vaporware
+															kombucha lumbersexual pork belly
+															polaroid hoodie portland craft
+															beer.
+														</p>
+													</div>
+												</div>
+											);
+										})
+									) : (
+										<p className="font-color pt-5">Edit profile to add Experience</p>
+									)}
 								</div>
 							</div>
 						</section>
