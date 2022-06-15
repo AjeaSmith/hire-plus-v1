@@ -3,8 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getProfile } from '../../../utils/firebase/firebase.utils';
 import { ProfileData } from './profileTypes';
 
-import { signoutUser } from '../user/userSlice';
-
 interface userState {
 	profile: ProfileData;
 	isLoading: boolean;
@@ -25,7 +23,14 @@ const initialState: userState = {
 		skills: [],
 		summary: '',
 		projects: [],
-		experience: [],
+		experience: [
+			{
+				company: '',
+				position: '',
+				positionSummary: '',
+				date: '',
+			},
+		],
 	},
 	isLoading: false,
 	isEditting: false,

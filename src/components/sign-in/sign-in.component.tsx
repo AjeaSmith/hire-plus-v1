@@ -35,7 +35,7 @@ const SignIn = (): ReactElement => {
 			.unwrap()
 			.then(() => {
 				resetFormFields();
-				navigate('/jobs');
+				navigate('/app');
 			})
 			.catch((error) => {
 				dispatch(resetError());
@@ -49,7 +49,7 @@ const SignIn = (): ReactElement => {
 			.unwrap()
 			.then(() => {
 				resetFormFields();
-				navigate('/jobs');
+				navigate('/app');
 			})
 			.catch((error) => {
 				dispatch(resetError());

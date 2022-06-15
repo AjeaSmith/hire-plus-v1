@@ -11,6 +11,8 @@ import ProfilePage from './routes/profile/profile-page';
 import Navigation from './components/navigation/navigation.component';
 import JobsPage from './routes/job/job-page';
 import PrivateRoute from './components/privateRoute/private-route.component';
+import AuthPage from './routes/auth/auth-page';
+import HomePage from './routes/home/home-page';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -31,22 +33,32 @@ function App() {
 
 	return (
 		<>
-			<Navigation />
 			<Routes>
-				<Route index element={<Launch />} />
+				<Route path="/" element={<Launch />} />
+				<Route path="/app" element={<HomePage />}>
+					<Route index element={<JobsPage />} />
+					<Route path="auth/employees/" element={<AuthPage />}>
+						<Route index element={<SignIn />} />
+						<Route path="sign-up" element={<Signup />} />
+						...
+					</Route>
+					<Route
+						path="user/profile/:id"
+						element={
+							<PrivateRoute>
+								<ProfilePage />
+							</PrivateRoute>
+						}
+					/>
+				</Route>
+				<Route path="*" element={<NoMatch />} />
+			</Routes>
+			{/* <Route index element={<Launch />} />
+			<Routes>
 				<Route path="/jobs" element={<JobsPage />} />
 				<Route path="auth/employees/sign-in" element={<SignIn />} />
 				<Route path="auth/employees/sign-up" element={<Signup />} />
-				<Route
-					path="user/profile/:id"
-					element={
-						<PrivateRoute>
-							<ProfilePage />
-						</PrivateRoute>
-					}
-				/>
-				<Route path="*" element={<NoMatch />} />
-			</Routes>
+			</Routes> */}
 		</>
 	);
 }

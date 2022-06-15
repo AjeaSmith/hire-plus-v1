@@ -58,3 +58,26 @@ h2 {
 .accent-color-bg {
 	background-color: #4338ca;
 }
+.rti--container.go309598777 {
+	border: 1px solid #9c9dae99;
+	padding: 1em;
+	border-radius: 5px;
+	background-color: #252731;
+}
+.rti--tag.go1186250972 {
+	color: #fff;
+	background: #4338ca;
+	padding: 0.5em 0.8em;
+	border-radius: 2em;
+	margin-right: 0.8em;
+	margin-bottom: 0.8em;
+}
+.rti--input.go3450369076 {
+	padding: 0.5em;
+	background-color: transparent;
+	color: #9c9dae;
+}
+
+.input-border-color {
+	border-color: #9c9dae99;
+}

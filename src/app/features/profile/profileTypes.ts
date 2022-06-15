@@ -11,5 +11,11 @@ export type ProfileData = {
 	skills: String[];
 	summary: string;
 	projects: [];
-	experience: [];
+	experience: ExperienceData[];
+};
+export type ExperienceData = {
+	company: string;
+	date: string;
+	position: string;
+	positionSummary: string;
 };

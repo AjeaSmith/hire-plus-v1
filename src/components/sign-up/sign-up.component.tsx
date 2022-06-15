@@ -47,7 +47,7 @@ const Signup = (): ReactElement => {
 			.unwrap()
 			.then(() => {
 				resetFormFields();
-				navigate('/jobs');
+				navigate('/app');
 			})
 			.catch((error) => {
 				console.log('sign up error', error);

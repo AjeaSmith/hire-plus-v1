@@ -6,7 +6,6 @@ import {
 	signUpEmailAndPassword,
 	logoutUser,
 } from '../../../utils/firebase/firebase.utils';
-import { getProfileById } from '../profile/profileSlice';
 import { SignUpFields, LoginFields } from './userTypes';
 
 interface userState {
@@ -38,10 +37,7 @@ export const signInWithGoogle = createAsyncThunk(
 export const signInWithEmailAndPassword = createAsyncThunk(
 	'user/signInEmailAndPassword',
 	async (formFields: LoginFields) => {
-		return await signInEmailAndPassword(
-			formFields.email,
-			formFields.password
-		);
+		return await signInEmailAndPassword(formFields.email, formFields.password);
 	}
 );
 export const signUpUserEmailAndPassword = createAsyncThunk(
@@ -68,6 +64,7 @@ const userSlice = createSlice({
 		},
 		setCurrentUser(state, action) {
 			state.currentUser = action.payload;
+			state.isLoading = false;
 		},
 		resetError(state) {
 			state.signInError = '';
@@ -76,17 +73,14 @@ const userSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(signInWithGoogle.rejected, (state, action) => {
+			.addCase(signInWithGoogle.rejected, (_, action) => {
 				console.log('something went wrong', action.error);
-			})
-			.addCase(signInWithGoogle.fulfilled, (state, action) => {
-				state.isLoading = false;
 			})
 			// ---------- SIGN IN ACTIONS ------------
 			.addCase(signInWithEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
-			.addCase(signInWithEmailAndPassword.fulfilled, (state, action) => {
+			.addCase(signInWithEmailAndPassword.fulfilled, (state) => {
 				state.isLoading = false;
 				state.isSignedIn = true;
 				state.successMessage = 'Logged in successfully';

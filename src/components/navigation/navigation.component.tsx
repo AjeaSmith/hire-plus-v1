@@ -14,7 +14,7 @@ const Navigation = (): ReactElement => {
 				.unwrap()
 				.then(() => {
 					dispatch(setSignedIn(false));
-					navigate('auth/employees/sign-in');
+					navigate('auth/employees/');
 				});
 		} catch (error) {
 			console.log('from logout', error);
@@ -37,7 +37,7 @@ const Navigation = (): ReactElement => {
 				{isSignedIn ? (
 					<>
 						<nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-							<Link to="/jobs" className="mr-5 hover:text-gray-500">
+							<Link to="/app" className="mr-5 hover:text-gray-500">
 								Jobs
 							</Link>
 							<Link
@@ -56,10 +56,10 @@ const Navigation = (): ReactElement => {
 					</>
 				) : (
 					<nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-						<Link
-							to="auth/employees/sign-in"
-							className="mr-5 hover:text-gray-500"
-						>
+						<Link to="/app" className="mr-5 hover:text-gray-500">
+							JOBS
+						</Link>
+						<Link to="auth/employees/" className="mr-5 hover:text-gray-500">
 							SIGN IN
 						</Link>
 						<Link

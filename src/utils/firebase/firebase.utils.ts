@@ -21,8 +21,10 @@ import {
 	query,
 	getDocs,
 	where,
+	updateDoc,
 } from 'firebase/firestore';
 import { SignUpFields, ProfileData } from '../../app/features/user/userTypes';
+import { ExperienceData } from '../../app/features/profile/profileTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -43,11 +45,6 @@ googleProvider.setCustomParameters({
 
 type AdditionalInfo = {
 	displayName?: string;
-};
-type UserData = {
-	createdAt: Date;
-	displayName: string;
-	email: string;
 };
 
 export const auth = getAuth();
@@ -147,5 +144,18 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 	const querySnapshot = await getDocs(q);
 	return querySnapshot.docs.map((docSnapshot) => {
 		return docSnapshot.data() as ProfileData;
+	});
+};
+
+export const updateProfileById = async (
+	id: string,
+	data: {}
+): Promise<void> => {
+	const docRef = doc(db, 'employees', id);
+
+	updateDoc(docRef, {
+		title: 'Web developer!',
+	}).then(() => {
+		console.log('updated successfully');
 	});
 };

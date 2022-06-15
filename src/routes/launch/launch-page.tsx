@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 const Launch = (): ReactElement => {
 	return (
 		<section className="text-gray-600 body-font">
@@ -20,9 +20,8 @@ const Launch = (): ReactElement => {
 							For Employers
 						</h2>
 						<p className="leading-relaxed text-base font-color">
-							Easily search and view candidates, manage candidates{' '}
-							through our Project Management board, best of all post jobs
-							for free!
+							Easily search and view candidates, manage candidates through our
+							Project Management board, best of all post jobs for free!
 						</p>
 						<Link to="auth/employers">
 							<button className="flex mx-auto mt-6 text-white accent-color-bg border-0 py-2 px-5 focus:outline-none rounded">
@@ -43,11 +42,10 @@ const Launch = (): ReactElement => {
 							For Developers
 						</h2>
 						<p className="leading-relaxed text-base font-color">
-							View the latest jobs posted by hiring companies, create and
-							manage your profile to show off skills, and apply for jobs
-							you want!
+							View the latest jobs posted by hiring companies, create and manage
+							your profile to show off skills, and apply for jobs you want!
 						</p>
-						<Link to="/jobs">
+						<Link to="/app">
 							<button className="flex mx-auto mt-6 text-white accent-color-bg border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
@@ -56,6 +54,7 @@ const Launch = (): ReactElement => {
 					</div>
 				</div>
 			</div>
+			<Outlet />
 		</section>
 	);
 };
