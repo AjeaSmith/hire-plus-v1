@@ -1,21 +1,22 @@
 import { ChangeEvent, useState } from 'react';
 import { ExperienceData } from '../../app/features/profile/profileTypes';
 
-interface props {
+interface ExperiencePopupModalProps {
 	isOpen: boolean;
 	closeModal: () => void;
-	experienceData: ExperienceData[];
 	setExperienceData: React.Dispatch<React.SetStateAction<ExperienceData[]>>;
 }
-
-const defaultFields = {
-	company: '',
-	date: '',
-	position: '',
-	positionSummary: '',
-};
-const PopupModal = ({ isOpen, closeModal, setExperienceData }: props) => {
-	const [experienceFields, setExperienceFields] = useState(defaultFields);
+const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
+	isOpen,
+	closeModal,
+	setExperienceData,
+}) => {
+	const [experienceFields, setExperienceFields] = useState({
+		company: '',
+		date: '',
+		position: '',
+		positionSummary: '',
+	});
 
 	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -27,7 +28,6 @@ const PopupModal = ({ isOpen, closeModal, setExperienceData }: props) => {
 	};
 
 	const addExperience = () => {
-		// submit to FB
 		setExperienceData((prevVal) => [
 			...prevVal,
 			{
@@ -37,14 +37,14 @@ const PopupModal = ({ isOpen, closeModal, setExperienceData }: props) => {
 				date: experienceFields.date,
 			},
 		]);
-		setExperienceFields(defaultFields);
+		setExperienceFields(experienceFields);
 		closeModal();
 	};
 	return (
 		<div
-			className="py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-96 right-0 bottom-0 left-0 h-screen"
+			className="py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute right-0 bottom-0 left-0 h-screen"
 			id="modal"
-			style={{ display: `${isOpen ? 'block' : 'none'}` }}
+			style={{ display: `${isOpen ? 'block' : 'none'}`, top: '880px' }}
 		>
 			<div role="alert" className="container mx-auto w-11/12 md:w-2/3 max-w-lg">
 				<div className="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
@@ -120,6 +120,7 @@ const PopupModal = ({ isOpen, closeModal, setExperienceData }: props) => {
 							placeholder="MM/YY"
 						/>
 					</div>
+
 					<label
 						htmlFor="title"
 						className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
@@ -191,4 +192,4 @@ const PopupModal = ({ isOpen, closeModal, setExperienceData }: props) => {
 	);
 };
 
-export default PopupModal;
+export default ExperiencePopupModal;

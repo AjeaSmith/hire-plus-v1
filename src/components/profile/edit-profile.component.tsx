@@ -1,22 +1,29 @@
 import { ChangeEvent, useState } from 'react';
 import { TagsInput } from 'react-tag-input-component';
 import { setEditView } from '../../app/features/profile/profileSlice';
-import { ExperienceData } from '../../app/features/profile/profileTypes';
+import {
+	ExperienceData,
+	ProjectData,
+} from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { updateProfileById } from '../../utils/firebase/firebase.utils';
-import PopupModal from '../modal/popup-modal.component';
+import ExperiencePopupModal from '../modal/experience-modal.component';
+import ProjectPopupModal from '../modal/project-modal.component';
 
 const defaultFormFields = {
 	title: '',
 	summary: '',
-	projects: [{}],
 };
 
 const EditProfile = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const [experienceData, setExperienceData] = useState<ExperienceData[]>([]);
+	const [projectData, setProjectData] = useState<ProjectData[]>([]);
+
 	const [skills, setSkills] = useState<string[]>([]);
+
 	const [isOpen, setIsOpen] = useState(false);
+	const [isProjOpen, setIsProjOpen] = useState(false);
 
 	const dispatch = useAppDispatch();
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
@@ -39,6 +46,9 @@ const EditProfile = () => {
 
 	const closeModal = () => {
 		setIsOpen(false);
+	};
+	const closeProjModal = () => {
+		setIsProjOpen(false);
 	};
 
 	return (
@@ -87,6 +97,7 @@ const EditProfile = () => {
 									</h2>
 									<div>
 										<textarea
+											maxLength={4000}
 											className="font-color input-border-color secondary-bg-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none autoexpand"
 											id="summary"
 											name="summary"
@@ -132,12 +143,12 @@ const EditProfile = () => {
 								>
 									Add Experience
 								</button>
-								<PopupModal
+								<ExperiencePopupModal
 									isOpen={isOpen}
 									closeModal={closeModal}
-									experienceData={experienceData}
 									setExperienceData={setExperienceData}
 								/>
+
 								{experienceData.length
 									? experienceData.map((exp, index) => {
 											return (
@@ -149,7 +160,7 @@ const EditProfile = () => {
 														<span className="font-semibold title-font text-white">
 															{exp.company.toUpperCase()}
 														</span>
-														<span className="mt-1 accent-color text-sm">
+														<span className="mt-1 accent-color text-md">
 															{exp.date}
 														</span>
 													</div>
@@ -171,102 +182,74 @@ const EditProfile = () => {
 					{/* Projects starts */}
 					<section className="text-gray-600 body-font">
 						<div className="container px-5 py-24 mx-auto max-w-3xl">
-							<div className="flex flex-col text-left w-full mb-20">
+							<div className=" text-left mb-20">
 								<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
 									Projects
 								</h2>
-								<p className="lg:w-2/3 leading-relaxed text-base font-color">
+								<button
+									onClick={() => setIsProjOpen(true)}
+									className="block mb-5 text-white accent-color-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									type="button"
+									data-modal-toggle="defaultModal"
+								>
+									Add Project
+								</button>
+								<ProjectPopupModal
+									isProjOpen={isProjOpen}
+									closeProjModal={closeProjModal}
+									setProjectData={setProjectData}
+								/>
+								{/* <p className="lg:w-2/3 leading-relaxed text-base font-color">
 									Whatever cardigan tote bag tumblr hexagon brooklyn
 									asymmetrical gentrify, subway tile poke farm-to-table. Franzen
 									you probably haven't heard of them man bun deep jianbing
 									selfies heirloom.
-								</p>
+								</p> */}
 							</div>
 							<div className="flex flex-wrap -m-4">
-								<div className="lg:w-1/3 sm:w-1/2 p-4">
-									<div className="flex relative z-0">
-										<img
-											alt="gallery"
-											className="absolute inset-0 w-full h-full object-cover object-center"
-											src="https://dummyimage.com/600x360"
-										/>
-										<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-											<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
-												THE SUBTITLE
-											</h2>
-											<h1 className="title-font text-lg font-medium mb-3">
-												Shooting Stars
-											</h1>
-											<p className="leading-relaxed font-color">
-												Photo booth fam kinfolk cold-pressed sriracha leggings
-												jianbing microdosing tousled waistcoat.
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className="lg:w-1/3 sm:w-1/2 p-4">
-									<div className="flex relative z-0">
-										<img
-											alt="gallery"
-											className="absolute inset-0 w-full h-full object-cover object-center"
-											src="https://dummyimage.com/601x361"
-										/>
-										<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-											<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-												THE SUBTITLE
-											</h2>
-											<h1 className="title-font text-lg font-medium mb-3">
-												The Catalyzer
-											</h1>
-											<p className="leading-relaxed font-color">
-												Photo booth fam kinfolk cold-pressed sriracha leggings
-												jianbing microdosing tousled waistcoat.
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className="lg:w-1/3 sm:w-1/2 p-4">
-									<div className="flex relative z-0">
-										<img
-											alt="gallery"
-											className="absolute inset-0 w-full h-full object-cover object-center"
-											src="https://dummyimage.com/603x363"
-										/>
-										<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-											<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-												THE SUBTITLE
-											</h2>
-											<h1 className="title-font text-lg font-medium mb-3">
-												The 400 Blows
-											</h1>
-											<p className="leading-relaxed font-color">
-												Photo booth fam kinfolk cold-pressed sriracha leggings
-												jianbing microdosing tousled waistcoat.
-											</p>
-										</div>
-									</div>
-								</div>
-								<div className="lg:w-1/3 sm:w-1/2 p-4">
-									<div className="flex relative z-0">
-										<img
-											alt="gallery"
-											className="absolute inset-0 w-full h-full object-cover object-center"
-											src="https://dummyimage.com/602x362"
-										/>
-										<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-											<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-												THE SUBTITLE
-											</h2>
-											<h1 className="title-font text-lg font-medium mb-3">
-												Neptune
-											</h1>
-											<p className="leading-relaxed font-color">
-												Photo booth fam kinfolk cold-pressed sriracha leggings
-												jianbing microdosing tousled waistcoat.
-											</p>
-										</div>
-									</div>
-								</div>
+								{projectData.length
+									? projectData.map((project, index) => {
+											return (
+												<div className="lg:w-1/3 sm:w-1/2 p-4" key={index}>
+													<div className="flex relative z-0">
+														<img
+															alt="gallery"
+															className="absolute inset-0 w-full h-full object-cover object-center"
+															src="https://dummyimage.com/600x360"
+														/>
+														<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
+															<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
+																THE DATE
+															</h2>
+															<h1 className="title-font text-lg font-medium mb-3">
+																{project.title}
+															</h1>
+															<p className="leading-relaxed font-color">
+																{project.summary}
+															</p>
+															<div className="flex justify-start mt-3 acccent-color text-md accent-color font-medium">
+																<a
+																	href={project.github}
+																	target="_blank"
+																	rel="noreferrer"
+																	className="mr-5"
+																>
+																	SOURCE CODE
+																</a>
+																<a
+																	href={project.projectUrl}
+																	rel="noreferrer"
+																	target="_blank"
+																>
+																	VIEW LIVE
+																</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											);
+									  })
+									: null}
 							</div>
 						</div>
 					</section>

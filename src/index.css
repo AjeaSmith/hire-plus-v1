@@ -49,11 +49,14 @@ h2 {
 	color: #9c9dae;
 }
 .bg-card {
-	background-color: #252731;
+	background-color: #1e2028;
+	border-color: #4338ca;
+}
+.bg-border {
 	border-color: #4338ca;
 }
 .accent-color {
-	color: #4338ca;
+	color: #4438ca;
 }
 .accent-color-bg {
 	background-color: #4338ca;
