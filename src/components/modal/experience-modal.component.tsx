@@ -69,101 +69,107 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 					<h1 className="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4 text-center text-lg">
 						Add Job Experience
 					</h1>
-					<label
-						htmlFor="name"
-						className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-					>
-						Company Name
-					</label>
-					<input
-						name="company"
-						onChange={onHandleChange}
-						value={experienceFields.company}
-						id="company"
-						className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-						placeholder="Netflix"
-					/>
-					<label
-						htmlFor="date"
-						className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-					>
-						Date
-					</label>
-					<div className="relative mb-5 mt-2">
-						<div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								className="icon icon-tabler icon-tabler-calendar-event"
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								strokeWidth="1.5"
-								stroke="currentColor"
-								fill="none"
-								strokeLinecap="round"
-								strokeLinejoin="round"
-							>
-								<path stroke="none" d="M0 0h24v24H0z" />
-								<rect x="4" y="5" width="16" height="16" rx="2" />
-								<line x1="16" y1="3" x2="16" y2="7" />
-								<line x1="8" y1="3" x2="8" y2="7" />
-								<line x1="4" y1="11" x2="20" y2="11" />
-								<rect x="8" y="15" width="2" height="2" />
-							</svg>
-						</div>
+					<form onSubmit={addExperience}>
+						<label
+							htmlFor="company"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Company Name
+						</label>
 						<input
-							name="date"
+							required
+							name="company"
 							onChange={onHandleChange}
-							value={experienceFields.date}
-							id="date"
-							className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-							placeholder="MM/YY"
+							value={experienceFields.company}
+							id="company"
+							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+							placeholder="Netflix"
 						/>
-					</div>
+						<label
+							htmlFor="date"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Date
+						</label>
+						<div className="relative mb-5 mt-2">
+							<div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="icon icon-tabler icon-tabler-calendar-event"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									fill="none"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" />
+									<rect x="4" y="5" width="16" height="16" rx="2" />
+									<line x1="16" y1="3" x2="16" y2="7" />
+									<line x1="8" y1="3" x2="8" y2="7" />
+									<line x1="4" y1="11" x2="20" y2="11" />
+									<rect x="8" y="15" width="2" height="2" />
+								</svg>
+							</div>
+							<input
+								required
+								name="date"
+								onChange={onHandleChange}
+								value={experienceFields.date}
+								id="date"
+								className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+								placeholder="MM/YY"
+							/>
+						</div>
+						<label
+							htmlFor="title"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Position Title
+						</label>
+						<input
+							required
+							name="position"
+							onChange={onHandleChange}
+							value={experienceFields.position}
+							id="title"
+							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+							placeholder="Front-End Developer"
+						/>
+						<label
+							htmlFor="description"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Position Summary
+						</label>
+						<textarea
+							required
+							name="description"
+							onChange={onTextareaChange}
+							value={experienceFields.positionSummary}
+							maxLength={1000}
+							id="description"
+							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center px-3 py-3 text-sm border-gray-300 rounded border"
+							placeholder="Job details..."
+						/>
 
-					<label
-						htmlFor="title"
-						className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-					>
-						Position Title
-					</label>
-					<input
-						name="position"
-						onChange={onHandleChange}
-						value={experienceFields.position}
-						id="title"
-						className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-						placeholder="Front-End Developer"
-					/>
-					<label
-						htmlFor="description"
-						className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-					>
-						Position Summary
-					</label>
-					<textarea
-						name="positionSummary"
-						onChange={onTextareaChange}
-						value={experienceFields.positionSummary}
-						maxLength={1000}
-						id="description"
-						className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center px-3 py-3 text-sm border-gray-300 rounded border"
-						placeholder="Job details..."
-					/>
-					<div className="flex items-center justify-start w-full">
-						<button
-							onClick={addExperience}
-							className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
-						>
-							Submit
-						</button>
-						<button
-							onClick={closeModal}
-							className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-						>
-							Cancel
-						</button>
-					</div>
+						<div className="flex items-center justify-start w-full">
+							<button
+								type="submit"
+								className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
+							>
+								Submit
+							</button>
+							<button
+								onClick={closeModal}
+								className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+							>
+								Cancel
+							</button>
+						</div>
+					</form>
 					<button
 						className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
 						aria-label="close modal"

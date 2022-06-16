@@ -25,7 +25,7 @@ const Navigation = (): ReactElement => {
 			<div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center">
 				<Link
 					to="/"
-					className="flex title-font font-bold items-center mb-4 md:mb-0"
+					className="flex title-font font-bold items-center mb-4 md:mb-0 text-md"
 				>
 					Hire{' '}
 					<span style={{ color: '#4338CA' }} className="mr-1">
