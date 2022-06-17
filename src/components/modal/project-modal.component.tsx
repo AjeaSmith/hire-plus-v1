@@ -29,7 +29,8 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 		setProjectFields({ ...projectFields, summary: value });
 	};
 
-	const addProject = () => {
+	const addProject = (e: ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		setProjectData((prevVal) => [
 			...prevVal,
 			{

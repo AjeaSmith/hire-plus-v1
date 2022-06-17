@@ -3,14 +3,14 @@ export type ProfileData = {
 	email: string;
 	displayName: string;
 	createdAt: number;
-	title: string;
+	headline: string;
 	isForHire: boolean;
 	websiteURL: string;
 	githubUrl: string;
 	yearsOfExperience: number;
 	skills: string[];
 	summary: string;
-	projects: [];
+	projects: ProjectData[];
 	experience: ExperienceData[];
 };
 export type ExperienceData = {
@@ -25,4 +25,13 @@ export type ProjectData = {
 	summary: string;
 	github: string;
 	projectUrl: string;
+};
+
+export type updatedData = {
+	id: string;
+	headline: string;
+	summary: string;
+	skills: string[];
+	experience: ExperienceData[];
+	projects: ProjectData[];
 };

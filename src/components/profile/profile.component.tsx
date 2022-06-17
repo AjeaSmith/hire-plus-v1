@@ -12,8 +12,10 @@ const Profile = () => {
 			{profile && (
 				<>
 					<section style={{ backgroundColor: '#252731' }}>
-						<div className="px-12 py-5 text-right text-white">
-							<button onClick={settingEditView} className="underline">Edit</button>
+						<div className="container mx-auto py-5 text-right text-white">
+							<button onClick={settingEditView} className="underline">
+								Edit
+							</button>
 						</div>
 						<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 							<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
@@ -26,8 +28,8 @@ const Profile = () => {
 									src="https://picsum.photos/200"
 								/>
 								<p className="mx-auto text-base leading-relaxed font-color">
-									{profile.title
-										? profile.title
+									{profile.headline
+										? profile.headline
 										: 'Edit profile to add a Headline'}
 								</p>
 							</div>
@@ -94,23 +96,18 @@ const Profile = () => {
 													>
 														<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
 															<span className="font-semibold title-font text-white">
-																CATEGORY
+																{exp.company.toLocaleUpperCase()}
 															</span>
-															<span className="mt-1 accent-color text-sm">
-																12 Jun 2019
+															<span className="mt-1 accent-color text-md">
+																{exp.date}
 															</span>
 														</div>
 														<div className="md:flex-grow">
 															<h2 className="text-2xl font-medium title-font mb-2">
-																Bitters hashtag waistcoat fashion axe chia
-																unicorn
+																{exp.position}
 															</h2>
 															<p className="leading-relaxed font-color">
-																Glossier echo park pug, church-key sartorial
-																biodiesel vexillologist pop-up snackwave ramps
-																cornhole. Marfa 3 wolf moon party messenger bag
-																selfies, poke vaporware kombucha lumbersexual
-																pork belly polaroid hoodie portland craft beer.
+																{exp.positionSummary}
 															</p>
 														</div>
 													</div>
@@ -127,103 +124,60 @@ const Profile = () => {
 							{/* Projects starts */}
 							<section className="text-gray-600 body-font">
 								<div className="container px-5 py-24 mx-auto max-w-3xl">
-									<div className="flex flex-col text-left w-full mb-20">
-										<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
+									<div className="flex flex-col text-left w-full">
+										<h2 className="sm:text-3xl text-2xl font-bold title-font">
 											Projects
 										</h2>
-										<p className="lg:w-2/3 leading-relaxed text-base font-color">
-											Whatever cardigan tote bag tumblr hexagon brooklyn
-											asymmetrical gentrify, subway tile poke farm-to-table.
-											Franzen you probably haven't heard of them man bun deep
-											jianbing selfies heirloom.
+									</div>
+									{profile.projects.length ? (
+										<div className="flex flex-wrap -m-4 mt-10">
+											{profile.projects.map((proj, index) => {
+												return (
+													<div className="lg:w-1/3 sm:w-1/2 p-4" key={index}>
+														<div className="flex relative z-0">
+															<img
+																alt="gallery"
+																className="absolute inset-0 w-full h-full object-cover object-center"
+																src="https://picsum.photos/300/300"
+															/>
+															<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
+																<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
+																	{proj.date}
+																</h2>
+																<h1 className="title-font text-lg font-medium mb-3">
+																	{proj.title}
+																</h1>
+																<p className="leading-relaxed font-color">
+																	{proj.summary}
+																</p>
+																<div className="flex justify-start mt-3 acccent-color text-md accent-color font-medium">
+																	<a
+																		href={proj.github}
+																		target="_blank"
+																		rel="noreferrer"
+																		className="mr-5"
+																	>
+																		SOURCE CODE
+																	</a>
+																	<a
+																		href={proj.projectUrl}
+																		rel="noreferrer"
+																		target="_blank"
+																	>
+																		VIEW LIVE
+																	</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									) : (
+										<p className="font-color pt-5">
+											Edit profile to add Projects
 										</p>
-									</div>
-									<div className="flex flex-wrap -m-4">
-										<div className="lg:w-1/3 sm:w-1/2 p-4">
-											<div className="flex relative z-0">
-												<img
-													alt="gallery"
-													className="absolute inset-0 w-full h-full object-cover object-center"
-													src="https://dummyimage.com/600x360"
-												/>
-												<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-													<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
-														THE SUBTITLE
-													</h2>
-													<h1 className="title-font text-lg font-medium mb-3">
-														Shooting Stars
-													</h1>
-													<p className="leading-relaxed font-color">
-														Photo booth fam kinfolk cold-pressed sriracha
-														leggings jianbing microdosing tousled waistcoat.
-													</p>
-												</div>
-											</div>
-										</div>
-										<div className="lg:w-1/3 sm:w-1/2 p-4">
-											<div className="flex relative z-0">
-												<img
-													alt="gallery"
-													className="absolute inset-0 w-full h-full object-cover object-center"
-													src="https://dummyimage.com/601x361"
-												/>
-												<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-													<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-														THE SUBTITLE
-													</h2>
-													<h1 className="title-font text-lg font-medium mb-3">
-														The Catalyzer
-													</h1>
-													<p className="leading-relaxed font-color">
-														Photo booth fam kinfolk cold-pressed sriracha
-														leggings jianbing microdosing tousled waistcoat.
-													</p>
-												</div>
-											</div>
-										</div>
-										<div className="lg:w-1/3 sm:w-1/2 p-4">
-											<div className="flex relative z-0">
-												<img
-													alt="gallery"
-													className="absolute inset-0 w-full h-full object-cover object-center"
-													src="https://dummyimage.com/603x363"
-												/>
-												<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-													<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-														THE SUBTITLE
-													</h2>
-													<h1 className="title-font text-lg font-medium mb-3">
-														The 400 Blows
-													</h1>
-													<p className="leading-relaxed font-color">
-														Photo booth fam kinfolk cold-pressed sriracha
-														leggings jianbing microdosing tousled waistcoat.
-													</p>
-												</div>
-											</div>
-										</div>
-										<div className="lg:w-1/3 sm:w-1/2 p-4">
-											<div className="flex relative z-0">
-												<img
-													alt="gallery"
-													className="absolute inset-0 w-full h-full object-cover object-center"
-													src="https://dummyimage.com/602x362"
-												/>
-												<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-													<h2 className="tracking-widest text-sm title-font font-medium accent-color mb-1">
-														THE SUBTITLE
-													</h2>
-													<h1 className="title-font text-lg font-medium mb-3">
-														Neptune
-													</h1>
-													<p className="leading-relaxed font-color">
-														Photo booth fam kinfolk cold-pressed sriracha
-														leggings jianbing microdosing tousled waistcoat.
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
+									)}
 								</div>
 							</section>
 						</div>

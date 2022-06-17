@@ -27,7 +27,8 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 		setExperienceFields({ ...experienceFields, positionSummary: value });
 	};
 
-	const addExperience = () => {
+	const addExperience = (e: ChangeEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		setExperienceData((prevVal) => [
 			...prevVal,
 			{

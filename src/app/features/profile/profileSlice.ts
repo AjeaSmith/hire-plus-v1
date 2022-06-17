@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { getProfile } from '../../../utils/firebase/firebase.utils';
-import { ProfileData } from './profileTypes';
+import {
+	getProfile,
+	updateUserProfileById,
+} from '../../../utils/firebase/firebase.utils';
+import { ProfileData, updatedData } from './profileTypes';
 
 interface userState {
 	profile: ProfileData;
@@ -15,7 +18,7 @@ const initialState: userState = {
 		email: '',
 		displayName: '',
 		createdAt: Date.now(),
-		title: '',
+		headline: '',
 		isForHire: false,
 		websiteURL: '',
 		githubUrl: '',
@@ -23,14 +26,7 @@ const initialState: userState = {
 		skills: [],
 		summary: '',
 		projects: [],
-		experience: [
-			{
-				company: '',
-				position: '',
-				positionSummary: '',
-				date: '',
-			},
-		],
+		experience: [],
 	},
 	isLoading: false,
 	isEditting: false,
@@ -44,6 +40,13 @@ export const getProfileById = createAsyncThunk(
 		const profile = await getProfile(id);
 		const [profileObj] = profile;
 		return JSON.stringify(profileObj);
+	}
+);
+export const updateProfileById = createAsyncThunk(
+	'profile/updateProfileById',
+	async (data: updatedData): Promise<void> => {
+		const { id } = data;
+		await updateUserProfileById(id, data);
 	}
 );
 const profileSlice = createSlice({

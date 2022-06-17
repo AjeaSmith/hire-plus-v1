@@ -1,5 +1,18 @@
 import { initializeApp } from 'firebase/app';
 import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	QueryDocumentSnapshot,
+	collection,
+	query,
+	getDocs,
+	where,
+	updateDoc,
+	arrayUnion,
+} from 'firebase/firestore';
+import {
 	getAuth,
 	signInWithPopup,
 	GoogleAuthProvider,
@@ -11,20 +24,8 @@ import {
 	updateProfile,
 	signOut,
 } from 'firebase/auth';
-import {
-	getFirestore,
-	doc,
-	getDoc,
-	setDoc,
-	QueryDocumentSnapshot,
-	collection,
-	query,
-	getDocs,
-	where,
-	updateDoc,
-} from 'firebase/firestore';
+import { updatedData } from '../../app/features/profile/profileTypes';
 import { SignUpFields, ProfileData } from '../../app/features/user/userTypes';
-import { ExperienceData } from '../../app/features/profile/profileTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -48,7 +49,7 @@ type AdditionalInfo = {
 };
 
 export const auth = getAuth();
-export const db = getFirestore();
+export const db = getFirestore(firebaseApp);
 
 // Sign in with google helper
 export const signInWithGooglePopup = async (
@@ -100,7 +101,7 @@ export const createUserDocument = async (
 				displayName,
 				createdAt,
 				...additionalInfo,
-				title: '',
+				headline: '',
 				isForHire: false,
 				websiteURL: '',
 				githubUrl: '',
@@ -147,14 +148,16 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 	});
 };
 
-export const updateProfileById = async (
-	id: string,
-	data: {}
-): Promise<void> => {
+export const updateUserProfileById = async (id: string, data: updatedData) => {
 	const docRef = doc(db, 'employees', id);
-
-	updateDoc(docRef, {
-		title: 'Web developer!',
+	const docSnap = await getDoc(docRef);
+	const { headline, summary, skills, projects, experience } = data;
+	await updateDoc(docRef, {
+		headline: headline ? headline : docSnap.data().headline,
+		summary: summary ? summary : docSnap.data().summary,
+		skills: arrayUnion(...skills),
+		projects: arrayUnion(...projects),
+		experience: arrayUnion(...experience),
 	}).then(() => {
 		console.log('updated successfully');
 	});

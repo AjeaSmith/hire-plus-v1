@@ -1,17 +1,21 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { TagsInput } from 'react-tag-input-component';
-import { setEditView } from '../../app/features/profile/profileSlice';
+import {
+	setEditView,
+	updateProfileById,
+} from '../../app/features/profile/profileSlice';
 import {
 	ExperienceData,
 	ProjectData,
+	updatedData,
 } from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { updateProfileById } from '../../utils/firebase/firebase.utils';
 import ExperiencePopupModal from '../modal/experience-modal.component';
 import ProjectPopupModal from '../modal/project-modal.component';
 
 const defaultFormFields = {
-	title: '',
+	headline: '',
 	summary: '',
 };
 
@@ -26,7 +30,18 @@ const EditProfile = () => {
 	const [isProjOpen, setIsProjOpen] = useState(false);
 
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
+
+	// data to be submitted to firebase
+	const data = {
+		id: profile.id,
+		headline: formFields.headline,
+		summary: formFields.summary,
+		skills: skills,
+		experience: experienceData,
+		projects: projectData,
+	};
 
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));
@@ -37,11 +52,14 @@ const EditProfile = () => {
 		setFormFields({ ...formFields, [name]: value });
 	};
 	const onTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-		setFormFields({ ...formFields, [formFields.summary]: event.target.value });
+		setFormFields({ ...formFields, summary: event.target.value });
 	};
 
-	const updateClick = async () => {
-		await updateProfileById(profile.id, { ...formFields });
+	const updateProfile = async () => {
+		if (!data) return;
+		dispatch(updateProfileById(data));
+		dispatch(setEditView(false));
+		navigate('/app');
 	};
 
 	const closeModal = () => {
@@ -54,13 +72,11 @@ const EditProfile = () => {
 	return (
 		<>
 			<section style={{ backgroundColor: '#252731' }}>
-				<div className="px-12 py-5 text-right text-white">
-					<button onClick={updateClick} className="underline mr-2">
+				<div className="container mx-auto py-5 text-right text-white">
+					<button onClick={updateProfile} className="mr-2 text-lg accent-color">
 						Update
 					</button>
-					<button onClick={settingEditView} className="underline">
-						Back to preview
-					</button>
+					<button onClick={settingEditView}>Go Back</button>
 				</div>
 				<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 					<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
@@ -75,10 +91,10 @@ const EditProfile = () => {
 						<div>
 							<input
 								className="font-color primary-bg-color input-border-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none autoexpand"
-								id="title"
-								value={formFields.title}
+								id="headline"
+								value={formFields.headline}
 								onChange={onHandleChange}
-								name="title"
+								name="headline"
 								placeholder="Add headline..."
 							/>
 						</div>
