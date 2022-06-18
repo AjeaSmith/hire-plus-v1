@@ -73,7 +73,7 @@ const EditProfile = () => {
 		<>
 			<section style={{ backgroundColor: '#252731' }}>
 				<div className="container mx-auto py-5 text-right text-white">
-					<button onClick={updateProfile} className="mr-2 text-lg accent-color">
+					<button onClick={updateProfile} className="mr-2 text-lg text-indigo-500">
 						Update
 					</button>
 					<button onClick={settingEditView}>Go Back</button>
@@ -106,7 +106,7 @@ const EditProfile = () => {
 				<div className="divide-y divide-gray-700">
 					<section className="text-gray-600 body-font mt-2">
 						<div className="container px-5 py-20 mx-auto">
-							<div className="flex flex-col w-full max-w-4xl mx-auto">
+							<div className="flex flex-col w-full mx-auto">
 								<div className="w-full mx-auto">
 									<h2 className="sm:text-3xl text-2xl my-5 font-bold">
 										About Me
@@ -128,7 +128,7 @@ const EditProfile = () => {
 					</section>
 					<section className="text-gray-600 body-font overflow-hidden">
 						<div className="container px-5 py-20 mx-auto">
-							<div className="flex flex-col w-full max-w-4xl mx-auto">
+							<div className="flex flex-col w-full mx-auto">
 								<div className="w-full mx-auto">
 									<h2 className="sm:text-3xl text-2xl mb-5 font-bold">
 										Skills
@@ -146,14 +146,14 @@ const EditProfile = () => {
 					{/* Experience starts */}
 					<section className="text-gray-600 body-font overflow-hidden">
 						<div className="container px-5 py-20 mx-auto">
-							<div className="-my-8 divide-y-2 divide-gray-700 max-w-4xl mx-auto">
+							<div className="-my-8 divide-y-2 divide-gray-700 mx-auto">
 								<h2 className="sm:text-3xl text-2xl my-8 font-bold">
 									Experience
 								</h2>
 
 								<button
 									onClick={() => setIsOpen(true)}
-									className="block mb-5 text-white accent-color-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									className="block mb-5 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
 									type="button"
 									data-modal-toggle="defaultModal"
 								>
@@ -176,7 +176,7 @@ const EditProfile = () => {
 														<span className="font-semibold title-font text-white">
 															{exp.company.toUpperCase()}
 														</span>
-														<span className="mt-1 accent-color text-md">
+														<span className="mt-1 text-indigo-500 text-md">
 															{exp.date}
 														</span>
 													</div>
@@ -197,14 +197,14 @@ const EditProfile = () => {
 					</section>
 					{/* Projects starts */}
 					<section className="text-gray-600 body-font">
-						<div className="container px-5 py-24 mx-auto max-w-3xl">
+						<div className="container px-5 py-24 mx-auto">
 							<div className=" text-left mb-20">
 								<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
 									Projects
 								</h2>
 								<button
 									onClick={() => setIsProjOpen(true)}
-									className="block mb-5 text-white accent-color-bg focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									className="block mb-5 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
 									type="button"
 									data-modal-toggle="defaultModal"
 								>
@@ -215,52 +215,64 @@ const EditProfile = () => {
 									closeProjModal={closeProjModal}
 									setProjectData={setProjectData}
 								/>
-								{/* <p className="lg:w-2/3 leading-relaxed text-base font-color">
-									Whatever cardigan tote bag tumblr hexagon brooklyn
-									asymmetrical gentrify, subway tile poke farm-to-table. Franzen
-									you probably haven't heard of them man bun deep jianbing
-									selfies heirloom.
-								</p> */}
 							</div>
-							<div className="flex flex-wrap -m-4">
+							<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
 								{projectData.length
 									? projectData.map((project, index) => {
 											return (
-												<div className="lg:w-1/3 sm:w-1/2 p-4" key={index}>
-													<div className="flex relative z-0">
+												<div className="p-4 md:w-1/3 sm:mb-0 mb-6" key={index}>
+													<div className="rounded-lg h-64 overflow-hidden">
 														<img
-															alt="gallery"
-															className="absolute inset-0 w-full h-full object-cover object-center"
-															src="https://picsum.photos/300/300"
+															alt="content"
+															className="object-cover object-center h-full w-full"
+															src="https://picsum.photos/1200"
 														/>
-														<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-															<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
-																THE DATE
-															</h2>
-															<h1 className="title-font text-lg font-medium mb-3">
-																{project.title}
-															</h1>
-															<p className="leading-relaxed font-color">
-																{project.summary}
-															</p>
-															<div className="flex justify-start mt-3 acccent-color text-md accent-color font-medium">
-																<a
-																	href={project.github}
-																	target="_blank"
-																	rel="noreferrer"
-																	className="mr-5"
-																>
-																	SOURCE CODE
-																</a>
-																<a
-																	href={project.projectUrl}
-																	rel="noreferrer"
-																	target="_blank"
-																>
-																	VIEW LIVE
-																</a>
-															</div>
-														</div>
+													</div>
+													<h2 className="text-xl font-medium title-font text-white mt-5">
+														{project.title}
+													</h2>
+													<p className="text-base leading-relaxed mt-2 font-color">
+														{project.summary}
+													</p>
+													<div className="flex justify-between">
+														<a
+															href={project.github}
+															target="_blank"
+															rel="noreferrer"
+															className="text-indigo-500 inline-flex items-center mt-3"
+														>
+															VIEW CODE
+															<svg
+																fill="none"
+																stroke="currentColor"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																className="w-4 h-4 ml-2"
+																viewBox="0 0 24 24"
+															>
+																<path d="M5 12h14M12 5l7 7-7 7"></path>
+															</svg>
+														</a>
+														<a
+															href={project.projectUrl}
+															target="_blank"
+															rel="noreferrer"
+															className="text-indigo-500 inline-flex items-center mt-3 ml-2"
+														>
+															VIEW LIVE
+															<svg
+																fill="none"
+																stroke="currentColor"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																className="w-4 h-4 ml-2"
+																viewBox="0 0 24 24"
+															>
+																<path d="M5 12h14M12 5l7 7-7 7"></path>
+															</svg>
+														</a>
 													</div>
 												</div>
 											);

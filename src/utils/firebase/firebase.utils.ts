@@ -48,6 +48,7 @@ type AdditionalInfo = {
 	displayName?: string;
 };
 
+// Firebase setup
 export const auth = getAuth();
 export const db = getFirestore(firebaseApp);
 

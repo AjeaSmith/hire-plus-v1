@@ -24,20 +24,10 @@ h2 {
 	color: #ffffff;
 }
 .logo {
-	padding: 1em 2.5em;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 20px;
 	color: #fff;
 	background: #1e2028;
-}
-.skills-menu li {
-	background-color: #4338ca;
-	color: white;
-}
-.skills-menu li:hover {
-	background-color: #4338ca;
-	color: #fff;
-	cursor: pointer;
 }
 .secondary-bg-color {
 	background-color: #252731;
@@ -57,9 +47,6 @@ h2 {
 }
 .accent-color {
 	color: #4438ca;
-}
-.accent-color-bg {
-	background-color: #4338ca;
 }
 .rti--container.go309598777 {
 	border: 1px solid #9c9dae99;

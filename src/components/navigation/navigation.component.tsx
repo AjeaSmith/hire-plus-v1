@@ -21,14 +21,14 @@ const Navigation = (): ReactElement => {
 		}
 	};
 	return (
-		<header className="logo sticky top-0 z-10 border-b-2 border-gray-700">
+		<header className="logo sticky top-0 z-10 border-b-2 border-gray-700 px-10 py-5">
 			<div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center">
 				<Link
 					to="/"
 					className="flex title-font font-bold items-center mb-4 md:mb-0 text-md"
 				>
 					Hire{' '}
-					<span style={{ color: '#4338CA' }} className="mr-1">
+					<span className="mr-1 text-indigo-500">
 						+Plus
 					</span>
 					{isSignedIn && <span>| {currentUser.displayName}</span>}
@@ -49,7 +49,7 @@ const Navigation = (): ReactElement => {
 						</nav>
 						<button
 							onClick={logout}
-							className="accent-color-bg inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0 text-white"
+							className="bg-indigo-700 inline-flex items-center border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0 text-white"
 						>
 							Logout
 						</button>

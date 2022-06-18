@@ -114,14 +114,14 @@ const SignIn = (): ReactElement => {
 										autoComplete="current-password"
 										required
 										placeholder="********"
-										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-accent-color-bg focus:ring-offset-2 focus:ring-offset-gray-300"
+										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-bg-indigo-700 focus:ring-offset-2 focus:ring-offset-gray-300"
 									/>
 								</div>
 							</div>
 							<div>
 								<button
 									type="submit"
-									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 accent-color-bg"
+									className="flex items-center justify-center w-full px-10 py-4 text-base font-bold text-center text-white transition duration-500 ease-in-out transform rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 bg-indigo-700"
 								>
 									{isLoading ? (
 										<div className="text-center z-index">

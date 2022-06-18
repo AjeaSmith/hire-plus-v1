@@ -20,10 +20,10 @@ export type ExperienceData = {
 	positionSummary: string;
 };
 export type ProjectData = {
-	date: string;
 	title: string;
 	summary: string;
 	github: string;
+	projectImage: string;
 	projectUrl: string;
 };
 

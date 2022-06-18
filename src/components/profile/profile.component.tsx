@@ -35,153 +35,165 @@ const Profile = () => {
 							</div>
 						</div>
 					</section>
-					<section key={profile.id}>
-						<div className="divide-y divide-gray-700">
-							<section className="text-gray-600 body-font mt-2">
-								<div className="container px-5 py-20 mx-auto">
-									<div className="flex flex-col w-full max-w-4xl mx-auto">
-										<div className="w-full mx-auto">
-											<h2 className="sm:text-3xl text-2xl my-5 font-bold">
-												About Me
-											</h2>
-											<p className="w-3/4 about-me font-color">
-												{profile.summary
-													? profile.summary
-													: 'Edit profile to add a About me'}
-											</p>
-										</div>
-									</div>
-								</div>
-							</section>
-							<section className="text-gray-600 body-font overflow-hidden">
-								<div className="container px-5 py-20 mx-auto">
-									<div className="flex flex-col w-full max-w-4xl mx-auto">
-										<div className="w-full mx-auto">
-											<h2 className="sm:text-3xl text-2xl mb-5 font-bold">
-												Skills
-											</h2>
-											{profile.skills.length ? (
-												<ul className="flex flex-wrap skills-menu">
-													{profile.skills.map((skill, id) => {
-														return (
-															<li
-																className="mr-2 my-2 text-white px-4 py-2 rounded-3xl"
-																key={id}
-															>
-																{skill}
-															</li>
-														);
-													})}
-												</ul>
-											) : (
-												<p className="font-color">Edit profile to add Skills</p>
-											)}
-										</div>
-									</div>
-								</div>
-							</section>
-							{/* Experience starts */}
-							<section className="text-gray-600 body-font overflow-hidden">
-								<div className="container px-5 py-20 mx-auto">
-									<div className="-my-8 divide-y-2 divide-gray-700 max-w-4xl mx-auto">
-										<h2 className="sm:text-3xl text-2xl my-8 font-bold">
-											Experience
+					<div className="divide-y divide-gray-700" key={profile.id}>
+						<section className="text-gray-600 body-font mt-2">
+							<div className="container px-10 py-20 mx-auto">
+								<div className="flex flex-col w-full mx-auto">
+									<div className="w-full mx-auto">
+										<h2 className="sm:text-3xl text-2xl my-5 font-bold">
+											About Me
 										</h2>
-										{profile.experience.length ? (
-											profile.experience.map((exp, index) => {
-												return (
-													<div
-														className="py-8 flex flex-wrap md:flex-nowrap"
-														key={index}
-													>
-														<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-															<span className="font-semibold title-font text-white">
-																{exp.company.toLocaleUpperCase()}
-															</span>
-															<span className="mt-1 accent-color text-md">
-																{exp.date}
-															</span>
-														</div>
-														<div className="md:flex-grow">
-															<h2 className="text-2xl font-medium title-font mb-2">
-																{exp.position}
-															</h2>
-															<p className="leading-relaxed font-color">
-																{exp.positionSummary}
-															</p>
-														</div>
-													</div>
-												);
-											})
+										<p className="w-3/4 about-me font-color">
+											{profile.summary
+												? profile.summary
+												: 'Edit profile to add a About me'}
+										</p>
+									</div>
+								</div>
+							</div>
+						</section>
+						<section className="text-gray-600 body-font overflow-hidden">
+							<div className="container px-10 py-20 mx-auto">
+								<div className="flex flex-col w-full mx-auto">
+									<div className="w-full mx-auto">
+										<h2 className="sm:text-3xl text-2xl mb-5 font-bold">
+											Skills
+										</h2>
+										{profile.skills.length ? (
+											<ul className="flex flex-wrap">
+												{profile.skills.map((skill, id) => {
+													return (
+														<li
+															className="mr-2 my-2 text-white px-4 py-2 rounded-3xl bg-indigo-700 cursor-pointer["
+															key={id}
+														>
+															{skill}
+														</li>
+													);
+												})}
+											</ul>
 										) : (
-											<p className="font-color pt-5">
-												Edit profile to add Experience
-											</p>
+											<p className="font-color">Edit profile to add Skills</p>
 										)}
 									</div>
 								</div>
-							</section>
-							{/* Projects starts */}
-							<section className="text-gray-600 body-font">
-								<div className="container px-5 py-24 mx-auto max-w-3xl">
-									<div className="flex flex-col text-left w-full">
-										<h2 className="sm:text-3xl text-2xl font-bold title-font">
-											Projects
-										</h2>
-									</div>
-									{profile.projects.length ? (
-										<div className="flex flex-wrap -m-4 mt-10">
-											{profile.projects.map((proj, index) => {
-												return (
-													<div className="lg:w-1/3 sm:w-1/2 p-4" key={index}>
-														<div className="flex relative z-0">
-															<img
-																alt="gallery"
-																className="absolute inset-0 w-full h-full object-cover object-center"
-																src="https://picsum.photos/300/300"
-															/>
-															<div className="px-8 py-10 relative z-10 w-full border-4 bg-card opacity-0 hover:opacity-100">
-																<h2 className="tracking-widest text-sm title-font font-medium mb-1 accent-color">
-																	{proj.date}
-																</h2>
-																<h1 className="title-font text-lg font-medium mb-3">
-																	{proj.title}
-																</h1>
-																<p className="leading-relaxed font-color">
-																	{proj.summary}
-																</p>
-																<div className="flex justify-start mt-3 acccent-color text-md accent-color font-medium">
-																	<a
-																		href={proj.github}
-																		target="_blank"
-																		rel="noreferrer"
-																		className="mr-5"
-																	>
-																		SOURCE CODE
-																	</a>
-																	<a
-																		href={proj.projectUrl}
-																		rel="noreferrer"
-																		target="_blank"
-																	>
-																		VIEW LIVE
-																	</a>
-																</div>
-															</div>
-														</div>
+							</div>
+						</section>
+						{/* Experience starts */}
+						<section className="text-gray-600 body-font overflow-hidden">
+							<div className="container px-10 py-20 mx-auto">
+								<div className="-my-8 divide-y-2 divide-gray-700 mx-auto">
+									<h2 className="sm:text-3xl text-2xl my-8 font-bold">
+										Experience
+									</h2>
+									{profile.experience.length ? (
+										profile.experience.map((exp, index) => {
+											return (
+												<div
+													className="py-8 flex flex-wrap md:flex-nowrap"
+													key={index}
+												>
+													<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+														<span className="font-semibold title-font text-white">
+															{exp.company.toLocaleUpperCase()}
+														</span>
+														<span className="mt-1 text-indigo-500 text-md">
+															{exp.date}
+														</span>
 													</div>
-												);
-											})}
-										</div>
+													<div className="md:flex-grow">
+														<h2 className="text-2xl font-medium title-font mb-2">
+															{exp.position}
+														</h2>
+														<p className="leading-relaxed font-color">
+															{exp.positionSummary}
+														</p>
+													</div>
+												</div>
+											);
+										})
+									) : (
+										<p className="font-color pt-5">
+											Edit profile to add Experience
+										</p>
+									)}
+								</div>
+							</div>
+						</section>
+						{/* Projects starts */}
+						<section className="text-gray-600 body-font">
+							<div className="container px-10 py-24 mx-auto">
+								<div className="flex flex-col text-left w-full mb-5">
+									<h2 className="sm:text-3xl text-2xl font-bold title-font">
+										Projects
+									</h2>
+								</div>
+								<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+									{profile.projects.length ? (
+										profile.projects.map((proj, index) => {
+											return (
+												<div className="p-4 md:w-1/3 sm:mb-0 mb-6" key={index}>
+													<div className="rounded-lg h-64 overflow-hidden">
+														<img
+															alt="content"
+															className="object-cover object-center h-full w-full"
+															src="https://picsum.photos/1200"
+														/>
+													</div>
+													<h2 className="text-xl font-medium title-font text-white mt-5">
+														{proj.title}
+													</h2>
+													<p className="text-base leading-relaxed mt-2 font-color">
+														{proj.summary}
+													</p>
+													<div className="flex justify-between">
+														<a
+															href={proj.github}
+															className="text-indigo-500 inline-flex items-center mt-3"
+														>
+															VIEW CODE
+															<svg
+																fill="none"
+																stroke="currentColor"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																className="w-4 h-4 ml-2"
+																viewBox="0 0 24 24"
+															>
+																<path d="M5 12h14M12 5l7 7-7 7"></path>
+															</svg>
+														</a>
+														<a
+															href={proj.projectUrl}
+															className="text-indigo-500 inline-flex items-center mt-3 ml-2"
+														>
+															VIEW LIVE
+															<svg
+																fill="none"
+																stroke="currentColor"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+																stroke-width="2"
+																className="w-4 h-4 ml-2"
+																viewBox="0 0 24 24"
+															>
+																<path d="M5 12h14M12 5l7 7-7 7"></path>
+															</svg>
+														</a>
+													</div>
+												</div>
+											);
+										})
 									) : (
 										<p className="font-color pt-5">
 											Edit profile to add Projects
 										</p>
 									)}
 								</div>
-							</section>
-						</div>
-					</section>
+							</div>
+						</section>
+					</div>
 				</>
 			)}
 		</>

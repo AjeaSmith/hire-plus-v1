@@ -166,7 +166,7 @@ const Signup = (): ReactElement => {
 							<div>
 								<button
 									type="submit"
-									className="accent-color-bg flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+									className="bg-indigo-700 flex items-center justify-center w-full px-10 py-4 text-base font-medium text-center text-white transition duration-500 ease-in-out transform rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
 								>
 									{isLoading ? (
 										<div className="text-center z-index">

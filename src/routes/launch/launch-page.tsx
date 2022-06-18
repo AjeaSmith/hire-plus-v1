@@ -24,7 +24,7 @@ const Launch = (): ReactElement => {
 							Project Management board, best of all post jobs for free!
 						</p>
 						<Link to="auth/employers">
-							<button className="flex mx-auto mt-6 text-white accent-color-bg border-0 py-2 px-5 focus:outline-none rounded">
+							<button className="flex mx-auto mt-6 text-white bg-indigo-700 border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
 							</button>
@@ -46,7 +46,7 @@ const Launch = (): ReactElement => {
 							your profile to show off skills, and apply for jobs you want!
 						</p>
 						<Link to="/app">
-							<button className="flex mx-auto mt-6 text-white accent-color-bg border-0 py-2 px-5 focus:outline-none rounded">
+							<button className="flex mx-auto mt-6 text-white bg-indigo-700 border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
 							</button>
