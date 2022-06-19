@@ -13,6 +13,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 	setProjectData,
 }) => {
 	const [projectFields, setProjectFields] = useState({
+		date: '',
 		title: '',
 		summary: '',
 		github: '',
@@ -34,6 +35,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 		setProjectData((prevVal) => [
 			...prevVal,
 			{
+				date: projectFields.date,
 				title: projectFields.title,
 				summary: projectFields.summary,
 				github: projectFields.github,
@@ -108,6 +110,43 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 							type="file"
 							id="formFile"
 						/>
+						{/* Project Date */}
+						<label
+							htmlFor="date"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Date
+						</label>
+						<div className="relative mb-5 mt-2">
+							<div className="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									className="icon icon-tabler icon-tabler-calendar-event"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									strokeWidth="1.5"
+									stroke="currentColor"
+									fill="none"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								>
+									<path stroke="none" d="M0 0h24v24H0z" />
+									<rect x="4" y="5" width="16" height="16" rx="2" />
+									<line x1="16" y1="3" x2="16" y2="7" />
+									<line x1="8" y1="3" x2="8" y2="7" />
+									<line x1="4" y1="11" x2="20" y2="11" />
+									<rect x="8" y="15" width="2" height="2" />
+								</svg>
+							</div>
+							<input
+								onChange={onHandleChange}
+								value={projectFields.date}
+								id="date"
+								className="text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+								placeholder="MM/YY"
+							/>
+						</div>
 						{/* project github */}
 						<label
 							htmlFor="github"

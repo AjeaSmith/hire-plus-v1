@@ -1,5 +1,7 @@
 import { setEditView } from '../../app/features/profile/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import Experience from '../experience/experience-component';
+import Project from '../project/project-component';
 
 const Profile = () => {
 	const dispatch = useAppDispatch();
@@ -13,7 +15,7 @@ const Profile = () => {
 				<>
 					<section style={{ backgroundColor: '#252731' }}>
 						<div className="container mx-auto py-5 text-right text-white">
-							<button onClick={settingEditView} className="underline">
+							<button onClick={settingEditView} className="underline text-md">
 								Edit
 							</button>
 						</div>
@@ -82,36 +84,14 @@ const Profile = () => {
 						{/* Experience starts */}
 						<section className="text-gray-600 body-font overflow-hidden">
 							<div className="container px-10 py-20 mx-auto">
-								<div className="-my-8 divide-y-2 divide-gray-700 mx-auto">
-									<h2 className="sm:text-3xl text-2xl my-8 font-bold">
-										Experience
-									</h2>
+								<div className="-my-8 mx-auto">
+									<h2 className="text-3xl my-8 mb-10 font-bold">Experience</h2>
 									{profile.experience.length ? (
-										profile.experience.map((exp, index) => {
-											return (
-												<div
-													className="py-8 flex flex-wrap md:flex-nowrap"
-													key={index}
-												>
-													<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-														<span className="font-semibold title-font text-white">
-															{exp.company.toLocaleUpperCase()}
-														</span>
-														<span className="mt-1 text-indigo-500 text-md">
-															{exp.date}
-														</span>
-													</div>
-													<div className="md:flex-grow">
-														<h2 className="text-2xl font-medium title-font mb-2">
-															{exp.position}
-														</h2>
-														<p className="leading-relaxed font-color">
-															{exp.positionSummary}
-														</p>
-													</div>
-												</div>
-											);
-										})
+										<ol className="border-l-2 border-indigo-700">
+											{profile.experience.map((exp, index) => {
+												return <Experience experience={exp} key={index} />;
+											})}
+										</ol>
 									) : (
 										<p className="font-color pt-5">
 											Edit profile to add Experience
@@ -123,7 +103,7 @@ const Profile = () => {
 						{/* Projects starts */}
 						<section className="text-gray-600 body-font">
 							<div className="container px-10 py-24 mx-auto">
-								<div className="flex flex-col text-left w-full mb-5">
+								<div className="flex flex-col text-left w-full mb-9">
 									<h2 className="sm:text-3xl text-2xl font-bold title-font">
 										Projects
 									</h2>
@@ -131,59 +111,7 @@ const Profile = () => {
 								<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
 									{profile.projects.length ? (
 										profile.projects.map((proj, index) => {
-											return (
-												<div className="p-4 md:w-1/3 sm:mb-0 mb-6" key={index}>
-													<div className="rounded-lg h-64 overflow-hidden">
-														<img
-															alt="content"
-															className="object-cover object-center h-full w-full"
-															src="https://picsum.photos/1200"
-														/>
-													</div>
-													<h2 className="text-xl font-medium title-font text-white mt-5">
-														{proj.title}
-													</h2>
-													<p className="text-base leading-relaxed mt-2 font-color">
-														{proj.summary}
-													</p>
-													<div className="flex justify-between">
-														<a
-															href={proj.github}
-															className="text-indigo-500 inline-flex items-center mt-3"
-														>
-															VIEW CODE
-															<svg
-																fill="none"
-																stroke="currentColor"
-																stroke-linecap="round"
-																stroke-linejoin="round"
-																stroke-width="2"
-																className="w-4 h-4 ml-2"
-																viewBox="0 0 24 24"
-															>
-																<path d="M5 12h14M12 5l7 7-7 7"></path>
-															</svg>
-														</a>
-														<a
-															href={proj.projectUrl}
-															className="text-indigo-500 inline-flex items-center mt-3 ml-2"
-														>
-															VIEW LIVE
-															<svg
-																fill="none"
-																stroke="currentColor"
-																stroke-linecap="round"
-																stroke-linejoin="round"
-																stroke-width="2"
-																className="w-4 h-4 ml-2"
-																viewBox="0 0 24 24"
-															>
-																<path d="M5 12h14M12 5l7 7-7 7"></path>
-															</svg>
-														</a>
-													</div>
-												</div>
-											);
+											return <Project project={proj} key={index} />;
 										})
 									) : (
 										<p className="font-color pt-5">

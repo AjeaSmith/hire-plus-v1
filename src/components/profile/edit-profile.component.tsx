@@ -8,33 +8,39 @@ import {
 import {
 	ExperienceData,
 	ProjectData,
-	updatedData,
 } from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import Experience from '../experience/experience-component';
 import ExperiencePopupModal from '../modal/experience-modal.component';
 import ProjectPopupModal from '../modal/project-modal.component';
-
-const defaultFormFields = {
-	headline: '',
-	summary: '',
-};
+import Project from '../project/project-component';
 
 const EditProfile = () => {
-	const [formFields, setFormFields] = useState(defaultFormFields);
-	const [experienceData, setExperienceData] = useState<ExperienceData[]>([]);
-	const [projectData, setProjectData] = useState<ProjectData[]>([]);
+	const { profile, isEditting } = useAppSelector((state) => state.profile);
 
-	const [skills, setSkills] = useState<string[]>([]);
+	const [formFields, setFormFields] = useState({
+		headline: profile.headline ? profile.headline : '',
+		summary: profile.summary ? profile.summary : '',
+	});
+	const [experienceData, setExperienceData] = useState<ExperienceData[]>(
+		profile.experience ? profile.experience : []
+	);
+	const [projectData, setProjectData] = useState<ProjectData[]>(
+		profile.projects ? profile.projects : []
+	);
+
+	const [skills, setSkills] = useState<string[]>(
+		profile.skills ? profile.skills : []
+	);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [isProjOpen, setIsProjOpen] = useState(false);
 
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { profile, isEditting } = useAppSelector((state) => state.profile);
 
 	// data to be submitted to firebase
-	const data = {
+	const editData = {
 		id: profile.id,
 		headline: formFields.headline,
 		summary: formFields.summary,
@@ -56,8 +62,8 @@ const EditProfile = () => {
 	};
 
 	const updateProfile = async () => {
-		if (!data) return;
-		dispatch(updateProfileById(data));
+		if (!editData) return;
+		dispatch(updateProfileById(editData));
 		dispatch(setEditView(false));
 		navigate('/app');
 	};
@@ -73,7 +79,10 @@ const EditProfile = () => {
 		<>
 			<section style={{ backgroundColor: '#252731' }}>
 				<div className="container mx-auto py-5 text-right text-white">
-					<button onClick={updateProfile} className="mr-2 text-lg text-indigo-500">
+					<button
+						onClick={updateProfile}
+						className="mr-2 text-lg text-indigo-500"
+					>
 						Update
 					</button>
 					<button onClick={settingEditView}>Go Back</button>
@@ -101,7 +110,6 @@ const EditProfile = () => {
 					</div>
 				</div>
 			</section>
-
 			<section>
 				<div className="divide-y divide-gray-700">
 					<section className="text-gray-600 body-font mt-2">
@@ -114,6 +122,7 @@ const EditProfile = () => {
 									<div>
 										<textarea
 											maxLength={4000}
+											rows={5}
 											className="font-color input-border-color secondary-bg-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none autoexpand"
 											id="summary"
 											name="summary"
@@ -137,7 +146,7 @@ const EditProfile = () => {
 										value={skills}
 										onChange={setSkills}
 										name="skills"
-										placeHolder="Add skill here..."
+										placeHolder="Add skills here..."
 									/>
 								</div>
 							</div>
@@ -146,14 +155,13 @@ const EditProfile = () => {
 					{/* Experience starts */}
 					<section className="text-gray-600 body-font overflow-hidden">
 						<div className="container px-5 py-20 mx-auto">
-							<div className="-my-8 divide-y-2 divide-gray-700 mx-auto">
-								<h2 className="sm:text-3xl text-2xl my-8 font-bold">
+							<div className="-my-8 mx-auto">
+								<h2 className="sm:text-3xl text-2xl my-5 font-bold">
 									Experience
 								</h2>
-
 								<button
 									onClick={() => setIsOpen(true)}
-									className="block mb-5 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									className="block mb-10 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
 									type="button"
 									data-modal-toggle="defaultModal"
 								>
@@ -165,46 +173,26 @@ const EditProfile = () => {
 									setExperienceData={setExperienceData}
 								/>
 
-								{experienceData.length
-									? experienceData.map((exp, index) => {
-											return (
-												<div
-													className="py-8 flex flex-wrap md:flex-nowrap"
-													key={index}
-												>
-													<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-														<span className="font-semibold title-font text-white">
-															{exp.company.toUpperCase()}
-														</span>
-														<span className="mt-1 text-indigo-500 text-md">
-															{exp.date}
-														</span>
-													</div>
-													<div className="md:flex-grow">
-														<h2 className="text-2xl font-medium title-font mb-2">
-															{exp.position}
-														</h2>
-														<p className="leading-relaxed font-color">
-															{exp.positionSummary}
-														</p>
-													</div>
-												</div>
-											);
-									  })
-									: null}
+								{experienceData.length ? (
+									<ol className="border-l-2 border-indigo-700">
+										{experienceData.map((exp, index) => {
+											return <Experience experience={exp} key={index} />;
+										})}
+									</ol>
+								) : null}
 							</div>
 						</div>
 					</section>
 					{/* Projects starts */}
 					<section className="text-gray-600 body-font">
 						<div className="container px-5 py-24 mx-auto">
-							<div className=" text-left mb-20">
+							<div className="text-left mb-10">
 								<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
 									Projects
 								</h2>
 								<button
 									onClick={() => setIsProjOpen(true)}
-									className="block mb-5 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									className="block text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
 									type="button"
 									data-modal-toggle="defaultModal"
 								>
@@ -216,66 +204,10 @@ const EditProfile = () => {
 									setProjectData={setProjectData}
 								/>
 							</div>
-							<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+							<div className="flex flex-wrap -m-4">
 								{projectData.length
 									? projectData.map((project, index) => {
-											return (
-												<div className="p-4 md:w-1/3 sm:mb-0 mb-6" key={index}>
-													<div className="rounded-lg h-64 overflow-hidden">
-														<img
-															alt="content"
-															className="object-cover object-center h-full w-full"
-															src="https://picsum.photos/1200"
-														/>
-													</div>
-													<h2 className="text-xl font-medium title-font text-white mt-5">
-														{project.title}
-													</h2>
-													<p className="text-base leading-relaxed mt-2 font-color">
-														{project.summary}
-													</p>
-													<div className="flex justify-between">
-														<a
-															href={project.github}
-															target="_blank"
-															rel="noreferrer"
-															className="text-indigo-500 inline-flex items-center mt-3"
-														>
-															VIEW CODE
-															<svg
-																fill="none"
-																stroke="currentColor"
-																stroke-linecap="round"
-																stroke-linejoin="round"
-																stroke-width="2"
-																className="w-4 h-4 ml-2"
-																viewBox="0 0 24 24"
-															>
-																<path d="M5 12h14M12 5l7 7-7 7"></path>
-															</svg>
-														</a>
-														<a
-															href={project.projectUrl}
-															target="_blank"
-															rel="noreferrer"
-															className="text-indigo-500 inline-flex items-center mt-3 ml-2"
-														>
-															VIEW LIVE
-															<svg
-																fill="none"
-																stroke="currentColor"
-																stroke-linecap="round"
-																stroke-linejoin="round"
-																stroke-width="2"
-																className="w-4 h-4 ml-2"
-																viewBox="0 0 24 24"
-															>
-																<path d="M5 12h14M12 5l7 7-7 7"></path>
-															</svg>
-														</a>
-													</div>
-												</div>
-											);
+											return <Project project={project} key={index} />;
 									  })
 									: null}
 							</div>
