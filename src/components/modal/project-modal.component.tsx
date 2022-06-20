@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import { setProjects } from '../../app/features/profile/profileSlice';
-import { ProjectData } from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface ProjectPopupModalProps {
@@ -49,7 +48,6 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 		setProjectFields(projectFields);
 		closeProjModal();
 	};
-	console.log(profile.projects);
 	return (
 		<div
 			className="py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute right-0 bottom-0 left-0 h-screen"
