@@ -5,10 +5,6 @@ import {
 	setEditView,
 	updateProfileById,
 } from '../../app/features/profile/profileSlice';
-import {
-	ExperienceData,
-	ProjectData,
-} from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Experience from '../experience/experience-component';
 import ExperiencePopupModal from '../modal/experience-modal.component';
@@ -22,10 +18,6 @@ const EditProfile = () => {
 		headline: profile.headline ? profile.headline : '',
 		summary: profile.summary ? profile.summary : '',
 	});
-
-	const [experienceData, setExperienceData] = useState<ExperienceData[]>(
-		profile.experience ? profile.experience : []
-	);
 
 	const [skills, setSkills] = useState<string[]>(
 		profile.skills ? profile.skills : []
@@ -56,7 +48,7 @@ const EditProfile = () => {
 				headline: formFields.headline,
 				summary: formFields.summary,
 				skills: skills,
-				experience: experienceData,
+				experience: profile.experience,
 				projects: profile.projects,
 			})
 		);
@@ -163,16 +155,18 @@ const EditProfile = () => {
 								>
 									Add Experience
 								</button>
-								<ExperiencePopupModal
-									isOpen={isOpen}
-									closeModal={closeModal}
-									setExperienceData={setExperienceData}
-								/>
+								<ExperiencePopupModal isOpen={isOpen} closeModal={closeModal} />
 
-								{experienceData.length ? (
+								{profile.experience.length ? (
 									<ol className="border-l-2 border-indigo-700">
-										{experienceData.map((exp, index) => {
-											return <Experience experience={exp} key={index} />;
+										{profile.experience.map((exp, index) => {
+											return (
+												<Experience
+													experienceData={exp}
+													key={index}
+													itemIndex={index}
+												/>
+											);
 										})}
 									</ol>
 								) : null}

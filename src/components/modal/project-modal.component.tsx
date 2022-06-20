@@ -35,7 +35,6 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 		e.preventDefault();
 		dispatch(
 			setProjects([
-				...profile.projects,
 				{
 					date: projectFields.date,
 					title: projectFields.title,
@@ -43,6 +42,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 					github: projectFields.github,
 					projectUrl: projectFields.projectUrl,
 				},
+				...profile.projects,
 			])
 		);
 		setProjectFields(projectFields);

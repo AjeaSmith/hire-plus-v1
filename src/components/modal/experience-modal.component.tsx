@@ -1,16 +1,17 @@
 import { ChangeEvent, useState } from 'react';
-import { ExperienceData } from '../../app/features/profile/profileTypes';
+import { setExperiences } from '../../app/features/profile/profileSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface ExperiencePopupModalProps {
 	isOpen: boolean;
 	closeModal: () => void;
-	setExperienceData: React.Dispatch<React.SetStateAction<ExperienceData[]>>;
 }
 const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 	isOpen,
 	closeModal,
-	setExperienceData,
 }) => {
+	const dispatch = useAppDispatch();
+	const { profile } = useAppSelector((state) => state.profile);
 	const [experienceFields, setExperienceFields] = useState({
 		company: '',
 		date: '',
@@ -29,15 +30,17 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 
 	const addExperience = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setExperienceData((prevVal) => [
-			...prevVal,
-			{
-				company: experienceFields.company,
-				position: experienceFields.position,
-				positionSummary: experienceFields.positionSummary,
-				date: experienceFields.date,
-			},
-		]);
+		dispatch(
+			setExperiences([
+				{
+					company: experienceFields.company,
+					position: experienceFields.position,
+					positionSummary: experienceFields.positionSummary,
+					date: experienceFields.date,
+				},
+				...profile.experience,
+			])
+		);
 		setExperienceFields(experienceFields);
 		closeModal();
 	};

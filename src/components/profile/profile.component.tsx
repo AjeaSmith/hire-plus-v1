@@ -83,11 +83,17 @@ const Profile = () => {
 						<section className="text-gray-600 body-font overflow-hidden">
 							<div className="container px-10 py-20 mx-auto">
 								<div className="-my-8 mx-auto">
-									<h2 className="text-3xl my-8 mb-10 font-bold">Experience</h2>
+									<h2 className="text-3xl my-8 mb-5 font-bold">Experience</h2>
 									{profile.experience.length ? (
 										<ol className="border-l-2 border-indigo-700">
 											{profile.experience.map((exp, index) => {
-												return <Experience experience={exp} key={index} />;
+												return (
+													<Experience
+														experienceData={exp}
+														key={index}
+														itemIndex={index}
+													/>
+												);
 											})}
 										</ol>
 									) : (
@@ -99,22 +105,20 @@ const Profile = () => {
 						{/* Projects starts */}
 						<section className="text-gray-600 body-font">
 							<div className="container px-10 py-24 mx-auto">
-								<div className="flex flex-col text-left w-full mb-9">
-									<h2 className="sm:text-3xl text-2xl font-bold title-font">
-										Projects
-									</h2>
-								</div>
-								<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-									{profile.projects.length ? (
-										profile.projects.map((proj, index) => {
+								<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
+									Projects
+								</h2>
+								{profile.projects.length ? (
+									<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
+										{profile.projects.map((proj, index) => {
 											return (
 												<Project project={proj} key={index} itemIndex={index} />
 											);
-										})
-									) : (
-										<p className="font-color">No projects to show</p>
-									)}
-								</div>
+										})}
+									</div>
+								) : (
+									<p className="font-color">No projects to show</p>
+								)}
 							</div>
 						</section>
 					</div>
