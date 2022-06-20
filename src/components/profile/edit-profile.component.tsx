@@ -13,21 +13,26 @@ import Project from '../project/project-component';
 
 const EditProfile = () => {
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const [formFields, setFormFields] = useState({
 		headline: profile.headline ? profile.headline : '',
 		summary: profile.summary ? profile.summary : '',
+		websiteURL: profile.websiteURL ? profile.websiteURL : '',
 	});
 
 	const [skills, setSkills] = useState<string[]>(
 		profile.skills ? profile.skills : []
 	);
 
+	const [checked, setChecked] = useState<boolean>(profile.isForHire);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isProjOpen, setIsProjOpen] = useState(false);
 
-	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
+	const handleCheckedChange = () => {
+		setChecked(!checked);
+	};
 
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));
@@ -36,6 +41,7 @@ const EditProfile = () => {
 	const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
+		console.log(name, value);
 	};
 	const onTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setFormFields({ ...formFields, summary: event.target.value });
@@ -47,6 +53,8 @@ const EditProfile = () => {
 				id: profile.id,
 				headline: formFields.headline,
 				summary: formFields.summary,
+				isForHire: checked,
+				websiteURL: formFields.websiteURL,
 				skills: skills,
 				experience: profile.experience,
 				projects: profile.projects,
@@ -66,14 +74,34 @@ const EditProfile = () => {
 	return (
 		<>
 			<section style={{ backgroundColor: '#252731' }}>
-				<div className="container mx-auto py-5 text-right text-white">
-					<button
-						onClick={updateProfile}
-						className="mr-2 text-lg text-indigo-500"
-					>
-						Update
-					</button>
-					<button onClick={settingEditView}>Go Back</button>
+				<div className="container mx-auto py-5 text-right text-white flex justify-between">
+					<div>
+						<label
+							htmlFor="toggle-example"
+							className="flex items-center cursor-pointer relative mb-4"
+						>
+							<input
+								onChange={handleCheckedChange}
+								checked={checked}
+								type="checkbox"
+								id="toggle-example"
+								className="sr-only"
+							/>
+							<div className="toggle-bg bg-gray-200 border-2 border-gray-200 h-6 w-11 rounded-full"></div>
+							<span className="ml-3 text-slate-200 text-md font-medium">
+								Are you looking for work?
+							</span>
+						</label>
+					</div>
+					<div>
+						<button
+							onClick={updateProfile}
+							className="mr-2 text-lg text-indigo-500"
+						>
+							Update
+						</button>
+						<button onClick={settingEditView}>Go Back</button>
+					</div>
 				</div>
 				<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 					<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
@@ -85,14 +113,22 @@ const EditProfile = () => {
 							className="inline-block object-cover object-center w-20 h-20 mx-auto mb-8 rounded-full"
 							src="https://picsum.photos/200"
 						/>
-						<div>
+						<div className="flex justify-center">
 							<input
-								className="font-color primary-bg-color input-border-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none autoexpand"
+								className="font-color mr-3 primary-bg-color input-border-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none"
 								id="headline"
 								value={formFields.headline}
 								onChange={onHandleChange}
 								name="headline"
 								placeholder="Add headline..."
+							/>
+							<input
+								className="font-color primary-bg-color input-border-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none"
+								id="websiteURL"
+								value={formFields.websiteURL}
+								onChange={onHandleChange}
+								name="websiteURL"
+								placeholder="Add website url..."
 							/>
 						</div>
 					</div>

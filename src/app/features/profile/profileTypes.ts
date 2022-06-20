@@ -6,8 +6,6 @@ export type ProfileData = {
 	headline: string;
 	isForHire: boolean;
 	websiteURL: string;
-	githubUrl: string;
-	yearsOfExperience: number;
 	skills: string[];
 	summary: string;
 	projects: ProjectData[];
@@ -31,6 +29,8 @@ export type updatedData = {
 	id: string;
 	headline: string;
 	summary: string;
+	isForHire: boolean;
+	websiteURL: string;
 	skills: string[];
 	experience: ExperienceData[];
 	projects: ProjectData[];

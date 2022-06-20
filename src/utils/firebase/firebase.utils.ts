@@ -25,6 +25,7 @@ import {
 	signOut,
 } from 'firebase/auth';
 import { updatedData } from '../../app/features/profile/profileTypes';
+import { JobData } from '../../app/features/job/jobTypes';
 import { SignUpFields, ProfileData } from '../../app/features/user/userTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
@@ -151,15 +152,34 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 
 export const updateUserProfileById = async (id: string, data: updatedData) => {
 	const docRef = doc(db, 'employees', id);
-	const docSnap = await getDoc(docRef);
-	const { headline, summary, skills, projects, experience } = data;
+	const currentDocSnap = await getDoc(docRef);
+	const {
+		headline,
+		summary,
+		skills,
+		projects,
+		experience,
+		isForHire,
+		websiteURL,
+	} = data;
 	await updateDoc(docRef, {
-		headline: headline ? headline : docSnap.data().headline,
-		summary: summary ? summary : docSnap.data().summary,
+		isForHire: isForHire ? isForHire : currentDocSnap.data().isForHire,
+		websiteURL: websiteURL ? websiteURL : currentDocSnap.data().websiteURL,
+		headline: headline ? headline : currentDocSnap.data().headline,
+		summary: summary ? summary : currentDocSnap.data().summary,
 		skills: arrayUnion(...skills),
 		projects: arrayUnion(...projects),
 		experience: arrayUnion(...experience),
 	}).then(() => {
 		console.log('updated successfully');
+	});
+};
+
+// ----------- JOB API ----------------------------
+export const getJobs = async (): Promise<JobData[]> => {
+	const querySnapshot = await getDocs(collection(db, 'employers'));
+	return querySnapshot.docs.map((doc) => {
+		// doc.data() is never undefined for query doc snapshots
+		return doc.data() as JobData;
 	});
 };

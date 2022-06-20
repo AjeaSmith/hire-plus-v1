@@ -21,8 +21,6 @@ const initialState: userState = {
 		headline: '',
 		isForHire: false,
 		websiteURL: '',
-		githubUrl: '',
-		yearsOfExperience: 0,
 		skills: [],
 		summary: '',
 		projects: [],
@@ -79,6 +77,7 @@ const profileSlice = createSlice({
 	},
 });
 
-export const { setEditView, setProjects, setExperiences } = profileSlice.actions;
+export const { setEditView, setProjects, setExperiences } =
+	profileSlice.actions;
 
 export default profileSlice.reducer;

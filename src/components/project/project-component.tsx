@@ -20,7 +20,7 @@ const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
 		dispatch(setProjects(newProjects));
 	};
 	return (
-		<div className="p-4 lg:w-1/3">
+		<div className="p-4 w-full md:w-1/3">
 			{isEditting ? (
 				<button
 					onClick={() => removeItem(itemIndex)}
@@ -39,7 +39,7 @@ const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
 				<p className="leading-relaxed mb-3 font-color">{project.summary}</p>
 
 				<div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4 mb-5">
-					<span className="text-indigo-500 mr-3 inline-flex items-center leading-none text-md pr-3 py-1 border-r-2 border-gray-600">
+					<span className="text-indigo-500 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-600">
 						VIEW CODE
 						<svg
 							className="w-4 h-4 ml-2"
@@ -54,7 +54,7 @@ const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
 							<path d="M12 5l7 7-7 7"></path>
 						</svg>
 					</span>
-					<span className="text-gray-400 inline-flex items-center leading-none text-md">
+					<span className="text-gray-400 inline-flex items-center leading-none text-sm">
 						<a className="text-indigo-500 inline-flex items-center">
 							VIEW LIVE
 							<svg

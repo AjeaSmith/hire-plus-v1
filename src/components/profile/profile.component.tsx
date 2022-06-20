@@ -6,6 +6,8 @@ import Project from '../project/project-component';
 const Profile = () => {
 	const dispatch = useAppDispatch();
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
+	const { currentUser } = useAppSelector((state) => state.users);
+
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));
 	};
@@ -14,10 +16,22 @@ const Profile = () => {
 			{profile && (
 				<>
 					<section style={{ backgroundColor: '#252731' }}>
-						<div className="container mx-auto py-5 text-right text-white">
-							<button onClick={settingEditView} className="underline text-md">
-								Edit
-							</button>
+						<div className="container mx-auto py-5 px-5 md:px-0 text-right text-white flex justify-between">
+							<div className="flex justify-center text-md text-slate-200">
+								{profile.isForHire ? (
+									<p>Actively looking for work</p>
+								) : (
+									<p>Not currently looking for work</p>
+								)}
+							</div>
+							{currentUser.uid !== profile.id ? null : (
+								<button
+									onClick={settingEditView}
+									className="underline text-md text-indigo-500"
+								>
+									Edit Profile
+								</button>
+							)}
 						</div>
 						<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 							<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
@@ -29,11 +43,23 @@ const Profile = () => {
 									className="inline-block object-cover object-center w-20 h-20 mx-auto mb-8 rounded-full"
 									src="https://picsum.photos/200"
 								/>
-								{profile.headline ? (
-									<p className="mx-auto text-base leading-relaxed font-color">
-										{profile.headline}
-									</p>
-								) : null}
+								<div className="flex justify-center">
+									{profile.headline ? (
+										<p className="text-base leading-relaxed font-color pr-2">
+											{profile.headline}
+										</p>
+									) : null}
+									{profile.websiteURL ? (
+										<>
+											<a
+												href={profile.websiteURL}
+												className="text-base leading-relaxed text-indigo-500 border-l-2 border-gray-500 pl-2"
+											>
+												Live Website
+											</a>
+										</>
+									) : null}
+								</div>
 							</div>
 						</div>
 					</section>
@@ -45,7 +71,7 @@ const Profile = () => {
 										<h2 className="sm:text-3xl text-2xl my-5 font-bold">
 											About Me
 										</h2>
-										<p className="w-3/4 about-me font-color">
+										<p className="lg:w-3/4 about-me font-color">
 											{profile.summary
 												? profile.summary
 												: 'Edit profile to add a About me'}
@@ -109,12 +135,18 @@ const Profile = () => {
 									Projects
 								</h2>
 								{profile.projects.length ? (
-									<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
-										{profile.projects.map((proj, index) => {
-											return (
-												<Project project={proj} key={index} itemIndex={index} />
-											);
-										})}
+									<div className="container py-5 mx-auto">
+										<div className="flex flex-wrap -m-4">
+											{profile.projects.map((proj, index) => {
+												return (
+													<Project
+														project={proj}
+														key={index}
+														itemIndex={index}
+													/>
+												);
+											})}
+										</div>
 									</div>
 								) : (
 									<p className="font-color">No projects to show</p>
