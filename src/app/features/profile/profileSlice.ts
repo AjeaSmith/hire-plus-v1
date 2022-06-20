@@ -56,6 +56,9 @@ const profileSlice = createSlice({
 		setEditView(state, action) {
 			state.isEditting = action.payload;
 		},
+		setProjects(state, action) {
+			state.profile.projects = action.payload
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -73,6 +76,6 @@ const profileSlice = createSlice({
 	},
 });
 
-export const { setEditView } = profileSlice.actions;
+export const { setEditView, setProjects } = profileSlice.actions;
 
 export default profileSlice.reducer;

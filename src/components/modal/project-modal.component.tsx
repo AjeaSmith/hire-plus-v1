@@ -1,24 +1,27 @@
 import React, { ChangeEvent, useState } from 'react';
+import { setProjects } from '../../app/features/profile/profileSlice';
 import { ProjectData } from '../../app/features/profile/profileTypes';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface ProjectPopupModalProps {
 	isProjOpen: boolean;
 	closeProjModal: () => void;
-	setProjectData: React.Dispatch<React.SetStateAction<ProjectData[]>>;
 }
 
 const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 	isProjOpen,
 	closeProjModal,
-	setProjectData,
 }) => {
+	const dispatch = useAppDispatch();
+
+	const { profile } = useAppSelector((state) => state.profile);
+
 	const [projectFields, setProjectFields] = useState({
 		date: '',
 		title: '',
 		summary: '',
 		github: '',
 		projectUrl: '',
-		projectImage: '',
 	});
 
 	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,23 +32,24 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 		const { value } = e.target;
 		setProjectFields({ ...projectFields, summary: value });
 	};
-
 	const addProject = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setProjectData((prevVal) => [
-			...prevVal,
-			{
-				date: projectFields.date,
-				title: projectFields.title,
-				summary: projectFields.summary,
-				github: projectFields.github,
-				projectUrl: projectFields.projectUrl,
-				projectImage: projectFields.projectImage,
-			},
-		]);
+		dispatch(
+			setProjects([
+				...profile.projects,
+				{
+					date: projectFields.date,
+					title: projectFields.title,
+					summary: projectFields.summary,
+					github: projectFields.github,
+					projectUrl: projectFields.projectUrl,
+				},
+			])
+		);
 		setProjectFields(projectFields);
 		closeProjModal();
 	};
+	console.log(profile.projects);
 	return (
 		<div
 			className="py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute right-0 bottom-0 left-0 h-screen"
@@ -85,30 +89,12 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 						<input
 							type="text"
 							required
-							name="name"
+							name="title"
 							onChange={onHandleChange}
 							value={projectFields.title}
 							id="name"
 							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
 							placeholder="Full stack react"
-						/>
-						{/* Project image */}
-						<label
-							htmlFor="formFile"
-							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-						>
-							Project Image
-						</label>
-						<input
-							name="image"
-							className="form-control block w-full px-3 py-1.5 text-base font-normal 
-							text-gray-700 bg-white bg-clip-padding 
-							border border-solid border-gray-300 
-							rounded transition ease-in-out m-0
-    						focus:text-gray-700 focus:bg-white 
-							focus:border-blue-600 focus:outline-none mb-5 mt-2"
-							type="file"
-							id="formFile"
 						/>
 						{/* Project Date */}
 						<label
@@ -140,6 +126,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 								</svg>
 							</div>
 							<input
+								name="date"
 								onChange={onHandleChange}
 								value={projectFields.date}
 								id="date"
@@ -189,7 +176,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 							name="summary"
 							onChange={onTextareaChange}
 							value={projectFields.summary}
-							maxLength={150}
+							maxLength={300}
 							id="description"
 							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center px-3 py-3 text-sm border-gray-300 rounded border"
 							placeholder="Authentication, testing, etc."

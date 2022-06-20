@@ -29,11 +29,11 @@ const Profile = () => {
 									className="inline-block object-cover object-center w-20 h-20 mx-auto mb-8 rounded-full"
 									src="https://picsum.photos/200"
 								/>
-								<p className="mx-auto text-base leading-relaxed font-color">
-									{profile.headline
-										? profile.headline
-										: 'Edit profile to add a Headline'}
-								</p>
+								{profile.headline ? (
+									<p className="mx-auto text-base leading-relaxed font-color">
+										{profile.headline}
+									</p>
+								) : null}
 							</div>
 						</div>
 					</section>
@@ -74,9 +74,7 @@ const Profile = () => {
 													);
 												})}
 											</ul>
-										) : (
-											<p className="font-color">Edit profile to add Skills</p>
-										)}
+										) : null}
 									</div>
 								</div>
 							</div>
@@ -93,9 +91,7 @@ const Profile = () => {
 											})}
 										</ol>
 									) : (
-										<p className="font-color pt-5">
-											Edit profile to add Experience
-										</p>
+										<p className="font-color">No experiences to show</p>
 									)}
 								</div>
 							</div>
@@ -111,12 +107,12 @@ const Profile = () => {
 								<div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
 									{profile.projects.length ? (
 										profile.projects.map((proj, index) => {
-											return <Project project={proj} key={index} />;
+											return (
+												<Project project={proj} key={index} itemIndex={index} />
+											);
 										})
 									) : (
-										<p className="font-color pt-5">
-											Edit profile to add Projects
-										</p>
+										<p className="font-color">No projects to show</p>
 									)}
 								</div>
 							</div>

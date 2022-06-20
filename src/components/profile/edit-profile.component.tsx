@@ -22,11 +22,9 @@ const EditProfile = () => {
 		headline: profile.headline ? profile.headline : '',
 		summary: profile.summary ? profile.summary : '',
 	});
+
 	const [experienceData, setExperienceData] = useState<ExperienceData[]>(
 		profile.experience ? profile.experience : []
-	);
-	const [projectData, setProjectData] = useState<ProjectData[]>(
-		profile.projects ? profile.projects : []
 	);
 
 	const [skills, setSkills] = useState<string[]>(
@@ -38,16 +36,6 @@ const EditProfile = () => {
 
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-
-	// data to be submitted to firebase
-	const editData = {
-		id: profile.id,
-		headline: formFields.headline,
-		summary: formFields.summary,
-		skills: skills,
-		experience: experienceData,
-		projects: projectData,
-	};
 
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));
@@ -62,8 +50,16 @@ const EditProfile = () => {
 	};
 
 	const updateProfile = async () => {
-		if (!editData) return;
-		dispatch(updateProfileById(editData));
+		dispatch(
+			updateProfileById({
+				id: profile.id,
+				headline: formFields.headline,
+				summary: formFields.summary,
+				skills: skills,
+				experience: experienceData,
+				projects: profile.projects,
+			})
+		);
 		dispatch(setEditView(false));
 		navigate('/app');
 	};
@@ -201,13 +197,18 @@ const EditProfile = () => {
 								<ProjectPopupModal
 									isProjOpen={isProjOpen}
 									closeProjModal={closeProjModal}
-									setProjectData={setProjectData}
 								/>
 							</div>
 							<div className="flex flex-wrap -m-4">
-								{projectData.length
-									? projectData.map((project, index) => {
-											return <Project project={project} key={index} />;
+								{profile.projects.length
+									? profile.projects.map((project, index) => {
+											return (
+												<Project
+													project={project}
+													key={index}
+													itemIndex={index}
+												/>
+											);
 									  })
 									: null}
 							</div>

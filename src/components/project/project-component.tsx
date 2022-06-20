@@ -1,13 +1,34 @@
 import React from 'react';
+import { setProjects } from '../../app/features/profile/profileSlice';
 import { ProjectData } from '../../app/features/profile/profileTypes';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 interface ProjectProps {
 	project: ProjectData;
+	itemIndex: number;
 }
 
-const Project: React.FC<ProjectProps> = ({ project }) => {
+const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
+	const dispatch = useAppDispatch();
+	const {
+		isEditting,
+		profile: { projects },
+	} = useAppSelector((state) => state.profile);
+
+	const removeItem = (id: number) => {
+		const newProjects = projects.slice(0, id);
+		dispatch(setProjects(newProjects));
+	};
 	return (
 		<div className="p-4 lg:w-1/3">
+			{isEditting ? (
+				<button
+					onClick={() => removeItem(itemIndex)}
+					className="mb-2 text-red-500"
+				>
+					REMOVE
+				</button>
+			) : null}
 			<div className="h-full secondary-bg-color bg-opacity-75 px-8 pt-10 pb-24 rounded-lg overflow-hidden text-center relative">
 				<h2 className="tracking-widest text-xs title-font font-medium text-indigo-500 mb-2">
 					{project.date}

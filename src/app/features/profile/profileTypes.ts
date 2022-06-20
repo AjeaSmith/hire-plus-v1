@@ -24,7 +24,6 @@ export type ProjectData = {
 	title: string;
 	summary: string;
 	github: string;
-	projectImage: string;
 	projectUrl: string;
 };
 
