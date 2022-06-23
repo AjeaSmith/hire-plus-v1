@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { BeatLoader } from 'react-spinners';
 import {
-	resetError,
 	signUpUserEmailAndPassword,
 	setSignupError,
 } from '../../app/features/user/userSlice';
@@ -50,8 +49,6 @@ const Signup = (): ReactElement => {
 				navigate('/app');
 			})
 			.catch((error) => {
-				console.log('sign up error', error);
-				dispatch(resetError());
 				resetFormFields();
 			});
 	};

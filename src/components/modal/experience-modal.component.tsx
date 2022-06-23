@@ -6,18 +6,18 @@ interface ExperiencePopupModalProps {
 	isOpen: boolean;
 	closeModal: () => void;
 }
+const defaultFormFields = {
+	date: '',
+	position: '',
+	positionSummary: '',
+};
 const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 	isOpen,
 	closeModal,
 }) => {
 	const dispatch = useAppDispatch();
 	const { profile } = useAppSelector((state) => state.profile);
-	const [experienceFields, setExperienceFields] = useState({
-		company: '',
-		date: '',
-		position: '',
-		positionSummary: '',
-	});
+	const [experienceFields, setExperienceFields] = useState(defaultFormFields);
 
 	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -27,13 +27,15 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 		const { value } = e.target;
 		setExperienceFields({ ...experienceFields, positionSummary: value });
 	};
+	const resetFormFields = () => {
+		setExperienceFields(defaultFormFields);
+	};
 
 	const addExperience = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		dispatch(
 			setExperiences([
 				{
-					company: experienceFields.company,
 					position: experienceFields.position,
 					positionSummary: experienceFields.positionSummary,
 					date: experienceFields.date,
@@ -41,7 +43,7 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 				...profile.experience,
 			])
 		);
-		setExperienceFields(experienceFields);
+		resetFormFields();
 		closeModal();
 	};
 	return (
@@ -75,19 +77,35 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 					</h1>
 					<form onSubmit={addExperience}>
 						<label
-							htmlFor="company"
+							htmlFor="title"
 							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
 						>
-							Company Name
+							Position Title
 						</label>
 						<input
 							required
-							name="company"
+							name="position"
 							onChange={onHandleChange}
-							value={experienceFields.company}
-							id="company"
+							value={experienceFields.position}
+							id="title"
 							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-							placeholder="Netflix"
+							placeholder="Front-End Developer"
+						/>
+						<label
+							htmlFor="description"
+							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
+						>
+							Position Summary
+						</label>
+						<textarea
+							required
+							name="description"
+							onChange={onTextareaChange}
+							value={experienceFields.positionSummary}
+							maxLength={1000}
+							id="description"
+							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center px-3 py-3 text-sm border-gray-300 rounded border"
+							placeholder="Job details..."
 						/>
 						<label
 							htmlFor="date"
@@ -127,37 +145,6 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 								placeholder="MM/YY"
 							/>
 						</div>
-						<label
-							htmlFor="title"
-							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-						>
-							Position Title
-						</label>
-						<input
-							required
-							name="position"
-							onChange={onHandleChange}
-							value={experienceFields.position}
-							id="title"
-							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
-							placeholder="Front-End Developer"
-						/>
-						<label
-							htmlFor="description"
-							className="text-gray-800 text-sm font-bold leading-tight tracking-normal"
-						>
-							Position Summary
-						</label>
-						<textarea
-							required
-							name="description"
-							onChange={onTextareaChange}
-							value={experienceFields.positionSummary}
-							maxLength={1000}
-							id="description"
-							className="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full flex items-center px-3 py-3 text-sm border-gray-300 rounded border"
-							placeholder="Job details..."
-						/>
 
 						<div className="flex items-center justify-start w-full">
 							<button
@@ -167,6 +154,8 @@ const ExperiencePopupModal: React.FC<ExperiencePopupModalProps> = ({
 								Submit
 							</button>
 							<button
+								aria-label="close modal"
+								type="button"
 								onClick={closeModal}
 								className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
 							>

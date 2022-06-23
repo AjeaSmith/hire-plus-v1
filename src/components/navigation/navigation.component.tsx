@@ -1,9 +1,8 @@
-import { ReactElement } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Link, useNavigate } from 'react-router-dom';
-import { setSignedIn, signoutUser } from '../../app/features/user/userSlice';
+import { signoutUser } from '../../app/features/user/userSlice';
 
-const Navigation = (): ReactElement => {
+const Navigation = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 	const { isSignedIn, currentUser } = useAppSelector((state) => state.users);
@@ -13,7 +12,6 @@ const Navigation = (): ReactElement => {
 			dispatch(signoutUser())
 				.unwrap()
 				.then(() => {
-					dispatch(setSignedIn(false));
 					navigate('auth/employees/');
 				});
 		} catch (error) {
@@ -27,11 +25,10 @@ const Navigation = (): ReactElement => {
 					to="/"
 					className="flex title-font font-bold items-center mb-4 md:mb-0 text-md"
 				>
-					Hire{' '}
-					<span className="mr-1 text-indigo-500">
-						+Plus
-					</span>
-					{isSignedIn && <span>| {currentUser.displayName}</span>}
+					Hire <span className="mr-1 text-indigo-500">+Plus</span>
+					{isSignedIn && currentUser.displayName ? (
+						<span> | {currentUser.displayName}</span>
+					) : null}
 				</Link>
 
 				{isSignedIn ? (
@@ -59,7 +56,7 @@ const Navigation = (): ReactElement => {
 						<Link to="/app" className="mr-5 hover:text-gray-500">
 							JOBS
 						</Link>
-						<Link to="auth/employees/" className="mr-5 hover:text-gray-500">
+						<Link to="auth/employees" className="mr-5 hover:text-gray-500">
 							SIGN IN
 						</Link>
 						<Link

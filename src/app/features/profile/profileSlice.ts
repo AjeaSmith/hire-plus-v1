@@ -4,6 +4,7 @@ import {
 	getProfile,
 	updateUserProfileById,
 } from '../../../utils/firebase/firebase.utils';
+import { signoutUser } from '../user/userSlice';
 import { ProfileData, updatedData } from './profileTypes';
 
 interface userState {
@@ -16,7 +17,6 @@ const initialState: userState = {
 	profile: {
 		id: '',
 		email: '',
-		displayName: '',
 		createdAt: Date.now(),
 		headline: '',
 		isForHire: false,
@@ -65,6 +65,20 @@ const profileSlice = createSlice({
 		builder
 			.addCase(getProfileById.pending, (state) => {
 				state.isLoading = true;
+			})
+			.addCase(signoutUser.fulfilled, (state, action) => {
+				state.profile = {
+					id: '',
+					email: '',
+					createdAt: Date.now(),
+					headline: '',
+					isForHire: false,
+					websiteURL: '',
+					skills: [],
+					summary: '',
+					projects: [],
+					experience: [],
+				};
 			})
 			.addCase(getProfileById.fulfilled, (state, action) => {
 				state.isLoading = false;

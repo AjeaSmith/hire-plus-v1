@@ -1,7 +1,6 @@
 export type ProfileData = {
 	id: string;
 	email: string;
-	displayName: string;
 	createdAt: number;
 	headline: string;
 	isForHire: boolean;
@@ -12,7 +11,6 @@ export type ProfileData = {
 	experience: ExperienceData[];
 };
 export type ExperienceData = {
-	company: string;
 	date: string;
 	position: string;
 	positionSummary: string;

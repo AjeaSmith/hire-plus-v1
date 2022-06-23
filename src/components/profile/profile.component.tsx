@@ -36,7 +36,7 @@ const Profile = () => {
 						<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 							<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
 								<p className="mb-5 font-medium text-2xl text-white">
-									{profile.displayName}
+									{currentUser.displayName}
 								</p>
 								<img
 									alt="testimonial"
@@ -58,7 +58,9 @@ const Profile = () => {
 												Live Website
 											</a>
 										</>
-									) : null}
+									) : (
+										<p className="font-color">No website to show</p>
+									)}
 								</div>
 							</div>
 						</div>
@@ -72,9 +74,11 @@ const Profile = () => {
 											About Me
 										</h2>
 										<p className="lg:w-3/4 about-me font-color">
-											{profile.summary
-												? profile.summary
-												: 'Edit profile to add a About me'}
+											{profile.summary ? (
+												profile.summary
+											) : (
+												'No info to show'
+											)}
 										</p>
 									</div>
 								</div>
@@ -100,7 +104,9 @@ const Profile = () => {
 													);
 												})}
 											</ul>
-										) : null}
+										) : (
+											<p className="font-color">No skills to show</p>
+										)}
 									</div>
 								</div>
 							</div>
@@ -111,7 +117,7 @@ const Profile = () => {
 								<div className="-my-8 mx-auto">
 									<h2 className="text-3xl my-8 mb-5 font-bold">Experience</h2>
 									{profile.experience.length ? (
-										<ol className="border-l-2 border-indigo-700">
+										<ol className="border-l-2 border-indigo-700 mt-10">
 											{profile.experience.map((exp, index) => {
 												return (
 													<Experience

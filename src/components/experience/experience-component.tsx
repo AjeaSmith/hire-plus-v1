@@ -32,11 +32,11 @@ const Experience: React.FC<ExperienceProps> = ({
 			<div className="ml-6 mb-6 pb-6">
 				<a
 					href="#!"
-					className="text-indigo-500 hover:text-blue-700 focus:text-blue-800 duration-300 transition ease-in-out text-sm"
+					className="text-indigo-500 hover:text-indigo-700 focus:text-indigo-800 duration-300 transition ease-in-out text-sm"
 				>
 					{experienceData.date}
 				</a>
-				<p className="font-color mt-2 mb-2">{experienceData.positionSummary}</p>
+				<p className="font-color mt-2 mb-2 w-3/4">{experienceData.positionSummary}</p>
 				{isEditting ? (
 					<button
 						onClick={() => removeItem(itemIndex)}

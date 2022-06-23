@@ -6,7 +6,13 @@ interface ProjectPopupModalProps {
 	isProjOpen: boolean;
 	closeProjModal: () => void;
 }
-
+const defaultFormFields = {
+	date: '',
+	title: '',
+	summary: '',
+	github: '',
+	projectUrl: '',
+};
 const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 	isProjOpen,
 	closeProjModal,
@@ -15,13 +21,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 
 	const { profile } = useAppSelector((state) => state.profile);
 
-	const [projectFields, setProjectFields] = useState({
-		date: '',
-		title: '',
-		summary: '',
-		github: '',
-		projectUrl: '',
-	});
+	const [projectFields, setProjectFields] = useState(defaultFormFields);
 
 	const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -30,6 +30,9 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 	const onTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		const { value } = e.target;
 		setProjectFields({ ...projectFields, summary: value });
+	};
+	const resetFormFields = () => {
+		setProjectFields(defaultFormFields);
 	};
 	const addProject = (e: ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -45,6 +48,7 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 				...profile.projects,
 			])
 		);
+		resetFormFields();
 		setProjectFields(projectFields);
 		closeProjModal();
 	};
@@ -188,7 +192,9 @@ const ProjectPopupModal: React.FC<ProjectPopupModalProps> = ({
 								Submit
 							</button>
 							<button
+								type="button"
 								onClick={closeProjModal}
+								aria-label="close modal"
 								className="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
 							>
 								Cancel

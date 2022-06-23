@@ -37,7 +37,11 @@ export const signInWithGoogle = createAsyncThunk(
 export const signInWithEmailAndPassword = createAsyncThunk(
 	'user/signInEmailAndPassword',
 	async (formFields: LoginFields) => {
-		return await signInEmailAndPassword(formFields.email, formFields.password);
+		const { user } = await signInEmailAndPassword(
+			formFields.email,
+			formFields.password
+		);
+		return JSON.stringify(user);
 	}
 );
 export const signUpUserEmailAndPassword = createAsyncThunk(
@@ -57,51 +61,48 @@ const userSlice = createSlice({
 	reducers: {
 		// sync actions
 		setSignedIn(state, action) {
-			state.isSignedIn = action.payload;
+			state.isSignedIn = action.payload.signedIn;
+			state.currentUser = action.payload.currentUser;
 		},
 		setSignupError(state, action) {
 			state.signUpError = action.payload;
 		},
-		setCurrentUser(state, action) {
-			state.currentUser = action.payload;
-			state.isLoading = false;
-		},
 		resetError(state) {
 			state.signInError = '';
-			state.signUpError = '';
 		},
 	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(signInWithGoogle.rejected, (_, action) => {
-				console.log('something went wrong', action.error);
+				console.log('something went wrong with google sign-in', action.error);
 			})
-			// ---------- SIGN IN ACTIONS ------------
+			// ---------------------------------------- SIGN IN ACTIONS ---------------------------------
 			.addCase(signInWithEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
-			.addCase(signInWithEmailAndPassword.fulfilled, (state) => {
+			.addCase(signInWithEmailAndPassword.fulfilled, (state, action) => {
+				const { uid, displayName } = JSON.parse(action.payload);
 				state.isLoading = false;
-				state.isSignedIn = true;
-				state.successMessage = 'Logged in successfully';
+				state.currentUser = { uid, displayName };
 			})
 			.addCase(signInWithEmailAndPassword.rejected, (state) => {
 				state.isLoading = false;
 				state.signInError = 'User does not exist in the database';
 			})
-			// ----------- SIGN UP ACTIONS ------------
+			// --------------------------------------- SIGN UP ACTIONS ---------------------------------
 			.addCase(signUpUserEmailAndPassword.pending, (state) => {
 				state.isLoading = true;
 			})
-			.addCase(signUpUserEmailAndPassword.fulfilled, (state) => {
+			.addCase(signUpUserEmailAndPassword.fulfilled, (state, action) => {
+				const { displayName, uid } = JSON.parse(action.payload);
 				state.isLoading = false;
-				state.isSignedIn = true;
-				state.successMessage = 'Logged in successfully';
+				state.currentUser = { uid, displayName };
 			})
-			.addCase(signUpUserEmailAndPassword.rejected, (state) => {
+			.addCase(signUpUserEmailAndPassword.rejected, (state, { error }) => {
 				state.isLoading = false;
-				state.signUpError = 'User already exist, try logging in';
+				state.signUpError = error.code;
 			})
+			// --------------------------------------- SIGN OUT ACTIONS ---------------------------------
 			.addCase(signoutUser.fulfilled, (state) => {
 				state.isLoading = false;
 				state.isSignedIn = false;
@@ -109,7 +110,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const { setCurrentUser, resetError, setSignupError, setSignedIn } =
-	userSlice.actions;
+export const { resetError, setSignupError, setSignedIn } = userSlice.actions;
 
 export default userSlice.reducer;

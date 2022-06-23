@@ -13,6 +13,7 @@ import Project from '../project/project-component';
 
 const EditProfile = () => {
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
+	const { currentUser } = useAppSelector((state) => state.users);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
@@ -106,7 +107,7 @@ const EditProfile = () => {
 				<div className="md:px-12 lg:px-24 max-w-7xl relative items-center w-full px-5 py-5 mx-auto">
 					<div className="mx-auto flex flex-col w-full max-w-lg mb-12 text-center">
 						<p className="mb-5 font-medium text-2xl text-white">
-							{profile.displayName}
+							{currentUser.displayName}
 						</p>
 						<img
 							alt="testimonial"

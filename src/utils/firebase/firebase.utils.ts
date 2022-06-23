@@ -57,8 +57,9 @@ export const db = getFirestore(firebaseApp);
 export const signInWithGooglePopup = async (
 	additionalInfo = {} as AdditionalInfo
 ) => {
-	await signInWithPopup(auth, googleProvider);
-	await createUserDocument(auth.currentUser, additionalInfo);
+	const { user } = await signInWithPopup(auth, googleProvider);
+	// await updateProfile(user, additionalInfo);
+	await createUserDocument(user);
 };
 
 // sign up with email and password
@@ -67,8 +68,7 @@ export const signUpEmailAndPassword = async (formFields: SignUpFields) => {
 
 	const { user } = await createUserWithEmailAndPassword(auth, email, password);
 	await updateProfile(user, { displayName });
-	await createUserDocument(user, { displayName });
-	// return { uid: user.uid, displayName: user.displayName };
+	await createUserDocument(user);
 	return user;
 };
 
@@ -83,8 +83,7 @@ export const signInEmailAndPassword = async (
 
 // create db from signed in user
 export const createUserDocument = async (
-	authUser: User,
-	additionalInfo = {} as AdditionalInfo
+	authUser: User
 ): Promise<void | QueryDocumentSnapshot<ProfileData>> => {
 	if (!authUser) return;
 	const userDocRef = doc(db, 'employees', authUser.uid);
@@ -93,21 +92,17 @@ export const createUserDocument = async (
 
 	// if user doc doesn't exist, will create one in collection
 	if (!userSnapShot.exists()) {
-		const { email, displayName } = authUser;
+		const { email } = authUser;
 		const createdAt = new Date();
 
 		try {
 			await setDoc(userDocRef, {
 				id: authUser.uid,
 				email,
-				displayName,
 				createdAt,
-				...additionalInfo,
 				headline: '',
 				isForHire: false,
 				websiteURL: '',
-				githubUrl: '',
-				yearsOfExperience: 0,
 				skills: [],
 				summary: '',
 				projects: [],
