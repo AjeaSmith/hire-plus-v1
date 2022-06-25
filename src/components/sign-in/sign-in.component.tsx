@@ -82,11 +82,11 @@ const SignIn = (): ReactElement => {
 								</label>
 								<div className="mt-2">
 									<input
+										id="email"
 										onChange={handleChange}
 										value={email}
 										name="email"
 										type="email"
-										autoComplete="current-email"
 										required
 										placeholder="e.g example@yahoo.com"
 										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-500"
@@ -95,7 +95,7 @@ const SignIn = (): ReactElement => {
 							</div>
 							<div className="space-y-1">
 								<label
-									htmlFor="password"
+									htmlFor="pass"
 									className="block text-sm font-medium font-color mb-2"
 								>
 									{' '}
@@ -103,12 +103,13 @@ const SignIn = (): ReactElement => {
 								</label>
 								<div>
 									<input
+										id="password"
 										minLength={6}
 										onChange={handleChange}
 										value={password}
 										name="password"
 										type="password"
-										autoComplete="current-password"
+										data-testid="password"
 										required
 										placeholder="********"
 										className="font-color primary-bg-color block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-bg-indigo-700 focus:ring-offset-2 focus:ring-offset-gray-300"

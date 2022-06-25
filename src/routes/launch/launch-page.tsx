@@ -1,6 +1,5 @@
-import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-const Launch = (): ReactElement => {
+const Launch = () => {
 	return (
 		<section className="text-gray-600 body-font">
 			<h1 className="text-center text-2xl md:text-4xl my-10">

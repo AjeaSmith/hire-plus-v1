@@ -50,10 +50,11 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/cypress": "^8.0.3",
 		"@typescript-eslint/eslint-plugin": "^5.26.0",
 		"@typescript-eslint/parser": "^5.26.0",
 		"autoprefixer": "^10.4.7",
-		"cypress": "^9.6.1",
+		"cypress": "^10.2.0",
 		"eslint": "^8.16.0",
 		"eslint-plugin-react": "^7.30.0",
 		"postcss": "^8.4.14",

@@ -124,14 +124,14 @@ const Signup = (): ReactElement => {
 								</label>
 								<div className="mt-2">
 									<input
-										onChange={handleChange}
-										value={password}
-										minLength={6}
 										id="password"
 										name="password"
 										type="password"
-										autoComplete="current-password"
+										onChange={handleChange}
+										value={password}
+										minLength={6}
 										required
+										data-testid="pass"
 										placeholder="********"
 										className="primary-bg-color block w-full px-5 py-3 text-base text-neutral-400 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
 									/>
@@ -147,13 +147,13 @@ const Signup = (): ReactElement => {
 								</label>
 								<div className="mt-1">
 									<input
-										onChange={handleChange}
-										value={confirmPassword}
-										minLength={6}
 										id="confirmPassword"
 										name="confirmPassword"
 										type="password"
-										autoComplete="current-password"
+										onChange={handleChange}
+										value={confirmPassword}
+										data-testid="confirmPass"
+										minLength={6}
 										required
 										placeholder="********"
 										className="primary-bg-color block w-full px-5 py-3 text-base text-neutral-400 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-100 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
