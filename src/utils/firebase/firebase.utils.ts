@@ -24,9 +24,12 @@ import {
 	updateProfile,
 	signOut,
 } from 'firebase/auth';
-import { updatedData } from '../../app/features/profile/profileTypes';
+import {
+	ProfileData,
+	UpdatedFields,
+} from '../../app/features/profile/profileTypes';
 import { JobData } from '../../app/features/job/jobTypes';
-import { SignUpFields, ProfileData } from '../../app/features/user/userTypes';
+import { SignUpFields } from '../../app/features/user/userTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -145,7 +148,10 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 	});
 };
 
-export const updateUserProfileById = async (id: string, data: updatedData) => {
+export const updateUserProfileById = async (
+	id: string,
+	data: UpdatedFields
+) => {
 	const docRef = doc(db, 'employees', id);
 	const currentDocSnap = await getDoc(docRef);
 	const {

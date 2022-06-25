@@ -23,7 +23,7 @@ export type ProjectData = {
 	projectUrl: string;
 };
 
-export type updatedData = {
+export type UpdatedFields = {
 	id: string;
 	headline: string;
 	summary: string;

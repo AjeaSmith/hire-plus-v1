@@ -5,7 +5,7 @@ import {
 	updateUserProfileById,
 } from '../../../utils/firebase/firebase.utils';
 import { signoutUser } from '../user/userSlice';
-import { ProfileData, updatedData } from './profileTypes';
+import { ProfileData, UpdatedFields } from './profileTypes';
 
 interface userState {
 	profile: ProfileData;
@@ -42,7 +42,7 @@ export const getProfileById = createAsyncThunk(
 );
 export const updateProfileById = createAsyncThunk(
 	'profile/updateProfileById',
-	async (data: updatedData): Promise<void> => {
+	async (data: UpdatedFields): Promise<void> => {
 		const { id } = data;
 		await updateUserProfileById(id, data);
 	}
