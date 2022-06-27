@@ -61,7 +61,6 @@ export const signInWithGooglePopup = async (
 	additionalInfo = {} as AdditionalInfo
 ) => {
 	const { user } = await signInWithPopup(auth, googleProvider);
-	// await updateProfile(user, additionalInfo);
 	await createUserDocument(user);
 };
 
@@ -148,13 +147,9 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 	});
 };
 
-export const updateUserProfileById = async (
-	id: string,
-	data: UpdatedFields
-) => {
-	const docRef = doc(db, 'employees', id);
-	const currentDocSnap = await getDoc(docRef);
+export const updateUserProfileById = async (data: UpdatedFields) => {
 	const {
+		id,
 		headline,
 		summary,
 		skills,
@@ -163,6 +158,8 @@ export const updateUserProfileById = async (
 		isForHire,
 		websiteURL,
 	} = data;
+	const docRef = doc(db, 'employees', id);
+	const currentDocSnap = await getDoc(docRef);
 	await updateDoc(docRef, {
 		isForHire: isForHire ? isForHire : currentDocSnap.data().isForHire,
 		websiteURL: websiteURL ? websiteURL : currentDocSnap.data().websiteURL,

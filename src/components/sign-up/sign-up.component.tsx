@@ -14,7 +14,7 @@ const defaultFormFields = {
 	confirmPassword: '',
 };
 
-const Signup = (): ReactElement => {
+const Signup = () => {
 	const dispatch = useAppDispatch();
 
 	const { isLoading, signUpError } = useAppSelector((state) => state.users);

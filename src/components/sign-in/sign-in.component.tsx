@@ -13,7 +13,7 @@ const defaultFormFields = {
 	password: '',
 };
 
-const SignIn = (): ReactElement => {
+const SignIn = () => {
 	const { signInError, isLoading } = useAppSelector((state) => state.users);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();

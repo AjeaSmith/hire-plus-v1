@@ -43,8 +43,7 @@ export const getProfileById = createAsyncThunk(
 export const updateProfileById = createAsyncThunk(
 	'profile/updateProfileById',
 	async (data: UpdatedFields): Promise<void> => {
-		const { id } = data;
-		await updateUserProfileById(id, data);
+		await updateUserProfileById(data);
 	}
 );
 const profileSlice = createSlice({
