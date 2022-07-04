@@ -1,25 +1,19 @@
 import React from 'react';
-import { setProjects } from '../../app/features/profile/profileSlice';
 import { ProjectData } from '../../app/features/profile/profileTypes';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 
 interface ProjectProps {
 	project: ProjectData;
 	itemIndex: number;
+	removeItem: (id: number) => void;
 }
 
-const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
-	const dispatch = useAppDispatch();
-	const {
-		isEditting,
-		profile: { projects },
-	} = useAppSelector((state) => state.profile);
-
-	const removeItem = (id: number) => {
-		const filteredProjects = projects.slice(0, id);
-		const newProjects = filteredProjects;
-		dispatch(setProjects(newProjects));
-	};
+const Project: React.FC<ProjectProps> = ({
+	project,
+	itemIndex,
+	removeItem,
+}) => {
+	const { isEditting } = useAppSelector((state) => state.profile);
 	return (
 		<div className="p-4 w-full md:w-1/3">
 			{isEditting ? (

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { TagsInput } from 'react-tag-input-component';
 import {
 	setEditView,
+	setProjects,
 	updateProfileById,
 } from '../../app/features/profile/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -64,7 +65,10 @@ const EditProfile = () => {
 		dispatch(setEditView(false));
 		navigate('/app');
 	};
-
+	const removeItem = (id: number) => {
+		const newProjects = profile.projects.filter((_, i) => i !== id);
+		dispatch(setProjects(newProjects));
+	};
 	const closeModal = () => {
 		setIsOpen(false);
 	};
@@ -238,6 +242,7 @@ const EditProfile = () => {
 													project={project}
 													key={index}
 													itemIndex={index}
+													removeItem={removeItem}
 												/>
 											);
 									  })
