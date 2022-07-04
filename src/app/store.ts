@@ -3,6 +3,7 @@ import userReducer from './features/user/userSlice';
 import profileReducer from './features/profile/profileSlice';
 import jobReducer from './features/job/jobSlice';
 
+
 export const store = configureStore({
 	reducer: {
 		users: userReducer,

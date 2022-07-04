@@ -10,7 +10,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
 				<span className="font-semibold title-font text-indigo-500">
-					{job.company_name.toUpperCase()}
+					{/* {job.company_name.toUpperCase()} */}
 				</span>
 				<span className="mt-1 font-color text-sm">{job.datePosted}</span>
 			</div>
@@ -18,12 +18,12 @@ const Job: React.FC<JobProps> = ({ job }) => {
 				<h2 className="text-2xl font-medium text-white title-font mb-2">
 					{job.position}{' '}
 					<span className="text-indigo-500 text-sm">
-						({job.location}) - ({job.job_type})
+						({job.location}) - ({job.jobType})
 					</span>
 				</h2>
-				<p className="leading-relaxed font-color">{job.job_description}</p>
+				<p className="leading-relaxed font-color">{job.description}</p>
 				<a
-					href={job.apply_url}
+					href={job.applyUrl}
 					className="text-indigo-700 inline-flex items-center mt-4 mr-4"
 				>
 					Learn More

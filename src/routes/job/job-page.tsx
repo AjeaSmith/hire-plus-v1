@@ -27,6 +27,7 @@ const JobsPage = () => {
 			setfilteredData(jobs);
 		}
 	};
+	console.log(jobs);
 	return (
 		<>
 			{isLoading ? (

@@ -16,7 +16,8 @@ const Project: React.FC<ProjectProps> = ({ project, itemIndex }) => {
 	} = useAppSelector((state) => state.profile);
 
 	const removeItem = (id: number) => {
-		const newProjects = projects.slice(0, id);
+		const filteredProjects = projects.slice(0, id);
+		const newProjects = filteredProjects;
 		dispatch(setProjects(newProjects));
 	};
 	return (

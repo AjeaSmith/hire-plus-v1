@@ -11,7 +11,6 @@ interface userState {
 	profile: ProfileData;
 	isLoading: boolean;
 	isEditting: boolean;
-	successMessage: string;
 }
 const initialState: userState = {
 	profile: {
@@ -28,7 +27,6 @@ const initialState: userState = {
 	},
 	isLoading: false,
 	isEditting: false,
-	successMessage: '',
 };
 
 // -------- PROFILE ACTIONS --------------------------------
