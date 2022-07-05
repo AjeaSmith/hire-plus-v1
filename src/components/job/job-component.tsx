@@ -41,7 +41,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 					</svg>
 				</a>
 				<a
-					href={`https://hire-plus-employer-v1.vercel.app/company/profile/${job.id}`}
+					href={`https://hire-plus-employer-v1.vercel.app/company/${job.id}/${job.companyName}`}
 					className="text-indigo-700 inline-flex items-center mt-4"
 				>
 					View Company
