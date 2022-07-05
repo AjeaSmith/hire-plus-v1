@@ -44,7 +44,7 @@ const Launch = () => {
 							View the latest jobs posted by hiring companies, create and manage
 							your profile to show off skills, and apply for jobs you want!
 						</p>
-						<a href="https://hire-plus-v1.vercel.app/">
+						<a href="https://hire-plus-v1.vercel.app/app">
 							<button className="flex mx-auto mt-6 text-white bg-indigo-700 border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
