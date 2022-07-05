@@ -1,11 +1,13 @@
 import React from 'react';
 import { JobData } from '../../app/features/job/jobTypes';
+import { useAppSelector } from '../../app/hooks';
 
 interface JobProps {
 	job: JobData;
 }
 
 const Job: React.FC<JobProps> = ({ job }) => {
+	const { currentUser } = useAppSelector((state) => state.users);
 	return (
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -41,7 +43,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 					</svg>
 				</a>
 				<a
-					href={`https://hire-plus-employer-v1.vercel.app/company/${job.id}/${job.companyName}`}
+					href={`https://hire-plus-employer-v1.vercel.app/company/${job.id}/${currentUser.uid}`}
 					className="text-indigo-700 inline-flex items-center mt-4"
 				>
 					View Company
