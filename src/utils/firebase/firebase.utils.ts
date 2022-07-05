@@ -175,9 +175,10 @@ export const updateUserProfileById = async (data: UpdatedFields) => {
 
 // ----------- JOB API ----------------------------
 export const getJobs = async (): Promise<JobData[]> => {
-	const querySnapshot = await getDocs(collection(db, 'employers'));
+	const querySnapshot = await getDocs(collection(db, 'jobs'));
 	return querySnapshot.docs.map((doc) => {
 		// doc.data() is never undefined for query doc snapshots
+		console.log(doc.data());
 		return doc.data() as JobData;
 	});
 };

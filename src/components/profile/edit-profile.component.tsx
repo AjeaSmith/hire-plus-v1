@@ -190,14 +190,16 @@ const EditProfile = () => {
 								</h2>
 								<button
 									onClick={() => setIsOpen(true)}
-									className="block mb-10 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+									className="block mb-5 text-white bg-indigo-700 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
 									type="button"
 									data-modal-toggle="defaultModal"
 								>
 									Add Experience
 								</button>
 								<ExperiencePopupModal isOpen={isOpen} closeModal={closeModal} />
-
+								<p className="mb-5 font-color">
+									Be sure to <b>'Update'</b> for these changes to take effect :)
+								</p>
 								{profile.experience.length ? (
 									<ol className="border-l-2 border-indigo-700">
 										{profile.experience.map((exp, index) => {
@@ -217,7 +219,7 @@ const EditProfile = () => {
 					{/* Projects starts */}
 					<section className="text-gray-600 body-font">
 						<div className="container px-5 py-24 mx-auto">
-							<div className="text-left mb-10">
+							<div className="text-left mb-5">
 								<h2 className="sm:text-3xl text-2xl font-bold title-font mb-5">
 									Projects
 								</h2>
@@ -234,6 +236,9 @@ const EditProfile = () => {
 									closeProjModal={closeProjModal}
 								/>
 							</div>
+							<p className="mb-5 font-color">
+								Be sure to <b>'Update'</b> for these changes to take effect :)
+							</p>
 							<div className="flex flex-wrap -m-4">
 								{profile.projects.length
 									? profile.projects.map((project, index) => {

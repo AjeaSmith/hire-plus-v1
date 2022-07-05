@@ -22,6 +22,7 @@ function App() {
 				dispatch(
 					setSignedIn({ signedIn: true, currentUser: { displayName, uid } })
 				);
+				console.log(user)
 			} else {
 				dispatch(setSignedIn({ signedIn: false, currentUser: {} }));
 			}

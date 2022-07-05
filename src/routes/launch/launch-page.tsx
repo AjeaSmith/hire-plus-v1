@@ -22,12 +22,12 @@ const Launch = () => {
 							Easily search and view candidates, manage candidates through our
 							Project Management board, best of all post jobs for free!
 						</p>
-						<Link to="/employers">
+						<a href="https://hire-plus-employer-v1.vercel.app/">
 							<button className="flex mx-auto mt-6 text-white bg-indigo-700 border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
 							</button>
-						</Link>
+						</a>
 					</div>
 					<div className="sm:w-1/2 mb-10 px-4">
 						<div className="rounded-lg h-64 overflow-hidden">
@@ -44,12 +44,12 @@ const Launch = () => {
 							View the latest jobs posted by hiring companies, create and manage
 							your profile to show off skills, and apply for jobs you want!
 						</p>
-						<Link to="/app">
+						<a href="https://hire-plus-v1.vercel.app/">
 							<button className="flex mx-auto mt-6 text-white bg-indigo-700 border-0 py-2 px-5 focus:outline-none rounded">
 								GET STARTED
 								<span style={{ marginLeft: '10px' }}>&#10095;</span>
 							</button>
-						</Link>
+						</a>
 					</div>
 				</div>
 			</div>

@@ -10,7 +10,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
 				<span className="font-semibold title-font text-indigo-500">
-					{/* {job.company_name.toUpperCase()} */}
+					{job.companyName.toUpperCase()}
 				</span>
 				<span className="mt-1 font-color text-sm">{job.datePosted}</span>
 			</div>
@@ -26,7 +26,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 					href={job.applyUrl}
 					className="text-indigo-700 inline-flex items-center mt-4 mr-4"
 				>
-					Learn More
+					Apply Now
 					<svg
 						className="w-4 h-4 ml-2"
 						viewBox="0 0 24 24"
@@ -40,8 +40,11 @@ const Job: React.FC<JobProps> = ({ job }) => {
 						<path d="M12 5l7 7-7 7"></path>
 					</svg>
 				</a>
-				<a className="text-indigo-700 inline-flex items-center mt-4">
-					View Job Poster
+				<a
+					href={`https://hire-plus-employer-v1.vercel.app/company/profile/${job.id}`}
+					className="text-indigo-700 inline-flex items-center mt-4"
+				>
+					View Company
 					<svg
 						className="w-4 h-4 ml-2"
 						viewBox="0 0 24 24"

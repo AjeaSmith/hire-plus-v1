@@ -1,4 +1,4 @@
-import { setEditView } from '../../app/features/profile/profileSlice';
+import { setEditView, setProjects } from '../../app/features/profile/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Experience from '../experience/experience-component';
 import Project from '../project/project-component';
@@ -10,6 +10,10 @@ const Profile = () => {
 
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));
+	};
+	const removeItem = (id: number) => {
+		const newProjects = profile.projects.filter((_, i) => i !== id);
+		dispatch(setProjects(newProjects));
 	};
 	return (
 		<>
@@ -149,6 +153,7 @@ const Profile = () => {
 														project={proj}
 														key={index}
 														itemIndex={index}
+														removeItem={removeItem}
 													/>
 												);
 											})}
