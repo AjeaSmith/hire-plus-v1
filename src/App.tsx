@@ -12,6 +12,7 @@ import JobsPage from './routes/job/job-page';
 import PrivateRoute from './components/privateRoute/private-route.component';
 import AuthPage from './routes/auth/auth-page';
 import HomePage from './routes/home/home-page';
+import CompanyPage from './routes/company/CompanyPage';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ function App() {
 				dispatch(
 					setSignedIn({ signedIn: true, currentUser: { displayName, uid } })
 				);
-				console.log(user)
+				console.log(user);
 			} else {
 				dispatch(setSignedIn({ signedIn: false, currentUser: {} }));
 			}
@@ -50,6 +51,7 @@ function App() {
 							</PrivateRoute>
 						}
 					/>
+					<Route path="company/:id" element={<CompanyPage />} />
 				</Route>
 				<Route path="*" element={<NoMatch />} />
 			</Routes>

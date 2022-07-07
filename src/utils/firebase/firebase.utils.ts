@@ -51,7 +51,26 @@ googleProvider.setCustomParameters({
 type AdditionalInfo = {
 	displayName?: string;
 };
-
+type CompanyData = {
+	id: string;
+	companyName: string;
+	companyDescription: string;
+	companyUrl: string;
+	email: string;
+	isHiring: boolean;
+	companySize: string;
+	jobs: Jobs[];
+};
+type Jobs = {
+	position: string;
+	location: string;
+	salary: string;
+	datePosted: string;
+	jobType: string;
+	applyUrl: string;
+	description: string;
+	companyName: string;
+};
 // Firebase setup
 export const auth = getAuth();
 export const db = getFirestore(firebaseApp);
@@ -180,5 +199,16 @@ export const getJobs = async (): Promise<JobData[]> => {
 		// doc.data() is never undefined for query doc snapshots
 		console.log(doc.data());
 		return doc.data() as JobData;
+	});
+};
+
+// ----------- COMPANY API ----------------------------
+export const getCompanyById = async (id: string) => {
+	const collectionRef = collection(db, 'employers');
+	const q = query(collectionRef, where('id', '==', id));
+
+	const querySnapshot = await getDocs(q);
+	return querySnapshot.docs.map((docSnapshot) => {
+		return docSnapshot.data() as CompanyData;
 	});
 };

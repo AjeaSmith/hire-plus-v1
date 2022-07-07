@@ -72,6 +72,14 @@ h2 {
 	border-color: #9c9dae99;
 }
 
+.nav-tabs .nav-link {
+	color: rgba(255, 255, 255, 0.605);
+}
+.nav-tabs .nav-link.active {
+	color: white;
+	border-color: #424456;
+}
+
 /* Toggle is hirable switch styles */
 .toggle-bg:after {
     content: '';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ProjectData } from '../../app/features/profile/profileTypes';
 import { useAppSelector } from '../../app/hooks';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { JobData } from '../../app/features/job/jobTypes';
 import { useAppSelector } from '../../app/hooks';
 
@@ -42,8 +43,8 @@ const Job: React.FC<JobProps> = ({ job }) => {
 						<path d="M12 5l7 7-7 7"></path>
 					</svg>
 				</a>
-				<a
-					href={`https://hire-plus-employer-v1.vercel.app/company/${job.id}/${currentUser.uid}`}
+				<Link
+					to={`company/${job.id}`}
 					className="text-indigo-700 inline-flex items-center mt-4"
 				>
 					View Company
@@ -59,7 +60,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 						<path d="M5 12h14"></path>
 						<path d="M12 5l7 7-7 7"></path>
 					</svg>
-				</a>
+				</Link>
 			</div>
 		</div>
 	);
