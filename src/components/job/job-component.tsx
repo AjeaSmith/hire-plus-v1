@@ -1,14 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { JobData } from '../../app/features/job/jobTypes';
-import { useAppSelector } from '../../app/hooks';
 
 interface JobProps {
 	job: JobData;
 }
 
 const Job: React.FC<JobProps> = ({ job }) => {
-	const { currentUser } = useAppSelector((state) => state.users);
 	return (
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -27,9 +25,9 @@ const Job: React.FC<JobProps> = ({ job }) => {
 				<p className="leading-relaxed font-color">{job.description}</p>
 				<a
 					href={job.applyUrl}
-					className="text-indigo-700 inline-flex items-center mt-4 mr-4"
+					className="text-indigo-500 inline-flex items-center mt-4 mr-4"
 				>
-					Apply Now
+					APPLY NOW
 					<svg
 						className="w-4 h-4 ml-2"
 						viewBox="0 0 24 24"
@@ -44,10 +42,28 @@ const Job: React.FC<JobProps> = ({ job }) => {
 					</svg>
 				</a>
 				<Link
-					to={`company/${job.id}`}
-					className="text-indigo-700 inline-flex items-center mt-4"
+					to={`job/${job.id}`}
+					className="text-indigo-500 inline-flex items-center mt-4 mr-3"
 				>
-					View Company
+					DETAILS
+					<svg
+						className="w-4 h-4 ml-2"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						strokeWidth="2"
+						fill="none"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					>
+						<path d="M5 12h14"></path>
+						<path d="M12 5l7 7-7 7"></path>
+					</svg>
+				</Link>
+				<Link
+					to={`company/${job.id}`}
+					className="text-indigo-500 inline-flex items-center mt-4"
+				>
+					VIEW COMPANY
 					<svg
 						className="w-4 h-4 ml-2"
 						viewBox="0 0 24 24"

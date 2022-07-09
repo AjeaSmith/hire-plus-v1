@@ -13,6 +13,7 @@ import PrivateRoute from './components/privateRoute/private-route.component';
 import AuthPage from './routes/auth/auth-page';
 import HomePage from './routes/home/home-page';
 import CompanyPage from './routes/company/CompanyPage';
+import JobDetail from './routes/job/job-detail';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -52,6 +53,7 @@ function App() {
 						}
 					/>
 					<Route path="company/:id" element={<CompanyPage />} />
+					<Route path="job/:id" element={<JobDetail />} />
 				</Route>
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
