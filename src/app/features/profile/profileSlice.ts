@@ -35,6 +35,7 @@ export const getProfileById = createAsyncThunk(
 	async (id: string) => {
 		const profile = await getProfile(id);
 		const [profileObj] = profile;
+		console.log(profileObj)
 		return JSON.stringify(profileObj);
 	}
 );
