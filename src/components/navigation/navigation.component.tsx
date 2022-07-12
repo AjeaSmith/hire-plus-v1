@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { signoutUser } from '../../app/features/user/userSlice';
+import logo from '../../assets/plus.svg';
 
 const Navigation = () => {
 	const dispatch = useAppDispatch();
@@ -21,13 +22,15 @@ const Navigation = () => {
 	return (
 		<header className="logo sticky top-0 z-10 border-b-2 border-gray-700 px-10 py-5">
 			<div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center">
+				<a href="https://hire-plus-v1.vercel.app/" className="mr-2">
+					<img src={logo} alt="logo" style={{ height: '75px' }} />
+				</a>
 				<Link
-					to="/"
+					to="/app"
 					className="flex title-font font-bold items-center mb-4 md:mb-0 text-md"
 				>
-					Hire <span className="mr-1 text-indigo-500">+Plus</span>
 					{isSignedIn && currentUser.displayName ? (
-						<span> | {currentUser.displayName}</span>
+						<span> {currentUser.displayName}</span>
 					) : null}
 				</Link>
 
