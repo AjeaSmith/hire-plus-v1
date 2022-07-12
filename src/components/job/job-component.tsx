@@ -7,6 +7,12 @@ interface JobProps {
 }
 
 const Job: React.FC<JobProps> = ({ job }) => {
+	const truncateString = (str: string, num: number) => {
+		if (str.length <= num) {
+			return str;
+		}
+		return str.slice(0, num) + '...';
+	};
 	return (
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -22,7 +28,9 @@ const Job: React.FC<JobProps> = ({ job }) => {
 						({job.location}) - ({job.jobType})
 					</span>
 				</h2>
-				<p className="leading-relaxed font-color">{job.description}</p>
+				<p className="leading-relaxed font-color max-w-3xl">
+					{truncateString(job.description, 250)}
+				</p>
 				<a
 					href={job.applyUrl}
 					className="text-indigo-500 inline-flex items-center mt-4 mr-4"
@@ -45,7 +53,7 @@ const Job: React.FC<JobProps> = ({ job }) => {
 					to={`job/${job.id}`}
 					className="text-indigo-500 inline-flex items-center mt-4 mr-3"
 				>
-					DETAILS
+					VIEW JOB
 					<svg
 						className="w-4 h-4 ml-2"
 						viewBox="0 0 24 24"

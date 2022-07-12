@@ -93,13 +93,23 @@ export const signUpEmailAndPassword = async (formFields: SignUpFields) => {
 	return user;
 };
 
-// Sign in with email and password helper
+// Sign in with email and password
 export const signInEmailAndPassword = async (
 	email: string,
 	password: string
 ) => {
 	if (!email || !password) return;
-	return await signInWithEmailAndPassword(auth, email, password);
+	const userDocRef = collection(db, 'employees');
+	const doc = query(userDocRef, where('email', '==', email));
+
+	const docSnapshot = await getDocs(doc);
+
+	if (docSnapshot.empty) {
+		return;
+	} else {
+		console.log('Document data:', docSnapshot);
+		return await signInWithEmailAndPassword(auth, email, password);
+	}
 };
 
 // create db from signed in user
@@ -161,6 +171,7 @@ export const getProfile = async (id: string): Promise<ProfileData[]> => {
 	const q = query(collectionRef, where('id', '==', id));
 
 	const querySnapshot = await getDocs(q);
+
 	return querySnapshot.docs.map((docSnapshot) => {
 		return docSnapshot.data() as ProfileData;
 	});

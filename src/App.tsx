@@ -22,9 +22,8 @@ function App() {
 			if (user) {
 				const { displayName, uid } = user;
 				dispatch(
-					setSignedIn({ signedIn: true, currentUser: { displayName, uid } })
+					setSignedIn({ signedIn: true, currentUser: { uid, displayName } })
 				);
-				console.log(user);
 			} else {
 				dispatch(setSignedIn({ signedIn: false, currentUser: {} }));
 			}
