@@ -20,7 +20,7 @@ const Navigation = () => {
 		}
 	};
 	return (
-		<header className="logo sticky top-0 z-10 border-b-2 border-gray-700 px-10 py-5">
+		<header className="logo sticky top-0 z-10 border-b-2 border-gray-700 px-10">
 			<div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center">
 				<a href="https://hire-plus-v1.vercel.app/" className="mr-2">
 					<img src={logo} alt="logo" style={{ height: '75px' }} />
