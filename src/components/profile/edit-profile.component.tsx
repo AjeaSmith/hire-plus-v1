@@ -125,7 +125,7 @@ const EditProfile = () => {
 								value={formFields.headline}
 								onChange={onHandleChange}
 								name="headline"
-								placeholder="Add headline..."
+								placeholder="e.g. Front-end Developer"
 							/>
 							<input
 								className="font-color primary-bg-color input-border-color block w-full px-5 py-3 mt-2 text-base text-neutral-600 placeholder-gray-500 transition duration-500 ease-in-out transform border border-transparent rounded-lg focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300 apearance-none"

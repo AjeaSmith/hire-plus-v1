@@ -123,13 +123,14 @@ export const createUserDocument = async (
 
 	// if user doc doesn't exist, will create one in collection
 	if (!userSnapShot.exists()) {
-		const { email } = authUser;
+		const { email, displayName } = authUser;
 		const createdAt = new Date();
 
 		try {
 			await setDoc(userDocRef, {
 				id: authUser.uid,
 				email,
+				name: displayName,
 				createdAt,
 				headline: '',
 				isForHire: false,
