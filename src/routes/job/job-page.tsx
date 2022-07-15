@@ -42,7 +42,7 @@ const JobsPage = () => {
 									value={searchInput}
 									onChange={(e) => searchItems(e.target.value)}
 									type="search"
-									className="form-control relative flex-auto min-w-0 block w-full px-5 py-3 text-base font-normal font-color secondary-bg-color bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-slate-200 focus:secondary-bg-color focus:border-indigo-700 focus:outline-none"
+									className="form-control relative flex-auto min-w-0 block w-full px-5 py-3 text-base font-normal font-color secondary-bg-color bg-clip-padding border border-solid border-gray-300 rounded-full transition ease-in-out m-0 focus:text-slate-200 focus:secondary-bg-color focus:border-indigo-700 focus:outline-none"
 									placeholder="Search for a job..."
 									aria-label="Search"
 									aria-describedby="button-addon2"
