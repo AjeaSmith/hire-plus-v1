@@ -2,6 +2,7 @@ import React from 'react';
 import { setExperiences } from '../../app/features/profile/profileSlice';
 import { ExperienceData } from '../../app/features/profile/profileTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { truncateString } from '../../utils/truncateString';
 
 interface ExperienceProps {
 	experienceData: ExperienceData;
@@ -36,7 +37,9 @@ const Experience: React.FC<ExperienceProps> = ({
 				>
 					{experienceData.date}
 				</a>
-				<p className="font-color mt-2 mb-2 w-3/4">{experienceData.positionSummary}</p>
+				<p className="font-color mt-2 mb-2 w-3/4">
+					{truncateString(experienceData.positionSummary, 500)}
+				</p>
 				{isEditting ? (
 					<button
 						onClick={() => removeItem(itemIndex)}

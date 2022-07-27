@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../app/hooks';
+import { truncateString } from '../../utils/truncateString';
 
 const ViewCompany = () => {
 	const { company } = useAppSelector((state) => state.company);
@@ -132,7 +133,7 @@ const ViewCompany = () => {
 														<a href={job.applyUrl}>APPLY FOR JOB</a>
 													</h2>
 													<p className="leading-relaxed mb-6 font-color">
-														{job.description}
+														{truncateString(job.description, 250)}
 													</p>
 
 													<span className="flex-grow flex flex-col">

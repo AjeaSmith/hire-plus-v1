@@ -17,7 +17,7 @@ const JobDetail = () => {
 			.then((val) => {
 				setjobData(JSON.parse(val));
 			});
-	}, [dispatch]);
+	}, [dispatch, id]);
 
 	return (
 		<>

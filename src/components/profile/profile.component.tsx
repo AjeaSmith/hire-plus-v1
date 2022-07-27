@@ -1,4 +1,7 @@
-import { setEditView, setProjects } from '../../app/features/profile/profileSlice';
+import {
+	setEditView,
+	setProjects,
+} from '../../app/features/profile/profileSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import Experience from '../experience/experience-component';
 import Project from '../project/project-component';
@@ -78,11 +81,7 @@ const Profile = () => {
 											About Me
 										</h2>
 										<p className="lg:w-3/4 about-me font-color">
-											{profile.summary ? (
-												profile.summary
-											) : (
-												'No info to show'
-											)}
+											{profile.summary ? profile.summary : 'No info to show'}
 										</p>
 									</div>
 								</div>
