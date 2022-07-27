@@ -80,6 +80,7 @@ const profileSlice = createSlice({
 			.addCase(getProfileById.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.profile = JSON.parse(action.payload);
+				console.log(action.payload)
 			})
 			.addCase(getProfileById.rejected, (state, action) => {
 				state.isLoading = false;
