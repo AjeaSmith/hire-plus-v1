@@ -30,7 +30,7 @@ function App() {
 		});
 		// runs when the component unmounts
 		return unsubscribe;
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<>
