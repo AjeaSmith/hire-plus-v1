@@ -30,6 +30,7 @@ import {
 } from '../../app/features/profile/profileTypes';
 import { JobData } from '../../app/features/job/jobTypes';
 import { SignUpFields } from '../../app/features/user/userTypes';
+import { CompanyData } from '../../app/features/company/companyTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
 	authDomain: 'hireplus-268ed.firebaseapp.com',
@@ -48,37 +49,15 @@ googleProvider.setCustomParameters({
 	prompt: 'select_account',
 });
 
-type AdditionalInfo = {
-	displayName?: string;
-};
-type CompanyData = {
-	id: string;
-	companyName: string;
-	companyDescription: string;
-	companyUrl: string;
-	email: string;
-	isHiring: boolean;
-	companySize: string;
-	jobs: Jobs[];
-};
-type Jobs = {
-	position: string;
-	location: string;
-	salary: string;
-	datePosted: string;
-	jobType: string;
-	applyUrl: string;
-	description: string;
-	companyName: string;
-};
+
 // Firebase setup
 export const auth = getAuth();
 export const db = getFirestore(firebaseApp);
 
+// ----------- AUTHENTICATION API -----------------------
+
 // Sign in with google helper
-export const signInWithGooglePopup = async (
-	additionalInfo = {} as AdditionalInfo
-) => {
+export const signInWithGooglePopup = async () => {
 	const { user } = await signInWithPopup(auth, googleProvider);
 	await createUserDocument(user);
 };
