@@ -131,19 +131,6 @@ export const logoutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 	onAuthStateChanged(auth, callback);
 
-export const getCurrentUser = (): Promise<User | null> => {
-	return new Promise((resolve, reject) => {
-		const unsubscribe = onAuthStateChanged(
-			auth,
-			(userAuth) => {
-				unsubscribe();
-				resolve(userAuth);
-			},
-			reject
-		);
-	});
-};
-
 // ----------- PROFILE API ----------------------------
 
 export const getProfile = async (id: string): Promise<ProfileData[]> => {
