@@ -9,7 +9,7 @@ import Project from '../project/project-component';
 const Profile = () => {
 	const dispatch = useAppDispatch();
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
-	const { currentUser } = useAppSelector((state) => state.users);
+	const { currentUser } = useAppSelector((state) => state.auth);
 
 	const settingEditView = () => {
 		dispatch(setEditView(!isEditting));

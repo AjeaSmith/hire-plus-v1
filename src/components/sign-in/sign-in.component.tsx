@@ -1,11 +1,11 @@
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
 	signInWithGoogle,
 	signInWithEmailAndPassword,
-} from '../../app/features/user/userSlice';
-import { resetError } from '../../app/features/user/userSlice';
+} from '../../app/features/auth/authSlice';
+import { resetError } from '../../app/features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 const defaultFormFields = {
@@ -14,7 +14,7 @@ const defaultFormFields = {
 };
 
 const SignIn = () => {
-	const { signInError, isLoading } = useAppSelector((state) => state.users);
+	const { signInError, isLoading } = useAppSelector((state) => state.auth);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const [formFields, setFormFields] = useState(defaultFormFields);

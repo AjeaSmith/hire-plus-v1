@@ -1,12 +1,12 @@
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Link, useNavigate } from 'react-router-dom';
-import { signoutUser } from '../../app/features/user/userSlice';
+import { signoutUser } from '../../app/features/auth/authSlice';
 import logo from '../../assets/plus.svg';
 
 const Navigation = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { isSignedIn, currentUser } = useAppSelector((state) => state.users);
+	const { isSignedIn, currentUser } = useAppSelector((state) => state.auth);
 
 	const logout = () => {
 		try {

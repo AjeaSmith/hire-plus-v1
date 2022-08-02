@@ -6,9 +6,9 @@ import {
 	signUpEmailAndPassword,
 	logoutUser,
 } from '../../../utils/firebase/firebase.utils';
-import { SignUpFields, LoginFields } from './userTypes';
+import { SignUpFields, LoginFields } from './authTypes';
 
-interface userState {
+interface authState {
 	isSignedIn: boolean;
 	currentUser: { uid: string; displayName: string };
 	isLoading: boolean;
@@ -16,7 +16,7 @@ interface userState {
 	signInError: string;
 	successMessage: string;
 }
-const initialState: userState = {
+const initialState: authState = {
 	isSignedIn: false,
 	currentUser: { uid: '', displayName: '' },
 	isLoading: false,
@@ -55,7 +55,7 @@ export const signoutUser = createAsyncThunk('user/signoutUser', async () => {
 	return await logoutUser();
 });
 
-const userSlice = createSlice({
+const authSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
@@ -110,6 +110,6 @@ const userSlice = createSlice({
 	},
 });
 
-export const { resetError, setSignupError, setSignedIn } = userSlice.actions;
+export const { resetError, setSignupError, setSignedIn } = authSlice.actions;
 
-export default userSlice.reducer;
+export default authSlice.reducer;

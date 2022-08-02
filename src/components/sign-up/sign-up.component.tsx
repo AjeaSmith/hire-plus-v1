@@ -4,7 +4,7 @@ import { BeatLoader } from 'react-spinners';
 import {
 	signUpUserEmailAndPassword,
 	setSignupError,
-} from '../../app/features/user/userSlice';
+} from '../../app/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 const defaultFormFields = {
@@ -17,7 +17,7 @@ const defaultFormFields = {
 const Signup = () => {
 	const dispatch = useAppDispatch();
 
-	const { isLoading, signUpError } = useAppSelector((state) => state.users);
+	const { isLoading, signUpError } = useAppSelector((state) => state.auth);
 	const navigate = useNavigate();
 
 	const [formFields, setFormFields] = useState(defaultFormFields);

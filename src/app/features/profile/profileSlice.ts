@@ -4,7 +4,7 @@ import {
 	getProfile,
 	updateUserProfileById,
 } from '../../../utils/firebase/firebase.utils';
-import { signoutUser } from '../user/userSlice';
+import { signoutUser } from '../auth/authSlice';
 import { ProfileData, UpdatedFields } from './profileTypes';
 
 interface userState {

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch } from './app/hooks';
 import Launch from './routes/launch/launch-page';
-import { setSignedIn } from './app/features/user/userSlice';
+import { setSignedIn } from './app/features/auth/authSlice';
 import { onAuthStateChangedListener } from './utils/firebase/firebase.utils';
 import SignIn from './components/sign-in/sign-in.component';
 import Signup from './components/sign-up/sign-up.component';

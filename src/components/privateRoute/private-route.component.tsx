@@ -6,7 +6,7 @@ type PrivateProps = {
 };
 
 const PrivateRoute: React.FC<PrivateProps> = ({ children }) => {
-	const { isSignedIn } = useAppSelector((state) => state.users);
+	const { isSignedIn } = useAppSelector((state) => state.auth);
 
 	if (!isSignedIn)
 		return (

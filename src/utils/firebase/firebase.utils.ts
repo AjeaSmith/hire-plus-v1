@@ -29,7 +29,7 @@ import {
 	UpdatedFields,
 } from '../../app/features/profile/profileTypes';
 import { JobData } from '../../app/features/job/jobTypes';
-import { SignUpFields } from '../../app/features/user/userTypes';
+import { SignUpFields } from '../../app/features/auth/authTypes';
 import { CompanyData } from '../../app/features/company/companyTypes';
 const firebaseConfig = {
 	apiKey: 'AIzaSyCg113wgJGlfL1T8B7SwVSO6a-UezmyAas',
