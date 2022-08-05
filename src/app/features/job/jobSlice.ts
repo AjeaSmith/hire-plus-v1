@@ -30,7 +30,7 @@ const JobSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getPostedJobs.pending, (state, action) => {
+			.addCase(getPostedJobs.pending, (state) => {
 				state.isLoading = true;
 			})
 			.addCase(getPostedJobs.fulfilled, (state, action) => {
@@ -41,7 +41,7 @@ const JobSlice = createSlice({
 				state.isLoading = false;
 				console.log('error with jobs', action.error);
 			})
-			.addCase(getPostedJobById.pending, (state, action) => {
+			.addCase(getPostedJobById.pending, (state) => {
 				state.isLoading = true;
 			})
 			.addCase(getPostedJobById.fulfilled, (state, action) => {
@@ -54,7 +54,5 @@ const JobSlice = createSlice({
 			});
 	},
 });
-
-export const {} = JobSlice.actions;
 
 export default JobSlice.reducer;

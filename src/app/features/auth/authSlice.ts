@@ -27,15 +27,15 @@ const initialState: authState = {
 
 // async actions
 
-// ------- USER ACTIONS --------------------------------
+// ------- AUTH ACTIONS --------------------------------
 export const signInWithGoogle = createAsyncThunk(
-	'user/signInWithGoogle',
+	'auth/signInWithGoogle',
 	async () => {
 		await signInWithGooglePopup();
 	}
 );
 export const signInWithEmailAndPassword = createAsyncThunk(
-	'user/signInEmailAndPassword',
+	'auth/signInEmailAndPassword',
 	async (formFields: LoginFields) => {
 		const { user } = await signInEmailAndPassword(
 			formFields.email,
@@ -45,7 +45,7 @@ export const signInWithEmailAndPassword = createAsyncThunk(
 	}
 );
 export const signUpUserEmailAndPassword = createAsyncThunk(
-	'user/signUpUserEmailAndPassword',
+	'auth/signUpUserEmailAndPassword',
 	async (formFields: SignUpFields) => {
 		const user = await signUpEmailAndPassword(formFields);
 		return JSON.stringify(user);
@@ -56,7 +56,7 @@ export const signoutUser = createAsyncThunk('user/signoutUser', async () => {
 });
 
 const authSlice = createSlice({
-	name: 'user',
+	name: 'auth',
 	initialState,
 	reducers: {
 		// sync actions

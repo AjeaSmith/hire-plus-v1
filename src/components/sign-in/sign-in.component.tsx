@@ -65,13 +65,16 @@ const SignIn = () => {
 							Sign in with your email and password
 						</p>
 					</div>
+					{/* Error Handling */}
 					{signInError && (
 						<div className="text-center text-red-600 mb-5 text-lg">
 							{signInError}
 						</div>
 					)}
 					<div>
+						{/* Form Starts */}
 						<form className="space-y-6" onSubmit={handleSubmit}>
+							{/* Email Field */}
 							<div>
 								<label
 									htmlFor="email"
@@ -93,6 +96,7 @@ const SignIn = () => {
 									/>
 								</div>
 							</div>
+							{/* Password Field */}
 							<div className="space-y-1">
 								<label
 									htmlFor="pass"
@@ -116,6 +120,7 @@ const SignIn = () => {
 									/>
 								</div>
 							</div>
+							{/* Submit Button */}
 							<div>
 								<button
 									type="submit"
@@ -131,6 +136,7 @@ const SignIn = () => {
 								</button>
 							</div>
 						</form>
+						{/* Google Sign-in */}
 						<div className="relative my-4">
 							<div className="absolute inset-0 flex items-center">
 								<div className="w-full border-t border-gray-500"></div>

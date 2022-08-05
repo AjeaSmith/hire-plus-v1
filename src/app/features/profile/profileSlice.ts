@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import {
 	getProfile,
 	updateUserProfileById,
@@ -63,7 +62,7 @@ const profileSlice = createSlice({
 			.addCase(getProfileById.pending, (state) => {
 				state.isLoading = true;
 			})
-			.addCase(signoutUser.fulfilled, (state, action) => {
+			.addCase(signoutUser.fulfilled, (state) => {
 				state.profile = {
 					id: '',
 					email: '',

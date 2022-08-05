@@ -41,7 +41,6 @@ function App() {
 					<Route path="auth/employees" element={<AuthPage />}>
 						<Route index element={<SignIn />} />
 						<Route path="sign-up" element={<Signup />} />
-						...
 					</Route>
 					<Route
 						path="user/profile/:id"
