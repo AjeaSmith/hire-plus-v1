@@ -1,5 +1,6 @@
 import { ProjectData } from '../../app/features/profile/profileTypes';
 import { useAppSelector } from '../../app/hooks';
+import { truncateString } from '../../utils/truncateString';
 
 interface ProjectProps {
 	project: ProjectData;
@@ -30,7 +31,9 @@ const Project: React.FC<ProjectProps> = ({
 				<h1 className="title-font sm:text-2xl text-xl font-medium mb-3">
 					{project.title}
 				</h1>
-				<p className="leading-relaxed mb-3 font-color">{project.summary}</p>
+				<p className="leading-relaxed mb-3 font-color">
+					{truncateString(project.summary, 100)}
+				</p>
 
 				<div className="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4 mb-5">
 					<span className="text-indigo-500 mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-600">

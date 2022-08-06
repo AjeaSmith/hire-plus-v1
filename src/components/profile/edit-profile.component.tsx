@@ -43,7 +43,6 @@ const EditProfile = () => {
 	const onHandleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
 		setFormFields({ ...formFields, [name]: value });
-		console.log(name, value);
 	};
 	const onTextAreaChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setFormFields({ ...formFields, summary: event.target.value });
