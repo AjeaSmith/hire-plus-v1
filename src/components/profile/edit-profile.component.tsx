@@ -140,8 +140,8 @@ const EditProfile = () => {
 			</section>
 			<section>
 				<div className="divide-y divide-gray-700">
-					<section className="text-gray-600 body-font mt-2">
-						<div className="container px-5 py-20 mx-auto">
+					<section className="text-gray-600 body-font mt-10 mb-20">
+						<div className="container px-5  mx-auto">
 							<div className="flex flex-col w-full mx-auto">
 								<div className="w-full mx-auto">
 									<h2 className="sm:text-3xl text-2xl my-5 font-bold">
