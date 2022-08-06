@@ -4,7 +4,7 @@ import { useAppSelector } from '../../app/hooks';
 interface ProjectProps {
 	project: ProjectData;
 	itemIndex: number;
-	removeItem: (id: number) => void;
+	removeItem?: (id: number) => void;
 }
 
 const Project: React.FC<ProjectProps> = ({

@@ -38,7 +38,7 @@ const Launch = () => {
 							/>
 						</div>
 						<h2 className="title-font text-2xl font-medium mt-6 mb-3">
-							For Candidates
+							For Developers
 						</h2>
 						<p className="leading-relaxed text-base font-color">
 							View the latest jobs posted by hiring companies, create and manage

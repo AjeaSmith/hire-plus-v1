@@ -14,7 +14,7 @@ import Project from '../project/project-component';
 
 const EditProfile = () => {
 	const { profile, isEditting } = useAppSelector((state) => state.profile);
-	const { currentUser } = useAppSelector((state) => state.users);
+	const { currentUser } = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
