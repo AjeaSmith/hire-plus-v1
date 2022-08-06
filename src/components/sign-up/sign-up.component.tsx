@@ -1,10 +1,7 @@
-import { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { BeatLoader } from 'react-spinners';
-import {
-	signUpUserEmailAndPassword,
-	setSignupError,
-} from '../../app/features/auth/authSlice';
+import { signUpUserEmailAndPassword, setSignupError } from '../../app/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 const defaultFormFields = {

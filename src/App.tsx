@@ -12,7 +12,7 @@ import JobsPage from './routes/job/job-page';
 import PrivateRoute from './components/privateRoute/private-route.component';
 import AuthPage from './routes/auth/auth-page';
 import HomePage from './routes/home/home-page';
-import CompanyPage from './routes/company/CompanyPage';
+import CompanyPage from './routes/company/company-page';
 import JobDetail from './routes/job/job-detail';
 
 function App() {

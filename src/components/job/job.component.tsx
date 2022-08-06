@@ -1,18 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { JobData } from '../../app/features/job/jobTypes';
+import { truncateString } from '../../utils/truncateString';
 
 interface JobProps {
 	job: JobData;
 }
 
 const Job: React.FC<JobProps> = ({ job }) => {
-	const truncateString = (str: string, num: number) => {
-		if (str.length <= num) {
-			return str;
-		}
-		return str.slice(0, num) + '...';
-	};
 	return (
 		<div className="py-8 flex flex-wrap md:flex-nowrap">
 			<div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">

@@ -3,7 +3,7 @@ import BeatLoader from 'react-spinners/BeatLoader';
 import { getPostedJobs } from '../../app/features/job/jobSlice';
 import { JobData } from '../../app/features/job/jobTypes';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import Job from '../../components/job/job-component';
+import Job from '../../components/job/job.component';
 
 const JobsPage = () => {
 	const dispatch = useAppDispatch();
